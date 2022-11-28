@@ -29,7 +29,14 @@ function App() {
     <MantineProvider
       withGlobalStyles
       withNormalizeCSS
-      theme={{ colorScheme: "dark" }}
+      theme={{
+        colorScheme: "dark",
+        globalStyles: (theme) => ({
+          body: {
+            overflow: "hidden",
+          },
+        }),
+      }}
     >
       <RouterProvider router={router}>
         <Outlet />
