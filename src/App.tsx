@@ -26,7 +26,11 @@ const router = createReactRouter({ routeConfig });
 
 function App() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{ colorScheme: "dark" }}
+    >
       <RouterProvider router={router}>
         <Outlet />
       </RouterProvider>
