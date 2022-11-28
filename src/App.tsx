@@ -2,19 +2,22 @@ import { MantineProvider, Text } from "@mantine/core";
 import {
   createReactRouter,
   createRouteConfig,
+  Link,
+  Outlet,
   RouterProvider,
 } from "@tanstack/react-router";
+import Login from "./pages/Login";
 
 const rootRoute = createRouteConfig();
 
 const indexRoute = rootRoute.createRoute({
   path: "/",
-  component: () => <Text>Index</Text>,
+  component: () => <Text>Welcome</Text>,
 });
 
 const loginRoute = rootRoute.createRoute({
   path: "/login",
-  component: () => <Text>Login</Text>,
+  component: Login,
 });
 
 const routeConfig = rootRoute.addChildren([indexRoute, loginRoute]);
@@ -25,7 +28,7 @@ function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <RouterProvider router={router}>
-        <Text>GameSquad</Text>
+        <Outlet />
       </RouterProvider>
     </MantineProvider>
   );
