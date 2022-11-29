@@ -36,6 +36,9 @@ function App() {
             overflow: "hidden",
           },
         }),
+        primaryColor: "red",
+        defaultRadius: "xs",
+        cursorType: "pointer",
       }}
     >
       <RouterProvider router={router}>
