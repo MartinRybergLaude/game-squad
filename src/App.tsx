@@ -6,6 +6,8 @@ import {
   Outlet,
   RouterProvider,
 } from "@tanstack/react-router";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "./firebaseConfig";
 import Login from "./pages/Login";
 
 const rootRoute = createRouteConfig();
@@ -23,6 +25,8 @@ const loginRoute = rootRoute.createRoute({
 const routeConfig = rootRoute.addChildren([indexRoute, loginRoute]);
 
 const router = createReactRouter({ routeConfig });
+
+const app = initializeApp(firebaseConfig);
 
 function App() {
   return (
