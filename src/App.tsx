@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./firebaseConfig";
-import DashboardView from "./pages/Dashboard/view"
+import DashboardView from "./pages/Dashboard/dashboardView"
 import LoginView from "./pages/Login/view";
 
 const rootRoute = createRouteConfig();

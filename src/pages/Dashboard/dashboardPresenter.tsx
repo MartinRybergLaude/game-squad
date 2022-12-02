@@ -1,4 +1,4 @@
-import DashboardView from "./view";
+import DashboardView from "./dashboardView";
 
 export default function LoginPresenter() {
     null
