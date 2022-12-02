@@ -1,4 +1,4 @@
-import LoginView from "./view";
+import LoginView from "./loginView";
 
 interface LoginFormValues {
   email: string;

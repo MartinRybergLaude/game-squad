@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./firebaseConfig";
-import Login from "./pages/Login";
+import Login from "./pages/Login/loginView";
 
 const rootRoute = createRouteConfig();
 
