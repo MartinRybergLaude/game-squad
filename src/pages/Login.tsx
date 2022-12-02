@@ -11,6 +11,7 @@ import {
   Card,
   Center,
 } from "@mantine/core";
+import { useForm } from "@mantine/form";
 
 const useStyles = createStyles((theme) => ({
   form: {
@@ -52,48 +53,68 @@ const useStyles = createStyles((theme) => ({
 
 export default function Login() {
   const { classes } = useStyles();
+
+  const form = useForm({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+    },
+  });
+
   return (
     <Grid grow>
       <Grid.Col span={1}>
         <div className={classes.form}>
           <Center className={classes.formCenter}>
             <Card shadow="sm" withBorder className={classes.formWrapper} p={32}>
-              <Title
-                order={2}
-                className={classes.title}
-                align="center"
-                mt="md"
-                mb={50}
+              <form
+                onSubmit={form.onSubmit((values) => {
+                  console.log(values);
+                })}
               >
-                Welcome back to GameSquad!
-              </Title>
-
-              <TextInput
-                label="Email address"
-                placeholder="hello@gmail.com"
-                size="md"
-              />
-              <PasswordInput
-                label="Password"
-                placeholder="Your password"
-                mt="md"
-                size="md"
-              />
-              <Checkbox label="Keep me logged in" mt="xl" size="md" />
-              <Button fullWidth mt="xl" size="md">
-                Login
-              </Button>
-
-              <Text align="center" mt="md">
-                Don&apos;t have an account?{" "}
-                <Anchor<"a">
-                  href="#"
-                  weight={700}
-                  onClick={(event) => event.preventDefault()}
+                <Title
+                  order={2}
+                  className={classes.title}
+                  align="center"
+                  mt="md"
+                  mb={50}
                 >
-                  Register
-                </Anchor>
-              </Text>
+                  Welcome back to GameSquad!
+                </Title>
+
+                <TextInput
+                  label="Email address"
+                  placeholder="hello@gmail.com"
+                  size="md"
+                  {...form.getInputProps("email")}
+                />
+                <PasswordInput
+                  label="Password"
+                  placeholder="Your password"
+                  mt="md"
+                  size="md"
+                  {...form.getInputProps("password")}
+                />
+                <Checkbox label="Keep me logged in" mt="xl" size="md" />
+                <Button fullWidth mt="xl" size="md">
+                  Login
+                </Button>
+
+                <Text align="center" mt="md">
+                  Don&apos;t have an account?{" "}
+                  <Anchor<"a">
+                    href="#"
+                    weight={700}
+                    onClick={(event) => event.preventDefault()}
+                  >
+                    Register
+                  </Anchor>
+                </Text>
+              </form>
             </Card>
           </Center>
         </div>
