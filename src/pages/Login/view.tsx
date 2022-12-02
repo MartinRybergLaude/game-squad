@@ -51,7 +51,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+export default function LoginView() {
   const { classes } = useStyles();
 
   const form = useForm({
