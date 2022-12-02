@@ -8,8 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./firebaseConfig";
-
-import Dashboard from "./pages/Dashboard/view"
+import DashboardView from "./pages/Dashboard/view"
 import LoginView from "./pages/Login/view";
 
 const rootRoute = createRouteConfig();
@@ -24,9 +23,10 @@ const loginRoute = rootRoute.createRoute({
   component: LoginView,
 });
 
+
 const dashboardRoute = rootRoute.createRoute({
   path: "/dashboard",
-  component: Dashboard,
+  component: DashboardView,
 });
 
 const routeConfig = rootRoute.addChildren([indexRoute, loginRoute]);
