@@ -997,6 +997,11 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
+"@tabler/icons@^1.115.0":
+  version "1.115.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.115.0.tgz#6c4a9e6087fcdc33e5aae2e5785090147bed7ebe"
+  integrity sha512-Eo1xMuG/+QpUk6QrtiAsmTSjc+A9IIBDauwPT4hVD/XKmnvh0UCCOuK8Zo/jZDIShcJdEcBA4p0wKgt7dbd1GA==
+
 "@tanstack/react-router@^0.0.1-beta.28":
   version "0.0.1-beta.28"
   resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-0.0.1-beta.28.tgz#872068f66051834f38638c7d4bb0b40a43682a37"
