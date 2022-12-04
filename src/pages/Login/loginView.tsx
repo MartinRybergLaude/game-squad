@@ -12,6 +12,9 @@ import {
   Center,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { Link } from "@tanstack/react-router";
+import { AuthError } from "firebase/auth";
+import { LoginFormValues } from "./loginPresenter";
 
 const useStyles = createStyles((theme) => ({
   form: {
@@ -51,7 +54,17 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function LoginView() {
+interface LoginViewProps {
+  onSubmit: (values: LoginFormValues) => void;
+  loading: boolean | undefined;
+  error: AuthError | undefined;
+}
+
+export default function LoginView({
+  onSubmit,
+  loading,
+  error,
+}: LoginViewProps) {
   const { classes } = useStyles();
 
   const form = useForm({
@@ -73,7 +86,7 @@ export default function LoginView() {
             <Card shadow="sm" withBorder className={classes.formWrapper} p={32}>
               <form
                 onSubmit={form.onSubmit((values) => {
-                  console.log(values);
+                  onSubmit(values);
                 })}
               >
                 <Title
@@ -100,19 +113,21 @@ export default function LoginView() {
                   {...form.getInputProps("password")}
                 />
                 <Checkbox label="Keep me logged in" mt="xl" size="md" />
-                <Button fullWidth mt="xl" size="md">
+                <Button
+                  type="submit"
+                  fullWidth
+                  mt="xl"
+                  size="md"
+                  loading={loading}
+                >
                   Login
                 </Button>
 
                 <Text align="center" mt="md">
                   Don&apos;t have an account?{" "}
-                  <Anchor<"a">
-                    href="#"
-                    weight={700}
-                    onClick={(event) => event.preventDefault()}
-                  >
-                    Register
-                  </Anchor>
+                  <Link to="/register">
+                    <Anchor weight={700}>Register</Anchor>
+                  </Link>
                 </Text>
               </form>
             </Card>
