@@ -11,13 +11,17 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@mantine/core": "^5.8.4",
+    "@mantine/ds": "^5.9.1",
     "@mantine/form": "^5.9.0",
     "@mantine/hooks": "^5.8.4",
+    "@tabler/icons": "^1.115.0",
     "@tanstack/react-router": "^0.0.1-beta.28",
+    "@types/react-router": "^5.1.19",
     "firebase": "^9.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-firebase-hooks": "^5.1.1"
+    "react-firebase-hooks": "^5.1.1",
+    "tabler": "^1.0.0-alpha.8"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
