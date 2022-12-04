@@ -1,25 +1,16 @@
-import { IconHeart } from "@tabler/icons";
-import {
-  Card,
-  Image,
-  Text,
-  Group,
-  Badge,
-  Button,
-  ActionIcon,
-  createStyles,
-  Grid,
-} from "@mantine/core";
+// TODO: modify as needed
+
+import { IconHeart } from '@tabler/icons';
+import { Card, Image, Text, Group, Badge, Button, ActionIcon, createStyles } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   card: {
-    backgroundColor:
-      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
   },
 
   section: {
     borderBottom: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
+      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
@@ -31,7 +22,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   label: {
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
     fontSize: theme.fontSizes.xs,
     fontWeight: 700,
   },
@@ -49,43 +40,41 @@ interface BadgeCardProps {
 }
 
 const props = {
-  image:
-    "https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
-  title: "Verudela Beach",
-  country: "Croatia",
-  description:
-    "Completely renovated for the season 2020, Arena Verudela Bech Apartments are fully equipped and modernly furnished 4-star self-service apartments located on the Adriatic coastline by one of the most beautiful beaches in Pula.",
-  badges: [
-    {
-      emoji: "☀️",
-      label: "Sunny weather",
-    },
-    {
-      emoji: "🦓",
-      label: "Onsite zoo",
-    },
-    {
-      emoji: "🌊",
-      label: "Sea",
-    },
-    {
-      emoji: "🌲",
-      label: "Nature",
-    },
-    {
-      emoji: "🤽",
-      label: "Water sports",
-    },
-  ],
-};
+    "image": "https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
+    "title": "Verudela Beach",
+    "country": "Croatia",
+    "description": "Completely renovated for the season 2020, Arena Verudela Bech Apartments are fully equipped and modernly furnished 4-star self-service apartments located on the Adriatic coastline by one of the most beautiful beaches in Pula.",
+    "badges": [
+      {
+        "emoji": "☀️",
+        "label": "Sunny weather"
+      },
+      {
+        "emoji": "🦓",
+        "label": "Onsite zoo"
+      },
+      {
+        "emoji": "🌊",
+        "label": "Sea"
+      },
+      {
+        "emoji": "🌲",
+        "label": "Nature"
+      },
+      {
+        "emoji": "🤽",
+        "label": "Water sports"
+      }
+    ]
+  }
 
-function BadgeCard() {
+export default function SearchCard() {
   const { classes, theme } = useStyles();
   const { image, title, description, country, badges } = props;
 
   const features = badges.map((badge) => (
     <Badge
-      color={theme.colorScheme === "dark" ? "dark" : "gray"}
+      color={theme.colorScheme === 'dark' ? 'dark' : 'gray'}
       key={badge.label}
       leftSection={badge.emoji}
     >
@@ -111,6 +100,15 @@ function BadgeCard() {
         </Text>
       </Card.Section>
 
+      <Card.Section className={classes.section}>
+        <Text mt="md" className={classes.label} color="dimmed">
+          Perfect for you, if you enjoy
+        </Text>
+        <Group spacing={7} mt={5}>
+          {features}
+        </Group>
+      </Card.Section>
+
       <Group mt="xs">
         <Button radius="md" style={{ flex: 1 }}>
           Show details
@@ -120,20 +118,5 @@ function BadgeCard() {
         </ActionIcon>
       </Group>
     </Card>
-  );
-}
-export function GameCollectionView() {
-  return (
-    <Grid columns={12}>
-      <Grid.Col span={5}>
-        <BadgeCard />
-      </Grid.Col>
-      <Grid.Col span={5}>
-        <BadgeCard />
-      </Grid.Col>
-      <Grid.Col span={5}>
-        <BadgeCard />
-      </Grid.Col>
-    </Grid>
   );
 }
