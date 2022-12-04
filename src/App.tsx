@@ -13,6 +13,8 @@ import { firebaseConfig } from "./firebaseConfig";
 import DashboardView from "./pages/Dashboard/dashboardView";
 import LoginPresenter from "./pages/Login/loginPresenter";
 import LoginView from "./pages/Login/loginView";
+import SearchView from "./components/search/searchView";
+import ModalView from "./components/search/modalView";
 import RegisterPresenter from "./pages/Register/registerPresenter";
 import RegisterView from "./pages/Register/registerView";
 
@@ -38,11 +40,18 @@ export const dashboardRoute = rootRoute.createRoute({
   component: DashboardView,
 });
 
+// Should not be a route, I just wanna test things
+const searchRoute = rootRoute.createRoute({ 
+  path: "/search",
+  component: ModalView,
+});
+
 const routeConfig = rootRoute.addChildren([
   indexRoute,
   loginRoute,
   registerRoute,
-  dashboardRoute,
+  dashboardRoute, 
+  searchRoute,
 ]);
 
 const router = createReactRouter({ routeConfig });
