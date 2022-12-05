@@ -28,7 +28,7 @@ const dashboardRoute = rootRoute.createRoute({
   component: DashboardView,
 });
 
-const routeConfig = rootRoute.addChildren([indexRoute, loginRoute]);
+const routeConfig = rootRoute.addChildren([indexRoute, loginRoute, dashboardRoute]);
 
 const router = createReactRouter({ routeConfig });
 
