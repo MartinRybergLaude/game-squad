@@ -12,9 +12,10 @@ import {
   Center,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { Link } from "@tanstack/react-router";
 import { AuthError } from "firebase/auth";
 import { LoginFormValues } from "./loginPresenter";
+import { Link } from "react-router-dom";
+import { registerRoute } from "../../App";
 
 const useStyles = createStyles((theme) => ({
   form: {
@@ -125,7 +126,7 @@ export default function LoginView({
 
                 <Text align="center" mt="md">
                   Don&apos;t have an account?{" "}
-                  <Link to="/register">
+                  <Link to={registerRoute.path}>
                     <Anchor weight={700}>Register</Anchor>
                   </Link>
                 </Text>

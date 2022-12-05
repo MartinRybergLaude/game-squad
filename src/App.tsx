@@ -1,51 +1,25 @@
-import { MantineProvider, Text } from "@mantine/core";
-import {
-  createReactRouter,
-  createRouteConfig,
-  Link,
-  Outlet,
-  Router,
-  RouterProvider,
-} from "@tanstack/react-router";
-import { initializeApp } from "firebase/app";
-import { atom } from "jotai";
-import { firebaseConfig } from "./firebaseConfig";
+import { MantineProvider } from "@mantine/core";
 import DashboardView from "./pages/Dashboard/dashboardView";
 import LoginPresenter from "./pages/Login/loginPresenter";
-import LoginView from "./pages/Login/loginView";
 import RegisterPresenter from "./pages/Register/registerPresenter";
-import RegisterView from "./pages/Register/registerView";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const rootRoute = createRouteConfig();
-
-const indexRoute = rootRoute.createRoute({
-  path: "/",
-  component: () => <Text>Welcome</Text>,
-});
-
-export const loginRoute = rootRoute.createRoute({
-  path: "/login",
-  component: LoginPresenter,
-});
-
-export const registerRoute = rootRoute.createRoute({
-  path: "/register",
-  component: RegisterPresenter,
-});
-
-export const dashboardRoute = rootRoute.createRoute({
+export const dashboardRoute = {
   path: "/dashboard",
-  component: DashboardView,
-});
+  element: <DashboardView />,
+};
 
-const routeConfig = rootRoute.addChildren([
-  indexRoute,
-  loginRoute,
-  registerRoute,
-  dashboardRoute,
-]);
+export const loginRoute = {
+  path: "/login",
+  element: <LoginPresenter />,
+};
 
-const router = createReactRouter({ routeConfig });
+export const registerRoute = {
+  path: "/register",
+  element: <RegisterPresenter />,
+};
+
+const router = createBrowserRouter([dashboardRoute, loginRoute, registerRoute]);
 
 function App() {
   return (
@@ -64,9 +38,7 @@ function App() {
         cursorType: "pointer",
       }}
     >
-      <RouterProvider router={router}>
-        <Outlet />
-      </RouterProvider>
+      <RouterProvider router={router} />
     </MantineProvider>
   );
 }

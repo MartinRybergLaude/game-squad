@@ -1,8 +1,8 @@
 import RegisterView from "./registerView";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../firebaseConfig";
-import { dashboardRoute, registerRoute } from "../../App";
-import { useMatch } from "@tanstack/react-router";
+import { dashboardRoute } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 export interface RegisterFormValues {
   username: string;
@@ -11,7 +11,7 @@ export interface RegisterFormValues {
 }
 
 export default function RegisterPresenter() {
-  const { navigate } = useMatch(registerRoute.id);
+  const navigate = useNavigate();
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
@@ -22,7 +22,7 @@ export default function RegisterPresenter() {
   }
 
   if (user) {
-    navigate({ to: dashboardRoute.id, replace: true });
+    navigate(dashboardRoute.path);
   }
 
   return (
