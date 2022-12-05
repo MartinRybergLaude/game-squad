@@ -1,30 +1,34 @@
 import { useState } from "react";
 import { useAuthState, useSendEmailVerification } from "react-firebase-hooks/auth";
 
+import AuthInfoView from "../../components/authInfo/authInfoView";
 import { auth } from "../../firebaseConfig";
-import { VerificationView } from "./verificationView";
 
 export default function VerificationPresenter() {
   const [user] = useAuthState(auth);
   const [sendEmailVerification, sending, emailError] = useSendEmailVerification(auth);
-  const [resendSuccess, setResendSuccess] = useState(false);
+  const [resendSuccessText, setResendSuccessText] = useState<string>();
 
   async function handleResendEmail() {
-    setResendSuccess(false);
+    setResendSuccessText(undefined);
     if (user && !user.emailVerified) {
       const verificationSent = await sendEmailVerification();
       if (verificationSent) {
-        setResendSuccess(true);
+        setResendSuccessText("Verification email sent!");
       }
     }
   }
 
   return (
-    <VerificationView
-      onResendEmail={handleResendEmail}
+    <AuthInfoView
+      title="Verify your email"
+      description="We sent you an email with a link to verify your email address. Please check your inbox."
+      submitLabel="Didn't receive an email?"
+      submitText="Resend email"
+      onSubmit={handleResendEmail}
+      errorMsg={emailError?.message}
+      successMsg={resendSuccessText}
       loading={sending}
-      error={emailError?.message}
-      resendSuccess={resendSuccess}
     />
   );
 }

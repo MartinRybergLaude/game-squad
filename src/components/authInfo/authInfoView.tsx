@@ -1,6 +1,4 @@
-import { Button, Center, createStyles, Flex, Image, Text, TextInput, Title } from "@mantine/core";
-
-import image from "./image.svg";
+import { Button, createStyles, Text, Title } from "@mantine/core";
 
 const useStyles = createStyles(theme => ({
   wrapper: {
@@ -16,14 +14,6 @@ const useStyles = createStyles(theme => ({
     [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
       flexDirection: "column-reverse",
       padding: theme.spacing.xl,
-    },
-  },
-
-  image: {
-    maxWidth: "40%",
-
-    [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-      maxWidth: "100%",
     },
   },
 
@@ -68,63 +58,73 @@ const useStyles = createStyles(theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    padding: theme.spacing.xl,
+    [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+      display: "block",
+      paddingTop: 120,
+    },
   },
 }));
 
-interface VerificationViewProps {
-  onResendEmail: () => void;
-  loading: boolean | undefined;
-  error: string | undefined;
-  resendSuccess: boolean;
+interface AuthInfoViewProps {
+  title: string;
+  description: string;
+
+  submitLabel?: string;
+  submitText: string;
+  onSubmit: () => void;
+  errorMsg?: string;
+  successMsg?: string;
+  loading?: boolean;
 }
 
-export function VerificationView({
-  onResendEmail,
+export default function AuthInfoView({
+  title,
+  description,
+  submitLabel,
+  submitText,
+  onSubmit,
+  errorMsg,
+  successMsg,
   loading,
-  error,
-  resendSuccess,
-}: VerificationViewProps) {
+}: AuthInfoViewProps) {
   const { classes } = useStyles();
   return (
     <div className={classes.fullscreen}>
       <div className={classes.wrapper}>
         <div className={classes.body}>
-          <Title className={classes.title}>Email verification</Title>
+          <Title className={classes.title}>{title}</Title>
           <Text weight={500} size="lg" mb={5}>
-            Please check your email for a verification link.
-          </Text>
-          <Text size="sm" color="dimmed">
-            We require email verification to make sure you are not a robot. Do not worry, it is a
-            quick process!
+            {description}
           </Text>
 
-          {resendSuccess && (
+          {successMsg && (
             <Text size="sm" color="green">
-              Email sent!
+              {successMsg}
             </Text>
           )}
 
-          {error && (
+          {errorMsg && (
             <Text size="sm" color="red">
-              {error}
+              {errorMsg}
             </Text>
           )}
 
           <div className={classes.controls}>
             <Text display="block" size="sm">
-              Didn&apos;t receive an email?{" "}
+              {submitLabel}
             </Text>
             <Button
               mt={16}
               className={classes.control}
-              onClick={() => onResendEmail()}
+              onClick={() => onSubmit()}
               loading={loading}
+              variant="outline"
             >
-              Resend
+              {submitText}
             </Button>
           </div>
         </div>
-        <div className={classes.image} />
       </div>
     </div>
   );

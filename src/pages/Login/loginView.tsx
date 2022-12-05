@@ -60,9 +60,10 @@ interface LoginViewProps {
   onSubmit: (values: LoginFormValues) => void;
   loading: boolean | undefined;
   error: AuthError | undefined;
+  verified?: boolean;
 }
 
-export default function LoginView({ onSubmit, loading, error }: LoginViewProps) {
+export default function LoginView({ onSubmit, loading, error, verified }: LoginViewProps) {
   const { classes } = useStyles();
 
   const form = useForm({
@@ -91,6 +92,12 @@ export default function LoginView({ onSubmit, loading, error }: LoginViewProps) 
                   Welcome back to GameSquad!
                 </Title>
 
+                {verified && (
+                  <Text color="green" align="center" mb={20}>
+                    Your email has been verified, you can now log in!
+                  </Text>
+                )}
+
                 <TextInput
                   label="Email address"
                   placeholder="hello@gmail.com"
@@ -104,14 +111,18 @@ export default function LoginView({ onSubmit, loading, error }: LoginViewProps) 
                   size="md"
                   {...form.getInputProps("password")}
                 />
-                <Checkbox label="Keep me logged in" mt="xl" size="md" />
+                {error && (
+                  <Text color="red" size="sm" mt="xs">
+                    Invalid email or password
+                  </Text>
+                )}
                 <Button type="submit" fullWidth mt="xl" size="md" loading={loading}>
                   Login
                 </Button>
 
                 <Text align="center" mt="md">
                   Don&apos;t have an account?{" "}
-                  <Link to={registerRoute.path}>
+                  <Link to={registerRoute.path ?? "/register"}>
                     <Anchor weight={700}>Register</Anchor>
                   </Link>
                 </Text>

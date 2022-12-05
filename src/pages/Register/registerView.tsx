@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   Center,
-  Checkbox,
   createStyles,
   Grid,
   PasswordInput,
@@ -13,7 +12,6 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { AuthError } from "firebase/auth";
 
 import { loginRoute } from "../../App";
 import { RegisterFormValues } from "./registerPresenter";
@@ -67,14 +65,16 @@ export default function RegisterView({ onSubmit, loading, error }: RegisterViewP
 
   const form = useForm({
     initialValues: {
-      username: "",
       email: "",
       password: "",
+      passwordConfirm: "",
     },
 
     validate: {
-      username: value => (value.length > 0 ? null : "Username is required"),
       email: value => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      password: value => (value.length >= 6 ? null : "Password must be at least 6 characters long"),
+      passwordConfirm: (value, { password }) =>
+        value === password ? null : "Passwords do not match",
     },
   });
 
@@ -90,14 +90,8 @@ export default function RegisterView({ onSubmit, loading, error }: RegisterViewP
                 })}
               >
                 <Title order={2} className={classes.title} align="center" mt="md" mb={50}>
-                  Welcome back to GameSquad!
+                  Register a GameSquad account
                 </Title>
-                <TextInput
-                  label="Username"
-                  placeholder="ggez1337"
-                  size="md"
-                  {...form.getInputProps("username")}
-                />
                 <TextInput
                   label="Email address"
                   placeholder="hello@gmail.com"
@@ -111,14 +105,25 @@ export default function RegisterView({ onSubmit, loading, error }: RegisterViewP
                   size="md"
                   {...form.getInputProps("password")}
                 />
-                <Checkbox label="Keep me logged in" mt="xl" size="md" />
+                <PasswordInput
+                  label="Confirm password"
+                  placeholder="Your password"
+                  mt="md"
+                  size="md"
+                  {...form.getInputProps("passwordConfirm")}
+                />
+                {error && (
+                  <Text color="red" size="sm" mt="xs">
+                    {error}
+                  </Text>
+                )}
                 <Button type="submit" fullWidth mt="xl" size="md" loading={loading}>
                   Register
                 </Button>
 
                 <Text align="center" mt="md">
                   Already have an account?{" "}
-                  <Link to={loginRoute.path}>
+                  <Link to={loginRoute.path ?? "/login"}>
                     <Anchor weight={700}>Log in</Anchor>
                   </Link>
                 </Text>

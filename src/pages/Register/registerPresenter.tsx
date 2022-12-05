@@ -5,14 +5,14 @@ import {
 } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
-import { dashboardRoute } from "../../App";
+import { verificationRoute } from "../../App";
 import { auth } from "../../firebaseConfig";
 import RegisterView from "./registerView";
 
 export interface RegisterFormValues {
-  username: string;
   email: string;
   password: string;
+  passwordConfirm: string;
 }
 
 export default function RegisterPresenter() {
@@ -28,7 +28,7 @@ export default function RegisterPresenter() {
     async function sendVerificationEmail() {
       const verificationSent = await sendEmailVerification();
       if (verificationSent) {
-        navigate(dashboardRoute.path);
+        navigate(verificationRoute.path || "/verification");
       }
     }
     if (user && !user.user.emailVerified) {

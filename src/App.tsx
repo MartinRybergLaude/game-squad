@@ -1,40 +1,46 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
 
+import RequireAuth from "./components/requireAuth/requireAuth";
 import ModalView from "./components/search/modalView";
+import AuthPresenter from "./pages/Auth/authPresenter";
 import DashboardView from "./pages/Dashboard/dashboardView";
 import LoginPresenter from "./pages/Login/loginPresenter";
 import RegisterPresenter from "./pages/Register/registerPresenter";
 import VerificationPresenter from "./pages/Verification/verificationPresenter";
 
-export const dashboardRoute = {
+export const dashboardRoute: RouteObject = {
   path: "/dashboard",
-  element: <DashboardView />,
+  element: (
+    <RequireAuth>
+      <DashboardView />
+    </RequireAuth>
+  ),
 };
 
-export const loginRoute = {
+export const loginRoute: RouteObject = {
   path: "/login",
   element: <LoginPresenter />,
 };
 
-export const registerRoute = {
+export const registerRoute: RouteObject = {
   path: "/register",
   element: <RegisterPresenter />,
 };
 
-export const searchRoute = {
+export const searchRoute: RouteObject = {
   path: "/search",
   element: <ModalView />,
 };
 
-export const verificationRoute = {
+export const verificationRoute: RouteObject = {
   path: "/verification",
   element: <VerificationPresenter />,
 };
 
-export const authRoute = {
+export const authRoute: RouteObject = {
   path: "/_/auth/action",
-  element: <p>Verifierad</p>,
+  element: <AuthPresenter />,
 };
 
 const router = createBrowserRouter([
