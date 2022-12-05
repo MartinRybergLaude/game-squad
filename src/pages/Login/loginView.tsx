@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   Center,
-  Checkbox,
   createStyles,
   Grid,
   PasswordInput,
@@ -45,14 +44,18 @@ const useStyles = createStyles(theme => ({
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
   },
   coverImgWrapper: {
+    padding: 64,
+    paddingLeft: 0,
     [`@media (max-width: ${theme.breakpoints.md}px)`]: {
       display: "none",
     },
   },
   coverImg: {
-    height: "100vh",
-    backgroundImage: "url(src/assets/login.jpg)",
+    height: "100%",
+    backgroundImage:
+      "url(https://images.unsplash.com/photo-1608403890614-ec62cb35b46e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80)",
     backgroundSize: "cover",
+    filter: "hue-rotate(340deg)",
   },
 }));
 

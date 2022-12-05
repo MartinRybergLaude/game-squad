@@ -43,14 +43,18 @@ const useStyles = createStyles(theme => ({
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
   },
   coverImgWrapper: {
+    padding: 64,
+    paddingLeft: 0,
     [`@media (max-width: ${theme.breakpoints.md}px)`]: {
       display: "none",
     },
   },
   coverImg: {
-    height: "100vh",
-    backgroundImage: "url(src/assets/login.jpg)",
+    height: "100%",
+    backgroundImage:
+      "url(https://images.unsplash.com/photo-1625805866449-3589fe3f71a3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80)",
     backgroundSize: "cover",
+    filter: "hue-rotate(150deg)",
   },
 }));
 

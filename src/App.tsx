@@ -6,6 +6,7 @@ import ModalView from "./components/search/modalView";
 import AuthPresenter from "./pages/Auth/authPresenter";
 import DashboardView from "./pages/Dashboard/dashboardView";
 import LoginPresenter from "./pages/Login/loginPresenter";
+import { NotFound } from "./pages/NotFound/notFoundView";
 import RegisterPresenter from "./pages/Register/registerPresenter";
 import VerificationPresenter from "./pages/Verification/verificationPresenter";
 
@@ -16,6 +17,11 @@ export const dashboardRoute: RouteObject = {
       <DashboardView />
     </RequireAuth>
   ),
+};
+
+export const notFoundRoute: RouteObject = {
+  path: "*",
+  element: <NotFound />,
 };
 
 export const loginRoute: RouteObject = {
@@ -49,6 +55,7 @@ const router = createBrowserRouter([
   registerRoute,
   authRoute,
   verificationRoute,
+  notFoundRoute,
 ]);
 
 function App() {
@@ -58,7 +65,7 @@ function App() {
       withNormalizeCSS
       theme={{
         colorScheme: "dark",
-        globalStyles: theme => ({
+        globalStyles: () => ({
           body: {
             overflow: "hidden",
           },
