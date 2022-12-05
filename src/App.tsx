@@ -1,51 +1,62 @@
-import { MantineProvider, Text } from "@mantine/core";
-import {
-  createReactRouter,
-  createRouteConfig,
-  Link,
-  Outlet,
-  Router,
-  RouterProvider,
-} from "@tanstack/react-router";
-import { initializeApp } from "firebase/app";
-import { atom } from "jotai";
-import { firebaseConfig } from "./firebaseConfig";
+import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
+import { MantineProvider } from "@mantine/core";
+
+import RequireAuth from "./components/requireAuth/requireAuth";
+import ModalView from "./components/search/modalView";
+import AuthPresenter from "./pages/Auth/authPresenter";
 import DashboardView from "./pages/Dashboard/dashboardView";
 import LoginPresenter from "./pages/Login/loginPresenter";
-import LoginView from "./pages/Login/loginView";
+import { NotFound } from "./pages/NotFound/notFoundView";
 import RegisterPresenter from "./pages/Register/registerPresenter";
-import RegisterView from "./pages/Register/registerView";
+import VerificationPresenter from "./pages/Verification/verificationPresenter";
 
-const rootRoute = createRouteConfig();
-
-const indexRoute = rootRoute.createRoute({
-  path: "/",
-  component: () => <Text>Welcome</Text>,
-});
-
-export const loginRoute = rootRoute.createRoute({
-  path: "/login",
-  component: LoginPresenter,
-});
-
-export const registerRoute = rootRoute.createRoute({
-  path: "/register",
-  component: RegisterPresenter,
-});
-
-export const dashboardRoute = rootRoute.createRoute({
+export const dashboardRoute: RouteObject = {
   path: "/dashboard",
-  component: DashboardView,
-});
+  element: (
+    <RequireAuth>
+      <DashboardView />
+    </RequireAuth>
+  ),
+};
 
-const routeConfig = rootRoute.addChildren([
-  indexRoute,
+export const notFoundRoute: RouteObject = {
+  path: "*",
+  element: <NotFound />,
+};
+
+export const loginRoute: RouteObject = {
+  path: "/login",
+  element: <LoginPresenter />,
+};
+
+export const registerRoute: RouteObject = {
+  path: "/register",
+  element: <RegisterPresenter />,
+};
+
+export const searchRoute: RouteObject = {
+  path: "/search",
+  element: <ModalView />,
+};
+
+export const verificationRoute: RouteObject = {
+  path: "/verification",
+  element: <VerificationPresenter />,
+};
+
+export const authRoute: RouteObject = {
+  path: "/_/auth/action",
+  element: <AuthPresenter />,
+};
+
+const router = createBrowserRouter([
+  dashboardRoute,
   loginRoute,
   registerRoute,
-  dashboardRoute,
+  authRoute,
+  verificationRoute,
+  notFoundRoute,
 ]);
-
-const router = createReactRouter({ routeConfig });
 
 function App() {
   return (
@@ -54,7 +65,7 @@ function App() {
       withNormalizeCSS
       theme={{
         colorScheme: "dark",
-        globalStyles: (theme) => ({
+        globalStyles: () => ({
           body: {
             overflow: "hidden",
           },
@@ -64,9 +75,7 @@ function App() {
         cursorType: "pointer",
       }}
     >
-      <RouterProvider router={router}>
-        <Outlet />
-      </RouterProvider>
+      <RouterProvider router={router} />
     </MantineProvider>
   );
 }
