@@ -1,6 +1,7 @@
 import { MantineProvider } from "@mantine/core";
 import DashboardView from "./pages/Dashboard/dashboardView";
 import LoginPresenter from "./pages/Login/loginPresenter";
+import ModalView from "./components/search/modalView";
 import RegisterPresenter from "./pages/Register/registerPresenter";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -17,6 +18,11 @@ export const loginRoute = {
 export const registerRoute = {
   path: "/register",
   element: <RegisterPresenter />,
+};
+
+export const searchRoute = {
+  path: "/search",
+  element: <ModalView />,
 };
 
 const router = createBrowserRouter([dashboardRoute, loginRoute, registerRoute]);

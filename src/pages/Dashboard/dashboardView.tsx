@@ -1,7 +1,5 @@
-import { useForm } from "@mantine/form";
 import { Grid, Center, createStyles } from "@mantine/core";
-import SidebarPresenter from "../../components/sidebar/presenter";
-import { NavbarSimple } from "../../components/sidebar/view";
+import { GameCollectionView } from "../../components/gameCollection/gameCollectionView";
 
 const useStyles = createStyles((theme) => ({
   formCenter: {
@@ -19,12 +17,14 @@ export default function DashboardView() {
     <Grid grow>
       <Grid.Col span={1}>
         <div>
-          <NavbarSimple />
+          <Center className={classes.formCenter}>Navbar</Center>
         </div>
       </Grid.Col>
       <Grid.Col span={2}>
         <div>
-          <Center className={classes.formCenter}>Component2</Center>
+          <Center className={classes.formCenter}>
+            <GameCollectionView />
+          </Center>
         </div>
       </Grid.Col>
     </Grid>
