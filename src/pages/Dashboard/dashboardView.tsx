@@ -1,34 +1,32 @@
-import {
-    Grid,
-    Center,
-    Card,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Grid, Center, createStyles } from "@mantine/core";
+import { GameCollectionView } from "../../components/gameCollection/gameCollectionView";
+
+const useStyles = createStyles((theme) => ({
+    formCenter: {
+        height: "100vh",
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            height: "auto",
+        },
+    },
+}));
 
 export default function DashboardView() {
-
-    const form = useForm({
-        initialValues: {
-            email: "",
-            password: "",
-        },
-
-        validate: {
-            email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
-        },
-    });
+    const { classes } = useStyles();
 
     return (
         <Grid grow>
             <Grid.Col span={1}>
                 <div>
-                    <Center>
-                        <Card shadow="sm" withBorder>
-                            Dashboard
-                        </Card>
+                    <Center className={classes.formCenter}>Navbar</Center>
+                </div>
+            </Grid.Col>
+            <Grid.Col span={2}>
+                <div>
+                    <Center className={classes.formCenter}>
+                        <GameCollectionView />
                     </Center>
                 </div>
             </Grid.Col>
         </Grid>
-    )
+    );
 }

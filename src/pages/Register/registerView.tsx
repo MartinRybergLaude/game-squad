@@ -12,6 +12,9 @@ import {
   Center,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { Link } from "@tanstack/react-router";
+import { AuthError } from "firebase/auth";
+import { RegisterFormValues } from "./registerPresenter";
 
 const useStyles = createStyles((theme) => ({
   form: {
@@ -51,7 +54,17 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function RegisterView() {
+interface RegisterViewProps {
+  onSubmit: (values: RegisterFormValues) => void;
+  loading: boolean | undefined;
+  error: AuthError | undefined;
+}
+
+export default function RegisterView({
+  onSubmit,
+  loading,
+  error,
+}: RegisterViewProps) {
   const { classes } = useStyles();
 
   const form = useForm({
@@ -75,7 +88,7 @@ export default function RegisterView() {
             <Card shadow="sm" withBorder className={classes.formWrapper} p={32}>
               <form
                 onSubmit={form.onSubmit((values) => {
-                  console.log(values);
+                  onSubmit(values);
                 })}
               >
                 <Title
@@ -107,19 +120,21 @@ export default function RegisterView() {
                   {...form.getInputProps("password")}
                 />
                 <Checkbox label="Keep me logged in" mt="xl" size="md" />
-                <Button fullWidth mt="xl" size="md">
-                  Login
+                <Button
+                  type="submit"
+                  fullWidth
+                  mt="xl"
+                  size="md"
+                  loading={loading}
+                >
+                  Register
                 </Button>
 
                 <Text align="center" mt="md">
                   Already have an account?{" "}
-                  <Anchor<"a">
-                    href="/login"
-                    weight={700}
-                    onClick={(event) => event.preventDefault()}
-                  >
-                    Log in
-                  </Anchor>
+                  <Link to="/login">
+                    <Anchor weight={700}>Log in</Anchor>
+                  </Link>
                 </Text>
               </form>
             </Card>

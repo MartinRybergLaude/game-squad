@@ -1,21 +1,46 @@
 import { useState } from 'react';
-import { createStyles, Navbar, Group, Code } from '@mantine/core';
+import { 
+  createStyles, 
+  Navbar,
+  Group, 
+  Box,
+  Collapse, 
+  ThemeIcon, 
+  Text, 
+  UnstyledButton, 
+} from '@mantine/core';
 import {
-  IconBellRinging,
-  IconFingerprint,
-  IconKey,
   IconSettings,
-  Icon2fa,
-  IconDatabaseImport,
-  IconReceipt2,
   IconSwitchHorizontal,
   IconLogout,
+  IconFriends,
+  TablerIcon,
+  IconChevronLeft, 
+  IconChevronRight,
 } from '@tabler/icons';
-import { MantineLogo } from '@mantine/ds';
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef('icon');
+
   return {
+    control: {
+      fontWeight: 500,
+      display: 'block',
+      width: '100%',
+      padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+      color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+      fontSize: theme.fontSizes.sm,
+  
+      '&:hover': {
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
+        color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+      },
+    },
+
+    chevron: {
+      transition: 'transform 200ms ease',
+    },
+
     header: {
       paddingBottom: theme.spacing.md,
       marginBottom: theme.spacing.md * 1.5,
@@ -72,43 +97,93 @@ const useStyles = createStyles((theme, _params, getRef) => {
   };
 });
 
-const data = [
-  { link: '', label: 'Notifications', icon: IconBellRinging },
-  { link: '', label: 'Billing', icon: IconReceipt2 },
-  { link: '', label: 'Security', icon: IconFingerprint },
-  { link: '', label: 'SSH Keys', icon: IconKey },
-  { link: '', label: 'Databases', icon: IconDatabaseImport },
-  { link: '', label: 'Authentication', icon: Icon2fa },
-  { link: '', label: 'Other Settings', icon: IconSettings },
-];
+interface LinksGroupProps {
+  icon: TablerIcon;
+  label: string;
+  initiallyOpened?: boolean;
+  links?: { label: string; link: string }[];
+}
 
-export function NavbarSimple() {
-  const { classes, cx } = useStyles();
-  const [active, setActive] = useState('Billing');
+export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksGroupProps) {
+  const { classes, theme } = useStyles();
 
-  const links = data.map((item) => (
-    <a
-      className={cx(classes.link, { [classes.linkActive]: item.label === active })}
-      href={item.link}
-      key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
+  const hasLinks = Array.isArray(links);
+  const [opened, setOpened] = useState(initiallyOpened || false);
+  const ChevronIcon = theme.dir === 'ltr' ? IconChevronRight : IconChevronLeft;
+  const items = (hasLinks ? links : []).map((link) => (
+    <Text<'a'>
+      component="a"
+      className={classes.link}
+      href={link.link}
+      key={link.label}
+      onClick={(event) => event.preventDefault()}
     >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span>{item.label}</span>
-    </a>
+      {link.label}
+    </Text>
   ));
 
   return (
-    <Navbar height={700} width={{ sm: 300 }} p="md">
-      <Navbar.Section grow>
-        <Group className={classes.header} position="apart">
-          <MantineLogo size={28} />
-          <Code sx={{ fontWeight: 700 }}>v3.1.2</Code>
+    <>
+      <UnstyledButton onClick={() => setOpened((o) => !o)} className={classes.control}>
+        <Group position="apart" spacing={0}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <ThemeIcon variant="light" size={30}>
+              <Icon size={18} />
+            </ThemeIcon>
+            <Box ml="md">{label}</Box>
+          </Box>
+          {hasLinks && (
+            <ChevronIcon
+              className={classes.chevron}
+              size={14}
+              stroke={1.5}
+              style={{
+                transform: opened ? `rotate(${theme.dir === 'rtl' ? -90 : 90}deg)` : 'none',
+              }}
+            />
+          )}
         </Group>
-        {links}
+      </UnstyledButton>
+      {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
+    </>
+  );
+}
+
+const data = [
+  { link: '', label: 'Squads', icon: IconFriends },
+  { link: '', label: 'Other Settings', icon: IconSettings },
+];
+
+
+const squadsdata = {
+  label: 'Squads',
+  icon: IconFriends,
+  links: [
+    { label: 'Alpha', link: '/' },
+    { label: 'Beta', link: '/' },
+    { label: 'Charlie', link: '/' },
+  ],
+};
+
+const settingsdata = {
+  label: 'Settings',
+  icon: IconSettings,
+  links: [
+    { label: 'Kurt', link: '/' },
+    { label: 'Fredrik', link: '/' },
+    { label: 'Gillar pengar', link: '/' },
+  ],
+};
+
+
+export function NavbarSimple() {
+  const { classes, cx} = useStyles();
+
+  return (
+    <Navbar height={500} width={{ sm: 200 }} p="xl">
+      <Navbar.Section grow>
+        <LinksGroup {...squadsdata} />
+        <LinksGroup {...settingsdata} />
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
