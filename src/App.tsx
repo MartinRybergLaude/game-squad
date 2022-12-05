@@ -55,6 +55,7 @@ const router = createBrowserRouter([
   registerRoute,
   authRoute,
   verificationRoute,
+  searchRoute,
   notFoundRoute,
 ]);
 
