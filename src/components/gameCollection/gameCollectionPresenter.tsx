@@ -1,4 +1,3 @@
 export default function GameCollectionPresenter() {
-    return null;
-  }
-  
+  return null;
+}

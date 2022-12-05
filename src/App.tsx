@@ -5,6 +5,7 @@ import ModalView from "./components/search/modalView";
 import DashboardView from "./pages/Dashboard/dashboardView";
 import LoginPresenter from "./pages/Login/loginPresenter";
 import RegisterPresenter from "./pages/Register/registerPresenter";
+import VerificationPresenter from "./pages/Verification/verificationPresenter";
 
 export const dashboardRoute = {
   path: "/dashboard",
@@ -26,7 +27,23 @@ export const searchRoute = {
   element: <ModalView />,
 };
 
-const router = createBrowserRouter([dashboardRoute, loginRoute, registerRoute]);
+export const verificationRoute = {
+  path: "/verification",
+  element: <VerificationPresenter />,
+};
+
+export const authRoute = {
+  path: "/_/auth/action",
+  element: <p>Verifierad</p>,
+};
+
+const router = createBrowserRouter([
+  dashboardRoute,
+  loginRoute,
+  registerRoute,
+  authRoute,
+  verificationRoute,
+]);
 
 function App() {
   return (

@@ -1,4 +1,8 @@
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useEffect } from "react";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSendEmailVerification,
+} from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
 import { dashboardRoute } from "../../App";
@@ -17,13 +21,30 @@ export default function RegisterPresenter() {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
-  function handleSubmit(values: RegisterFormValues) {
+  const [sendEmailVerification, sending, emailError] = useSendEmailVerification(auth);
+
+  // Sends email verificaton on user creation
+  useEffect(() => {
+    async function sendVerificationEmail() {
+      const verificationSent = await sendEmailVerification();
+      if (verificationSent) {
+        navigate(dashboardRoute.path);
+      }
+    }
+    if (user && !user.user.emailVerified) {
+      sendVerificationEmail();
+    }
+  }, [user]);
+
+  async function handleSubmit(values: RegisterFormValues) {
     createUserWithEmailAndPassword(values.email, values.password);
   }
 
-  if (user) {
-    navigate(dashboardRoute.path);
-  }
-
-  return <RegisterView onSubmit={handleSubmit} loading={loading} error={error} />;
+  return (
+    <RegisterView
+      onSubmit={handleSubmit}
+      loading={loading || sending}
+      error={error?.message || emailError?.message}
+    />
+  );
 }

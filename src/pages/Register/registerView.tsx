@@ -59,7 +59,7 @@ const useStyles = createStyles(theme => ({
 interface RegisterViewProps {
   onSubmit: (values: RegisterFormValues) => void;
   loading: boolean | undefined;
-  error: AuthError | undefined;
+  error: string | undefined;
 }
 
 export default function RegisterView({ onSubmit, loading, error }: RegisterViewProps) {

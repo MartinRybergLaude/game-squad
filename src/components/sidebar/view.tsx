@@ -1,51 +1,51 @@
-import { useState } from 'react';
-import { 
-  createStyles, 
-  Navbar,
-  Group, 
-  Box,
-  Collapse, 
-  ThemeIcon, 
-  Text, 
-  UnstyledButton, 
-} from '@mantine/core';
+import { useState } from "react";
 import {
+  Box,
+  Collapse,
+  createStyles,
+  Group,
+  Navbar,
+  Text,
+  ThemeIcon,
+  UnstyledButton,
+} from "@mantine/core";
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconFriends,
+  IconLogout,
   IconSettings,
   IconSwitchHorizontal,
-  IconLogout,
-  IconFriends,
   TablerIcon,
-  IconChevronLeft, 
-  IconChevronRight,
-} from '@tabler/icons';
+} from "@tabler/icons";
 
 const useStyles = createStyles((theme, _params, getRef) => {
-  const icon = getRef('icon');
+  const icon = getRef("icon");
 
   return {
     control: {
       fontWeight: 500,
-      display: 'block',
-      width: '100%',
+      display: "block",
+      width: "100%",
       padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
-      color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+      color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
       fontSize: theme.fontSizes.sm,
-  
-      '&:hover': {
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
-        color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+
+      "&:hover": {
+        backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[0],
+        color: theme.colorScheme === "dark" ? theme.white : theme.black,
       },
     },
 
     chevron: {
-      transition: 'transform 200ms ease',
+      transition: "transform 200ms ease",
     },
 
     header: {
       paddingBottom: theme.spacing.md,
       marginBottom: theme.spacing.md * 1.5,
       borderBottom: `1px solid ${
-        theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
+        theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
       }`,
     },
 
@@ -53,44 +53,44 @@ const useStyles = createStyles((theme, _params, getRef) => {
       paddingTop: theme.spacing.md,
       marginTop: theme.spacing.md,
       borderTop: `1px solid ${
-        theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
+        theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
       }`,
     },
 
     link: {
       ...theme.fn.focusStyles(),
-      display: 'flex',
-      alignItems: 'center',
-      textDecoration: 'none',
+      display: "flex",
+      alignItems: "center",
+      textDecoration: "none",
       fontSize: theme.fontSizes.sm,
-      color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
+      color: theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7],
       padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
       borderRadius: theme.radius.sm,
       fontWeight: 500,
 
-      '&:hover': {
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+      "&:hover": {
+        backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
+        color: theme.colorScheme === "dark" ? theme.white : theme.black,
 
         [`& .${icon}`]: {
-          color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+          color: theme.colorScheme === "dark" ? theme.white : theme.black,
         },
       },
     },
 
     linkIcon: {
       ref: icon,
-      color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[6],
+      color: theme.colorScheme === "dark" ? theme.colors.dark[2] : theme.colors.gray[6],
       marginRight: theme.spacing.sm,
     },
 
     linkActive: {
-      '&, &:hover': {
-        backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor })
+      "&, &:hover": {
+        backgroundColor: theme.fn.variant({ variant: "light", color: theme.primaryColor })
           .background,
-        color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
+        color: theme.fn.variant({ variant: "light", color: theme.primaryColor }).color,
         [`& .${icon}`]: {
-          color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
+          color: theme.fn.variant({ variant: "light", color: theme.primaryColor }).color,
         },
       },
     },
@@ -109,14 +109,14 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
 
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
-  const ChevronIcon = theme.dir === 'ltr' ? IconChevronRight : IconChevronLeft;
-  const items = (hasLinks ? links : []).map((link) => (
-    <Text<'a'>
+  const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;
+  const items = (hasLinks ? links : []).map(link => (
+    <Text<"a">
       component="a"
       className={classes.link}
       href={link.link}
       key={link.label}
-      onClick={(event) => event.preventDefault()}
+      onClick={event => event.preventDefault()}
     >
       {link.label}
     </Text>
@@ -124,9 +124,9 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
 
   return (
     <>
-      <UnstyledButton onClick={() => setOpened((o) => !o)} className={classes.control}>
+      <UnstyledButton onClick={() => setOpened(o => !o)} className={classes.control}>
         <Group position="apart" spacing={0}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <ThemeIcon variant="light" size={30}>
               <Icon size={18} />
             </ThemeIcon>
@@ -138,7 +138,7 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
               size={14}
               stroke={1.5}
               style={{
-                transform: opened ? `rotate(${theme.dir === 'rtl' ? -90 : 90}deg)` : 'none',
+                transform: opened ? `rotate(${theme.dir === "rtl" ? -90 : 90}deg)` : "none",
               }}
             />
           )}
@@ -150,34 +150,32 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
 }
 
 const data = [
-  { link: '', label: 'Squads', icon: IconFriends },
-  { link: '', label: 'Other Settings', icon: IconSettings },
+  { link: "", label: "Squads", icon: IconFriends },
+  { link: "", label: "Other Settings", icon: IconSettings },
 ];
 
-
 const squadsdata = {
-  label: 'Squads',
+  label: "Squads",
   icon: IconFriends,
   links: [
-    { label: 'Alpha', link: '/' },
-    { label: 'Beta', link: '/' },
-    { label: 'Charlie', link: '/' },
+    { label: "Alpha", link: "/" },
+    { label: "Beta", link: "/" },
+    { label: "Charlie", link: "/" },
   ],
 };
 
 const settingsdata = {
-  label: 'Settings',
+  label: "Settings",
   icon: IconSettings,
   links: [
-    { label: 'Kurt', link: '/' },
-    { label: 'Fredrik', link: '/' },
-    { label: 'Gillar pengar', link: '/' },
+    { label: "Kurt", link: "/" },
+    { label: "Fredrik", link: "/" },
+    { label: "Gillar pengar", link: "/" },
   ],
 };
 
-
 export function NavbarSimple() {
-  const { classes, cx} = useStyles();
+  const { classes, cx } = useStyles();
 
   return (
     <Navbar height={500} width={{ sm: 200 }} p="xl">
@@ -187,12 +185,12 @@ export function NavbarSimple() {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
           <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
           <span>Change account</span>
         </a>
 
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
         </a>
