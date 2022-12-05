@@ -1,7 +1,8 @@
-import { Grid, Center, createStyles } from "@mantine/core";
+import { Center, createStyles, Grid } from "@mantine/core";
+
 import { GameCollectionView } from "../../components/gameCollection/gameCollectionView";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(theme => ({
   formCenter: {
     height: "100vh",
     [`@media (max-width: ${theme.breakpoints.md}px)`]: {

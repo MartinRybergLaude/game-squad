@@ -1,22 +1,24 @@
+import { Link } from "react-router-dom";
 import {
-  createStyles,
-  TextInput,
-  PasswordInput,
-  Checkbox,
-  Button,
-  Title,
-  Text,
   Anchor,
-  Grid,
+  Button,
   Card,
   Center,
+  Checkbox,
+  createStyles,
+  Grid,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { Link } from "@tanstack/react-router";
 import { AuthError } from "firebase/auth";
+
+import { registerRoute } from "../../App";
 import { LoginFormValues } from "./loginPresenter";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(theme => ({
   form: {
     minHeight: "100vh",
     width: "100%",
@@ -60,11 +62,7 @@ interface LoginViewProps {
   error: AuthError | undefined;
 }
 
-export default function LoginView({
-  onSubmit,
-  loading,
-  error,
-}: LoginViewProps) {
+export default function LoginView({ onSubmit, loading, error }: LoginViewProps) {
   const { classes } = useStyles();
 
   const form = useForm({
@@ -74,7 +72,7 @@ export default function LoginView({
     },
 
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      email: value => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
 
@@ -85,17 +83,11 @@ export default function LoginView({
           <Center className={classes.formCenter}>
             <Card shadow="sm" withBorder className={classes.formWrapper} p={32}>
               <form
-                onSubmit={form.onSubmit((values) => {
+                onSubmit={form.onSubmit(values => {
                   onSubmit(values);
                 })}
               >
-                <Title
-                  order={2}
-                  className={classes.title}
-                  align="center"
-                  mt="md"
-                  mb={50}
-                >
+                <Title order={2} className={classes.title} align="center" mt="md" mb={50}>
                   Welcome back to GameSquad!
                 </Title>
 
@@ -113,19 +105,13 @@ export default function LoginView({
                   {...form.getInputProps("password")}
                 />
                 <Checkbox label="Keep me logged in" mt="xl" size="md" />
-                <Button
-                  type="submit"
-                  fullWidth
-                  mt="xl"
-                  size="md"
-                  loading={loading}
-                >
+                <Button type="submit" fullWidth mt="xl" size="md" loading={loading}>
                   Login
                 </Button>
 
                 <Text align="center" mt="md">
                   Don&apos;t have an account?{" "}
-                  <Link to="/register">
+                  <Link to={registerRoute.path}>
                     <Anchor weight={700}>Register</Anchor>
                   </Link>
                 </Text>
