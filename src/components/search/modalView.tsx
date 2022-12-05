@@ -11,7 +11,7 @@ export default function ModalView() {
 
   return (
     <>
-      <Modal opened={opened} onClose={() => setOpened(false)}>
+      <Modal opened={opened} onClose={() => setOpened(false)} size="xl" title="Add game:">
         {<SearchView />}
       </Modal>
 
