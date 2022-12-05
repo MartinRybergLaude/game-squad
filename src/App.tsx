@@ -1,9 +1,10 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
+
+import ModalView from "./components/search/modalView";
 import DashboardView from "./pages/Dashboard/dashboardView";
 import LoginPresenter from "./pages/Login/loginPresenter";
-import ModalView from "./components/search/modalView";
 import RegisterPresenter from "./pages/Register/registerPresenter";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 export const dashboardRoute = {
   path: "/dashboard",
@@ -34,7 +35,7 @@ function App() {
       withNormalizeCSS
       theme={{
         colorScheme: "dark",
-        globalStyles: (theme) => ({
+        globalStyles: theme => ({
           body: {
             overflow: "hidden",
           },

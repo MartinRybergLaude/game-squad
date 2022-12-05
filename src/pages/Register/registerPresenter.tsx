@@ -1,8 +1,9 @@
-import RegisterView from "./registerView";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "../../firebaseConfig";
-import { dashboardRoute } from "../../App";
 import { useNavigate } from "react-router-dom";
+
+import { dashboardRoute } from "../../App";
+import { auth } from "../../firebaseConfig";
+import RegisterView from "./registerView";
 
 export interface RegisterFormValues {
   username: string;
@@ -17,7 +18,6 @@ export default function RegisterPresenter() {
     useCreateUserWithEmailAndPassword(auth);
 
   function handleSubmit(values: RegisterFormValues) {
-    console.log("lall");
     createUserWithEmailAndPassword(values.email, values.password);
   }
 
@@ -25,7 +25,5 @@ export default function RegisterPresenter() {
     navigate(dashboardRoute.path);
   }
 
-  return (
-    <RegisterView onSubmit={handleSubmit} loading={loading} error={error} />
-  );
+  return <RegisterView onSubmit={handleSubmit} loading={loading} error={error} />;
 }

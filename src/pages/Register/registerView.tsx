@@ -1,23 +1,24 @@
+import { Link } from "react-router-dom";
 import {
-  createStyles,
-  TextInput,
-  PasswordInput,
-  Checkbox,
-  Button,
-  Title,
-  Text,
   Anchor,
-  Grid,
+  Button,
   Card,
   Center,
+  Checkbox,
+  createStyles,
+  Grid,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { AuthError } from "firebase/auth";
+
 import { loginRoute } from "../../App";
 import { RegisterFormValues } from "./registerPresenter";
-import { Link } from "react-router-dom";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(theme => ({
   form: {
     minHeight: "100vh",
     width: "100%",
@@ -61,11 +62,7 @@ interface RegisterViewProps {
   error: AuthError | undefined;
 }
 
-export default function RegisterView({
-  onSubmit,
-  loading,
-  error,
-}: RegisterViewProps) {
+export default function RegisterView({ onSubmit, loading, error }: RegisterViewProps) {
   const { classes } = useStyles();
 
   const form = useForm({
@@ -76,8 +73,8 @@ export default function RegisterView({
     },
 
     validate: {
-      username: (value) => (value.length > 0 ? null : "Username is required"),
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      username: value => (value.length > 0 ? null : "Username is required"),
+      email: value => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
 
@@ -88,17 +85,11 @@ export default function RegisterView({
           <Center className={classes.formCenter}>
             <Card shadow="sm" withBorder className={classes.formWrapper} p={32}>
               <form
-                onSubmit={form.onSubmit((values) => {
+                onSubmit={form.onSubmit(values => {
                   onSubmit(values);
                 })}
               >
-                <Title
-                  order={2}
-                  className={classes.title}
-                  align="center"
-                  mt="md"
-                  mb={50}
-                >
+                <Title order={2} className={classes.title} align="center" mt="md" mb={50}>
                   Welcome back to GameSquad!
                 </Title>
                 <TextInput
@@ -121,13 +112,7 @@ export default function RegisterView({
                   {...form.getInputProps("password")}
                 />
                 <Checkbox label="Keep me logged in" mt="xl" size="md" />
-                <Button
-                  type="submit"
-                  fullWidth
-                  mt="xl"
-                  size="md"
-                  loading={loading}
-                >
+                <Button type="submit" fullWidth mt="xl" size="md" loading={loading}>
                   Register
                 </Button>
 

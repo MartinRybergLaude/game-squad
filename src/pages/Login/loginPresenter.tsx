@@ -1,8 +1,9 @@
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+
+import { dashboardRoute } from "../../App";
 import { auth } from "../../firebaseConfig";
 import LoginView from "./loginView";
-import { dashboardRoute, loginRoute } from "../../App";
-import { useNavigate } from "react-router-dom";
 
 export interface LoginFormValues {
   email: string;
@@ -11,8 +12,7 @@ export interface LoginFormValues {
 export default function LoginPresenter() {
   const navigate = useNavigate();
 
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
   function handleSubmit(values: LoginFormValues) {
     signInWithEmailAndPassword(values.email, values.password);
