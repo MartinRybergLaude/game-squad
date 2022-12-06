@@ -1,60 +1,73 @@
-import { MantineProvider, Text } from "@mantine/core";
-import {
-  createReactRouter,
-  createRouteConfig,
-  Link,
-  Outlet,
-  Router,
-  RouterProvider,
-} from "@tanstack/react-router";
-import { initializeApp } from "firebase/app";
-import { atom } from "jotai";
-import { firebaseConfig } from "./firebaseConfig";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
+import { MantineProvider } from "@mantine/core";
+
+import RequireAuth from "./components/requireAuth/requireAuth";
+import ModalView from "./components/search/modalView";
+import AuthPresenter from "./pages/Auth/authPresenter";
 import DashboardView from "./pages/Dashboard/dashboardView";
 import LoginPresenter from "./pages/Login/loginPresenter";
-import LoginView from "./pages/Login/loginView";
-import SearchView from "./components/search/searchView";
-import ModalView from "./components/search/modalView";
+import NotFoundPresenter from "./pages/NotFound/notFoundPresenter";
 import RegisterPresenter from "./pages/Register/registerPresenter";
-import RegisterView from "./pages/Register/registerView";
+import RequestResetPasswordPresenter from "./pages/RequestResetPassword/requestResetPasswordPresenter";
+import VerificationPresenter from "./pages/Verification/verificationPresenter";
 
-const rootRoute = createRouteConfig();
+const queryClient = new QueryClient();
 
-const indexRoute = rootRoute.createRoute({
-  path: "/",
-  component: () => <Text>Welcome</Text>,
-});
-
-export const loginRoute = rootRoute.createRoute({
-  path: "/login",
-  component: LoginPresenter,
-});
-
-export const registerRoute = rootRoute.createRoute({
-  path: "/register",
-  component: RegisterPresenter,
-});
-
-export const dashboardRoute = rootRoute.createRoute({
+export const dashboardRoute: RouteObject = {
   path: "/dashboard",
-  component: DashboardView,
-});
+  element: (
+    <RequireAuth>
+      <DashboardView />
+    </RequireAuth>
+  ),
+};
 
-// Should not be a route, I just wanna test things
-const searchRoute = rootRoute.createRoute({
+export const notFoundRoute: RouteObject = {
+  path: "*",
+  element: <NotFoundPresenter />,
+};
+
+export const loginRoute: RouteObject = {
+  path: "/login",
+  element: <LoginPresenter />,
+};
+
+export const requestResetRoute: RouteObject = {
+  path: "/request-reset",
+  element: <RequestResetPasswordPresenter />,
+};
+
+export const registerRoute: RouteObject = {
+  path: "/register",
+  element: <RegisterPresenter />,
+};
+
+export const searchRoute: RouteObject = {
   path: "/search",
-  component: ModalView,
-});
+  element: <ModalView />,
+};
 
-const routeConfig = rootRoute.addChildren([
-  indexRoute,
+export const verificationRoute: RouteObject = {
+  path: "/verification",
+  element: <VerificationPresenter />,
+};
+
+export const authRoute: RouteObject = {
+  path: "/_/auth/action",
+  element: <AuthPresenter />,
+};
+
+const router = createBrowserRouter([
+  dashboardRoute,
   loginRoute,
   registerRoute,
-  dashboardRoute,
+  authRoute,
+  verificationRoute,
   searchRoute,
+  notFoundRoute,
+  requestResetRoute,
 ]);
-
-const router = createReactRouter({ routeConfig });
 
 function App() {
   return (
@@ -63,7 +76,7 @@ function App() {
       withNormalizeCSS
       theme={{
         colorScheme: "dark",
-        globalStyles: (theme) => ({
+        globalStyles: () => ({
           body: {
             overflow: "hidden",
           },
@@ -73,9 +86,9 @@ function App() {
         cursorType: "pointer",
       }}
     >
-      <RouterProvider router={router}>
-        <Outlet />
-      </RouterProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </MantineProvider>
   );
 }

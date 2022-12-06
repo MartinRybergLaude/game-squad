@@ -1,20 +1,7 @@
-import { Link } from "react-router-dom";
-import {
-  Anchor,
-  Button,
-  Card,
-  Center,
-  createStyles,
-  Grid,
-  PasswordInput,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import { Button, Card, Center, createStyles, Grid, PasswordInput, Title } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
-import { loginRoute } from "../../App";
-import { RegisterFormValues } from "./registerPresenter";
+import { ResetPasswordFormValues } from "~/pages/Auth/authPresenter";
 
 const useStyles = createStyles(theme => ({
   form: {
@@ -58,24 +45,20 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
-interface RegisterViewProps {
-  onSubmit: (values: RegisterFormValues) => void;
-  loading: boolean | undefined;
-  error: string | undefined;
+interface ResetPasswordViewProps {
+  onSubmit: (values: ResetPasswordFormValues) => void;
 }
 
-export default function RegisterView({ onSubmit, loading, error }: RegisterViewProps) {
+export default function ResetPasswordView({ onSubmit }: ResetPasswordViewProps) {
   const { classes } = useStyles();
 
   const form = useForm({
     initialValues: {
-      email: "",
       password: "",
       passwordConfirm: "",
     },
 
     validate: {
-      email: value => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       password: value => (value.length >= 6 ? null : "Password must be at least 6 characters long"),
       passwordConfirm: (value, { password }) =>
         value === password ? null : "Passwords do not match",
@@ -94,43 +77,25 @@ export default function RegisterView({ onSubmit, loading, error }: RegisterViewP
                 })}
               >
                 <Title order={2} className={classes.title} align="center" mt="md" mb={50}>
-                  Register a GameSquad account
+                  Reset your password
                 </Title>
-                <TextInput
-                  label="Email address"
-                  placeholder="hello@gmail.com"
-                  size="md"
-                  {...form.getInputProps("email")}
-                />
                 <PasswordInput
-                  label="Password"
-                  placeholder="Your password"
+                  label="New password"
+                  placeholder="Your new password"
                   mt="md"
                   size="md"
                   {...form.getInputProps("password")}
                 />
                 <PasswordInput
-                  label="Confirm password"
-                  placeholder="Your password"
+                  label="Confirm new password"
+                  placeholder="Your new password"
                   mt="md"
                   size="md"
                   {...form.getInputProps("passwordConfirm")}
                 />
-                {error && (
-                  <Text color="red" size="sm" mt="xs">
-                    {error}
-                  </Text>
-                )}
-                <Button type="submit" fullWidth mt="xl" size="md" loading={loading}>
-                  Register
+                <Button type="submit" fullWidth mt="xl" size="md">
+                  Reset
                 </Button>
-
-                <Text align="center" mt="md">
-                  Already have an account?{" "}
-                  <Link to={loginRoute.path ?? "/login"}>
-                    <Anchor weight={700}>Log in</Anchor>
-                  </Link>
-                </Text>
               </form>
             </Card>
           </Center>

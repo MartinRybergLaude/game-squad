@@ -1,27 +1,26 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
-  createStyles,
-  Navbar,
-  Group,
   Box,
   Collapse,
-  ThemeIcon,
+  createStyles,
+  Group,
+  Navbar,
   Text,
+  ThemeIcon,
   UnstyledButton,
-  Center,
-} from '@mantine/core';
+} from "@mantine/core";
 import {
-  IconSettings,
-  IconSwitchHorizontal,
-  IconLogout,
-  IconFriends,
-  TablerIcon,
   IconChevronLeft,
   IconChevronRight,
-} from '@tabler/icons';
+  IconFriends,
+  IconLogout,
+  IconSettings,
+  IconSwitchHorizontal,
+  TablerIcon,
+} from "@tabler/icons";
 
 const useStyles = createStyles((theme, _params, getRef) => {
-  const icon = getRef('icon');
+  const icon = getRef("icon");
 
   return {
     formCenter: {
@@ -37,26 +36,33 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
     control: {
       fontWeight: 500,
-      display: 'block',
-      width: '100%',
+      display: "block",
+      width: "100%",
       padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
-      color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+      color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
       fontSize: theme.fontSizes.sm,
 
-      '&:hover': {
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
-        color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+      "&:hover": {
+        backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[0],
+        color: theme.colorScheme === "dark" ? theme.white : theme.black,
       },
     },
 
     chevron: {
-      transition: 'transform 200ms ease',
+      transition: "transform 200ms ease",
+    },
+
+    header: {
+      paddingBottom: theme.spacing.md,
+      marginBottom: theme.spacing.md * 1.5,
+      borderBottom: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
+        }`,
     },
 
     footer: {
       paddingTop: theme.spacing.md,
       marginTop: theme.spacing.md,
-      borderTop: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
+      borderTop: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
         }`,
     },
 
@@ -66,34 +72,34 @@ const useStyles = createStyles((theme, _params, getRef) => {
       alignItems: 'align',
       textDecoration: 'none',
       fontSize: theme.fontSizes.sm,
-      color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
+      color: theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7],
       padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
       borderRadius: theme.radius.sm,
       fontWeight: 500,
 
-      '&:hover': {
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+      "&:hover": {
+        backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
+        color: theme.colorScheme === "dark" ? theme.white : theme.black,
 
         [`& .${icon}`]: {
-          color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+          color: theme.colorScheme === "dark" ? theme.white : theme.black,
         },
       },
     },
 
     linkIcon: {
       ref: icon,
-      color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
+      color: theme.colorScheme === "dark" ? theme.colors.dark[2] : theme.colors.gray[6],
       marginRight: theme.spacing.sm,
     },
 
     linkActive: {
-      '&, &:hover': {
-        backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor })
+      "&, &:hover": {
+        backgroundColor: theme.fn.variant({ variant: "light", color: theme.primaryColor })
           .background,
-        color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
+        color: theme.fn.variant({ variant: "light", color: theme.primaryColor }).color,
         [`& .${icon}`]: {
-          color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
+          color: theme.fn.variant({ variant: "light", color: theme.primaryColor }).color,
         },
       },
     },
@@ -112,17 +118,14 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
 
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
-  const ChevronIcon = theme.dir === 'ltr' ? IconChevronRight : IconChevronLeft;
-  const items = (hasLinks ? links : []).map((link) => (
-    <Text<'a'>
+  const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;
+  const items = (hasLinks ? links : []).map(link => (
+    <Text<"a">
       component="a"
       className={classes.link}
       href={link.link}
       key={link.label}
-      onClick={(event) => {
-        console.log(event)
-        event.preventDefault()
-      }}
+      onClick={event => event.preventDefault()}
     >
       {link.label}
     </Text>
@@ -130,9 +133,9 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
 
   return (
     <>
-      <UnstyledButton onClick={() => setOpened((o) => !o)} className={classes.control}>
+      <UnstyledButton onClick={() => setOpened(o => !o)} className={classes.control}>
         <Group position="apart" spacing={0}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <ThemeIcon variant="light" size={30}>
               <Icon size={18} />
             </ThemeIcon>
@@ -144,7 +147,7 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
               size={14}
               stroke={1.5}
               style={{
-                transform: opened ? `rotate(${theme.dir === 'rtl' ? -90 : 90}deg)` : 'none',
+                transform: opened ? `rotate(${theme.dir === "rtl" ? -90 : 90}deg)` : "none",
               }}
             />
           )}
@@ -175,37 +178,36 @@ const squadsData = [
 ];
 
 const settingsdata = {
-  label: 'Settings',
+  label: "Settings",
   icon: IconSettings,
   links: [
-    { label: 'Kurt', link: '/' },
-    { label: 'Fredrik', link: '/' },
-    { label: 'Gillar pengar', link: '/' },
+    { label: "Kurt", link: "/" },
+    { label: "Fredrik", link: "/" },
+    { label: "Gillar pengar", link: "/" },
   ],
 };
 
-export function NavbarSimple() {
+export function SidebarView() {
   const { classes, cx } = useStyles();
 
   return (
-    <Navbar className={classes.formCenter} height={500} width={{ sm: 200 }} p="xl">
-      <Navbar.Section grow className={classes.alignLeft}>
+    <Navbar width={{ sm: 200 }} p="xl">
+      <Navbar.Section grow>
         <LinksGroup {...{ label: "Squads", icon: IconFriends, links: squadsData }} />
         <LinksGroup {...settingsdata} />
       </Navbar.Section>
 
 
       <Navbar.Section className={classes.footer}>
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
-          <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-          <span>Change account</span>
+        <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
+          <IconSettings className={classes.linkIcon} stroke={1.5} />
+          <span>Settings</span>
         </a>
-
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
         </a>
       </Navbar.Section>
     </Navbar>
   );
-};
+}

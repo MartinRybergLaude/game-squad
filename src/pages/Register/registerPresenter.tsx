@@ -1,31 +1,50 @@
-import RegisterView from "./registerView";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useEffect } from "react";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSendEmailVerification,
+} from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+
+import { verificationRoute } from "../../App";
 import { auth } from "../../firebaseConfig";
-import { dashboardRoute, registerRoute } from "../../App";
-import { useMatch } from "@tanstack/react-router";
+import RegisterView from "./registerView";
 
 export interface RegisterFormValues {
-  username: string;
   email: string;
   password: string;
+  passwordConfirm: string;
 }
 
 export default function RegisterPresenter() {
-  const { navigate } = useMatch(registerRoute.id);
+  const navigate = useNavigate();
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
-  function handleSubmit(values: RegisterFormValues) {
-    console.log("lall");
+  const [sendEmailVerification, sending, emailError] = useSendEmailVerification(auth);
+
+  // Sends email verificaton on user creation
+  useEffect(() => {
+    async function sendVerificationEmail() {
+      const verificationSent = await sendEmailVerification();
+      if (verificationSent) {
+        navigate(verificationRoute.path || "/verification");
+      }
+    }
+    if (user && !user.user.emailVerified) {
+      sendVerificationEmail();
+    }
+  }, [user]);
+
+  async function handleSubmit(values: RegisterFormValues) {
     createUserWithEmailAndPassword(values.email, values.password);
   }
 
-  if (user) {
-    navigate({ to: dashboardRoute.id, replace: true });
-  }
-
   return (
-    <RegisterView onSubmit={handleSubmit} loading={loading} error={error} />
+    <RegisterView
+      onSubmit={handleSubmit}
+      loading={loading || sending}
+      error={error?.message || emailError?.message}
+    />
   );
 }

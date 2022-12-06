@@ -1,20 +1,21 @@
-import { IconHeart } from "@tabler/icons";
 import {
-  Card,
-  Image,
-  Text,
-  Group,
+  ActionIcon,
   Badge,
   Button,
-  ActionIcon,
+  Card,
   createStyles,
   Grid,
+  Group,
+  Image,
+  Radio,
+  Text,
 } from "@mantine/core";
+import { IconMoneybag, IconThumbDown, IconThumbUp } from "@tabler/icons";
+import { IconHeart } from "@tabler/icons";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(theme => ({
   card: {
-    backgroundColor:
-      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
   },
 
   section: {
@@ -27,13 +28,28 @@ const useStyles = createStyles((theme) => ({
   },
 
   like: {
+    color: theme.colors.green[6],
+  },
+
+  dislike: {
     color: theme.colors.red[6],
+  },
+
+  money: {
+    color: theme.colors.yellow[6],
   },
 
   label: {
     textTransform: "uppercase",
     fontSize: theme.fontSizes.xs,
     fontWeight: 700,
+  },
+
+  truncateText: {
+    width: "16ch",
+    whitespace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
 }));
 
@@ -83,7 +99,7 @@ function BadgeCard() {
   const { classes, theme } = useStyles();
   const { image, title, description, country, badges } = props;
 
-  const features = badges.map((badge) => (
+  const features = badges.map(badge => (
     <Badge
       color={theme.colorScheme === "dark" ? "dark" : "gray"}
       key={badge.label}
@@ -101,37 +117,53 @@ function BadgeCard() {
 
       <Card.Section className={classes.section} mt="md">
         <Group position="apart">
-          <Text size="lg" weight={500}>
-            {title}
+          <Text className={classes.truncateText} size="lg" weight={500}>
+            GAMeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
           </Text>
-          <Badge size="sm">{country}</Badge>
         </Group>
-        <Text size="sm" mt="xs">
-          {description}
-        </Text>
+        <Group>
+          <Badge size="sm">CO-OP</Badge>
+        </Group>
       </Card.Section>
 
-      <Group mt="xs">
-        <Button radius="md" style={{ flex: 1 }}>
-          Show details
-        </Button>
+      <Group position="center" mt="xs">
         <ActionIcon variant="default" radius="md" size={36}>
-          <IconHeart size={18} className={classes.like} stroke={1.5} />
+          <IconThumbUp size={18} className={classes.like} stroke={1.5} />
         </ActionIcon>
+        <ActionIcon variant="default" radius="md" size={36}>
+          <IconThumbDown size={18} className={classes.dislike} stroke={1.5} />
+        </ActionIcon>
+        <ActionIcon variant="default" radius="md" size={36}>
+          <IconMoneybag size={18} className={classes.money} stroke={1.5} />
+        </ActionIcon>
+        <Radio.Group>
+          <Radio value="like"></Radio>
+        </Radio.Group>
+
+        {}
       </Group>
     </Card>
   );
 }
 export function GameCollectionView() {
   return (
-    <Grid columns={12}>
-      <Grid.Col span={5}>
+    <Grid columns={13}>
+      <Grid.Col span={4}>
         <BadgeCard />
       </Grid.Col>
-      <Grid.Col span={5}>
+      <Grid.Col span={4}>
         <BadgeCard />
       </Grid.Col>
-      <Grid.Col span={5}>
+      <Grid.Col span={4}>
+        <BadgeCard />
+      </Grid.Col>
+      <Grid.Col span={4}>
+        <BadgeCard />
+      </Grid.Col>
+      <Grid.Col span={4}>
+        <BadgeCard />
+      </Grid.Col>
+      <Grid.Col span={4}>
         <BadgeCard />
       </Grid.Col>
     </Grid>
