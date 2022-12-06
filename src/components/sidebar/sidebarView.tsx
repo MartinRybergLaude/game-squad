@@ -178,18 +178,16 @@ export function SidebarView() {
   const { classes, cx } = useStyles();
 
   return (
-    <Navbar height={500} width={{ sm: 200 }} p="xl">
+    <Navbar width={{ sm: 200 }} p="xl">
       <Navbar.Section grow>
         <LinksGroup {...squadsdata} />
-        <LinksGroup {...settingsdata} />
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
         <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
-          <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-          <span>Change account</span>
+          <IconSettings className={classes.linkIcon} stroke={1.5} />
+          <span>Settings</span>
         </a>
-
         <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
