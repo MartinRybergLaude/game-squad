@@ -19,6 +19,7 @@ export default function DashboardView() {
   return (
     <AppShell navbar={<SidebarPresenter />}>
       <Title order={1}>Dashboard</Title>
+      <GameCollectionView />
     </AppShell>
   );
 }

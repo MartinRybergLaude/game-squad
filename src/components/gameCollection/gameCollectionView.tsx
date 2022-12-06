@@ -16,6 +16,9 @@ import { IconHeart } from "@tabler/icons";
 const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    minWidth: "240px",
+    Hight: "340px",
+    maxWidth: "300px",
   },
 
   section: {
@@ -147,23 +150,23 @@ function BadgeCard() {
 }
 export function GameCollectionView() {
   return (
-    <Grid columns={13}>
-      <Grid.Col span={4}>
+    <Grid columns={12}>
+      <Grid.Col xs={10} md={5} lg={3}>
         <BadgeCard />
       </Grid.Col>
-      <Grid.Col span={4}>
+      <Grid.Col xs={10} md={5} lg={3}>
         <BadgeCard />
       </Grid.Col>
-      <Grid.Col span={4}>
+      <Grid.Col xs={10} md={5} lg={3}>
         <BadgeCard />
       </Grid.Col>
-      <Grid.Col span={4}>
+      <Grid.Col xs={10} md={5} lg={3}>
         <BadgeCard />
       </Grid.Col>
-      <Grid.Col span={4}>
+      <Grid.Col xs={10} md={5} lg={3}>
         <BadgeCard />
       </Grid.Col>
-      <Grid.Col span={4}>
+      <Grid.Col xs={10} md={5} lg={3}>
         <BadgeCard />
       </Grid.Col>
     </Grid>
