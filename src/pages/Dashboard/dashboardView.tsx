@@ -1,4 +1,6 @@
-import { Center, createStyles, Grid } from "@mantine/core";
+import { AppShell, Center, createStyles, Grid, Title } from "@mantine/core";
+
+import SidebarPresenter from "~/components/sidebar/sidebarPresenter";
 
 import { GameCollectionView } from "../../components/gameCollection/gameCollectionView";
 
@@ -15,19 +17,8 @@ export default function DashboardView() {
   const { classes } = useStyles();
 
   return (
-    <Grid grow>
-      <Grid.Col span={1}>
-        <div>
-          <Center className={classes.formCenter}>Navbar</Center>
-        </div>
-      </Grid.Col>
-      <Grid.Col span={2}>
-        <div>
-          <Center className={classes.formCenter}>
-            <GameCollectionView />
-          </Center>
-        </div>
-      </Grid.Col>
-    </Grid>
+    <AppShell navbar={<SidebarPresenter />}>
+      <Title order={1}>Dashboard</Title>
+    </AppShell>
   );
 }

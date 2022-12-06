@@ -174,7 +174,7 @@ const settingsdata = {
   ],
 };
 
-export function NavbarSimple() {
+export function SidebarView() {
   const { classes, cx } = useStyles();
 
   return (
