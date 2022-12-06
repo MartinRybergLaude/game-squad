@@ -41,7 +41,7 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
-export function NotFound() {
+export default function NotFoundView() {
   const { classes } = useStyles();
 
   return (

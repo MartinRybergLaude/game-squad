@@ -6,7 +6,7 @@ import ModalView from "./components/search/modalView";
 import AuthPresenter from "./pages/Auth/authPresenter";
 import DashboardView from "./pages/Dashboard/dashboardView";
 import LoginPresenter from "./pages/Login/loginPresenter";
-import { NotFound } from "./pages/NotFound/notFoundView";
+import NotFoundPresenter from "./pages/NotFound/notFoundPresenter";
 import RegisterPresenter from "./pages/Register/registerPresenter";
 import RequestResetPasswordPresenter from "./pages/RequestResetPassword/requestResetPasswordPresenter";
 import VerificationPresenter from "./pages/Verification/verificationPresenter";
@@ -22,7 +22,7 @@ export const dashboardRoute: RouteObject = {
 
 export const notFoundRoute: RouteObject = {
   path: "*",
-  element: <NotFound />,
+  element: <NotFoundPresenter />,
 };
 
 export const loginRoute: RouteObject = {
