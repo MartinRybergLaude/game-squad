@@ -1,5 +1,6 @@
 import { Grid, Center, createStyles } from "@mantine/core";
 import { GameCollectionView } from "../../components/gameCollection/gameCollectionView";
+import { NavbarSimple } from "../../components/sidebar/sidebarView";
 
 const useStyles = createStyles((theme) => ({
     formCenter: {
@@ -17,7 +18,9 @@ export default function DashboardView() {
         <Grid grow>
             <Grid.Col span={1}>
                 <div>
-                    <Center className={classes.formCenter}>Navbar</Center>
+                    <Center inline className={classes.formCenter}>
+                        <NavbarSimple />
+                    </Center>
                 </div>
             </Grid.Col>
             <Grid.Col span={2}>

@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { 
-  createStyles, 
+import {
+  createStyles,
   Navbar,
-  Group, 
+  Group,
   Box,
-  Collapse, 
-  ThemeIcon, 
-  Text, 
-  UnstyledButton, 
+  Collapse,
+  ThemeIcon,
+  Text,
+  UnstyledButton,
+  Center,
 } from '@mantine/core';
 import {
   IconSettings,
@@ -15,7 +16,7 @@ import {
   IconLogout,
   IconFriends,
   TablerIcon,
-  IconChevronLeft, 
+  IconChevronLeft,
   IconChevronRight,
 } from '@tabler/icons';
 
@@ -23,6 +24,17 @@ const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef('icon');
 
   return {
+    formCenter: {
+      height: "100vh",
+      [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+        height: "auto",
+      },
+    },
+
+    alignLeft: {
+      textAlign: "left",
+    },
+
     control: {
       fontWeight: 500,
       display: 'block',
@@ -30,7 +42,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
       padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
       color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
       fontSize: theme.fontSizes.sm,
-  
+
       '&:hover': {
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
         color: theme.colorScheme === 'dark' ? theme.white : theme.black,
@@ -41,26 +53,17 @@ const useStyles = createStyles((theme, _params, getRef) => {
       transition: 'transform 200ms ease',
     },
 
-    header: {
-      paddingBottom: theme.spacing.md,
-      marginBottom: theme.spacing.md * 1.5,
-      borderBottom: `1px solid ${
-        theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-      }`,
-    },
-
     footer: {
       paddingTop: theme.spacing.md,
       marginTop: theme.spacing.md,
-      borderTop: `1px solid ${
-        theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-      }`,
+      borderTop: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
+        }`,
     },
 
     link: {
       ...theme.fn.focusStyles(),
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'align',
       textDecoration: 'none',
       fontSize: theme.fontSizes.sm,
       color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
@@ -80,7 +83,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
     linkIcon: {
       ref: icon,
-      color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[6],
+      color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
       marginRight: theme.spacing.sm,
     },
 
@@ -116,7 +119,10 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
       className={classes.link}
       href={link.link}
       key={link.label}
-      onClick={(event) => event.preventDefault()}
+      onClick={(event) => {
+        console.log(event)
+        event.preventDefault()
+      }}
     >
       {link.label}
     </Text>
@@ -147,23 +153,26 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
       {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
     </>
   );
-}
-
-const data = [
-  { link: '', label: 'Squads', icon: IconFriends },
-  { link: '', label: 'Other Settings', icon: IconSettings },
-];
-
-
-const squadsdata = {
-  label: 'Squads',
-  icon: IconFriends,
-  links: [
-    { label: 'Alpha', link: '/' },
-    { label: 'Beta', link: '/' },
-    { label: 'Charlie', link: '/' },
-  ],
 };
+
+const squadsData = [
+  {
+    label: "Alpha",
+    link: "/"
+  },
+  {
+    label: "Beta",
+    link: "/"
+  },
+  {
+    label: "Charlie",
+    link: "/"
+  },
+  {
+    label: "Delta",
+    link: "/"
+  }
+];
 
 const settingsdata = {
   label: 'Settings',
@@ -175,16 +184,16 @@ const settingsdata = {
   ],
 };
 
-
 export function NavbarSimple() {
-  const { classes, cx} = useStyles();
+  const { classes, cx } = useStyles();
 
   return (
-    <Navbar height={500} width={{ sm: 200 }} p="xl">
-      <Navbar.Section grow>
-        <LinksGroup {...squadsdata} />
+    <Navbar className={classes.formCenter} height={500} width={{ sm: 200 }} p="xl">
+      <Navbar.Section grow className={classes.alignLeft}>
+        <LinksGroup {...{ label: "Squads", icon: IconFriends, links: squadsData }} />
         <LinksGroup {...settingsdata} />
       </Navbar.Section>
+
 
       <Navbar.Section className={classes.footer}>
         <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
@@ -199,4 +208,4 @@ export function NavbarSimple() {
       </Navbar.Section>
     </Navbar>
   );
-}
+};
