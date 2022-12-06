@@ -6,6 +6,7 @@ import {
   Group,
   Badge,
   Button,
+  Radio,
   ActionIcon,
   createStyles,
   Grid,
@@ -50,6 +51,8 @@ const useStyles = createStyles((theme) => ({
     overflow: "hidden",
     textOverflow: "ellipsis",
   },
+
+  onClick: 
 }));
 
 interface BadgeCardProps {
@@ -135,6 +138,10 @@ function BadgeCard() {
         <ActionIcon variant="default" radius="md" size={36}>
           <IconMoneybag size={18} className={classes.money} stroke={1.5} />
         </ActionIcon>
+        <Radio.Group>
+          <Radio value="like"></Radio>
+        </Radio.Group>
+        
 
         {}
       </Group>

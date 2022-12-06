@@ -23,15 +23,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
-<<<<<<< HEAD
     "react-query": "^3.39.2",
-    "tabler": "^1.0.0-alpha.8"
-=======
     "react-router-dom": "^6.4.4",
     "tabler": "^1.0.0-alpha.8",
     "vite-plugin-svgr": "^2.2.2",
     "vite-tsconfig-paths": "^3.6.0"
->>>>>>> 80607012d3d651d9db05e73b5b246670fddaa817
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
