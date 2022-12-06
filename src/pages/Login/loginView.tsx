@@ -14,7 +14,7 @@ import {
 import { useForm } from "@mantine/form";
 import { AuthError } from "firebase/auth";
 
-import { registerRoute } from "../../App";
+import { registerRoute, requestResetRoute } from "../../App";
 import { LoginFormValues } from "./loginPresenter";
 
 const useStyles = createStyles(theme => ({
@@ -61,12 +61,12 @@ const useStyles = createStyles(theme => ({
 
 interface LoginViewProps {
   onSubmit: (values: LoginFormValues) => void;
-  loading: boolean | undefined;
-  error: AuthError | undefined;
-  verified?: boolean;
+  loading?: boolean;
+  error?: AuthError;
+  successMsg?: string;
 }
 
-export default function LoginView({ onSubmit, loading, error, verified }: LoginViewProps) {
+export default function LoginView({ onSubmit, loading, error, successMsg }: LoginViewProps) {
   const { classes } = useStyles();
 
   const form = useForm({
@@ -95,9 +95,9 @@ export default function LoginView({ onSubmit, loading, error, verified }: LoginV
                   Welcome back to GameSquad!
                 </Title>
 
-                {verified && (
+                {successMsg && (
                   <Text color="green" align="center" mb={20}>
-                    Your email has been verified, you can now log in!
+                    {successMsg}
                   </Text>
                 )}
 
@@ -114,6 +114,12 @@ export default function LoginView({ onSubmit, loading, error, verified }: LoginV
                   size="md"
                   {...form.getInputProps("password")}
                 />
+                <Text align="center" mt="md">
+                  Forgotten your password?{" "}
+                  <Link to={requestResetRoute.path ?? "/request-reset"}>
+                    <Anchor weight={300}>Reset</Anchor>
+                  </Link>
+                </Text>
                 {error && (
                   <Text color="red" size="sm" mt="xs">
                     Invalid email or password

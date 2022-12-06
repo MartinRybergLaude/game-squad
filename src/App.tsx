@@ -8,6 +8,7 @@ import DashboardView from "./pages/Dashboard/dashboardView";
 import LoginPresenter from "./pages/Login/loginPresenter";
 import { NotFound } from "./pages/NotFound/notFoundView";
 import RegisterPresenter from "./pages/Register/registerPresenter";
+import RequestResetPasswordPresenter from "./pages/RequestResetPassword/requestResetPasswordPresenter";
 import VerificationPresenter from "./pages/Verification/verificationPresenter";
 
 export const dashboardRoute: RouteObject = {
@@ -27,6 +28,11 @@ export const notFoundRoute: RouteObject = {
 export const loginRoute: RouteObject = {
   path: "/login",
   element: <LoginPresenter />,
+};
+
+export const requestResetRoute: RouteObject = {
+  path: "/request-reset",
+  element: <RequestResetPasswordPresenter />,
 };
 
 export const registerRoute: RouteObject = {
@@ -57,6 +63,7 @@ const router = createBrowserRouter([
   verificationRoute,
   searchRoute,
   notFoundRoute,
+  requestResetRoute,
 ]);
 
 function App() {

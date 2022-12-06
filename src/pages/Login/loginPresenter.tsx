@@ -13,6 +13,13 @@ export default function LoginPresenter() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const verified = searchParams.get("verified");
+  const reset = searchParams.get("reset");
+
+  const successMsg = verified
+    ? "Email verified successfully! You can now log in."
+    : reset
+    ? "Password reset successfully! You can now log in."
+    : undefined;
 
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
@@ -25,11 +32,6 @@ export default function LoginPresenter() {
   }
 
   return (
-    <LoginView
-      onSubmit={handleSubmit}
-      loading={loading}
-      error={error}
-      verified={verified ? true : false}
-    />
+    <LoginView onSubmit={handleSubmit} loading={loading} error={error} successMsg={successMsg} />
   );
 }
