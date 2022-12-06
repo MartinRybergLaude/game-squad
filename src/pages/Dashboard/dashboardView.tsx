@@ -10,7 +10,8 @@ const useStyles = createStyles(theme => ({
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             height: "auto",
         },
-    }));
+    },
+}));
 
 export default function DashboardView() {
     const { classes } = useStyles();
