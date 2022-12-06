@@ -1,23 +1,26 @@
+import { useState } from "react";
 import {
   ActionIcon,
   Badge,
   Button,
   Card,
+  Center,
+  Checkbox,
+  CheckboxProps,
   createStyles,
   Grid,
   Group,
   Image,
   Radio,
+  SegmentedControl,
   Text,
 } from "@mantine/core";
-import { IconMoneybag, IconThumbDown, IconThumbUp } from "@tabler/icons";
-import { IconHeart } from "@tabler/icons";
+import { IconMoneybag, IconQuestionMark, IconThumbDown, IconThumbUp } from "@tabler/icons";
 
 const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
-    minWidth: "240px",
-    maxWidth: "300px",
+    Width: "240px",
     Hight: "340px",
   },
 
@@ -38,6 +41,10 @@ const useStyles = createStyles(theme => ({
     color: theme.colors.red[6],
   },
 
+  undecided: {
+    color: theme.colors.gray[6],
+  },
+
   money: {
     color: theme.colors.yellow[6],
   },
@@ -49,7 +56,7 @@ const useStyles = createStyles(theme => ({
   },
 
   truncateText: {
-    width: "16ch",
+    width: "20ch",
     whitespace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -107,6 +114,9 @@ const props = {
 function BadgeCard() {
   const { classes, theme } = useStyles();
   const { image, title, description, country, badges } = props;
+  const [value, setValue] = useState("undecided");
+  const CheckboxIcon: CheckboxProps["icon"] = ({ indeterminate, className }) =>
+    indeterminate ? <IconMoneybag className={className} /> : <IconMoneybag className={className} />;
 
   const features = badges.map(badge => (
     <Badge
@@ -136,20 +146,40 @@ function BadgeCard() {
       </Card.Section>
 
       <Group position="center" mt="xs">
-        <ActionIcon variant="default" radius="md" size={36}>
-          <IconThumbUp size={18} className={classes.like} stroke={1.5} />
-        </ActionIcon>
-        <ActionIcon variant="default" radius="md" size={36}>
-          <IconThumbDown size={18} className={classes.dislike} stroke={1.5} />
-        </ActionIcon>
-        <ActionIcon variant="default" radius="md" size={36}>
-          <IconMoneybag size={18} className={classes.money} stroke={1.5} />
-        </ActionIcon>
-        <Radio.Group>
-          <Radio value="like" className={classes.like}></Radio>
-        </Radio.Group>
-
-        {}
+        <SegmentedControl
+          radius="lg"
+          size="lg"
+          onChange={setValue}
+          data={[
+            {
+              label: (
+                <Center>
+                  <IconThumbUp size={18} className={classes.like} stroke={1.5} />
+                </Center>
+              ),
+              value: "like",
+            },
+            {
+              label: (
+                <Center>
+                  <IconQuestionMark size={18} className={classes.undecided} stroke={1.5} />
+                </Center>
+              ),
+              value: "undecided",
+            },
+            {
+              label: (
+                <Center>
+                  <IconThumbDown size={18} className={classes.dislike} stroke={1.5} />
+                </Center>
+              ),
+              value: "dislike",
+            },
+          ]}
+        />
+      </Group>
+      <Group position="center">
+        <Checkbox color="yellow" icon={CheckboxIcon} indeterminate mt="sm" size="xl" radius="lg" />
       </Group>
     </Card>
   );
