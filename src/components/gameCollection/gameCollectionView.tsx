@@ -17,8 +17,8 @@ const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
     minWidth: "240px",
-    Hight: "340px",
     maxWidth: "300px",
+    Hight: "340px",
   },
 
   section: {
@@ -53,6 +53,12 @@ const useStyles = createStyles(theme => ({
     whitespace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
+
+    radioToolbar: {
+      opacity: "0",
+      position: "fixed",
+      width: "0",
+    },
   },
 }));
 
@@ -140,7 +146,7 @@ function BadgeCard() {
           <IconMoneybag size={18} className={classes.money} stroke={1.5} />
         </ActionIcon>
         <Radio.Group>
-          <Radio value="like"></Radio>
+          <Radio value="like" className={classes.like}></Radio>
         </Radio.Group>
 
         {}
