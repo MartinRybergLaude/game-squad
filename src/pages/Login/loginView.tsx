@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   Center,
-  Checkbox,
   createStyles,
   Grid,
   PasswordInput,
@@ -15,7 +14,7 @@ import {
 import { useForm } from "@mantine/form";
 import { AuthError } from "firebase/auth";
 
-import { registerRoute } from "../../App";
+import { registerRoute, requestResetRoute } from "../../App";
 import { LoginFormValues } from "./loginPresenter";
 
 const useStyles = createStyles(theme => ({
@@ -45,24 +44,29 @@ const useStyles = createStyles(theme => ({
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
   },
   coverImgWrapper: {
+    padding: 64,
+    paddingLeft: 0,
     [`@media (max-width: ${theme.breakpoints.md}px)`]: {
       display: "none",
     },
   },
   coverImg: {
-    height: "100vh",
-    backgroundImage: "url(src/assets/login.jpg)",
+    height: "100%",
+    backgroundImage:
+      "url(https://images.unsplash.com/photo-1608403890614-ec62cb35b46e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80)",
     backgroundSize: "cover",
+    filter: "hue-rotate(340deg)",
   },
 }));
 
 interface LoginViewProps {
   onSubmit: (values: LoginFormValues) => void;
-  loading: boolean | undefined;
-  error: AuthError | undefined;
+  loading?: boolean;
+  error?: AuthError;
+  successMsg?: string;
 }
 
-export default function LoginView({ onSubmit, loading, error }: LoginViewProps) {
+export default function LoginView({ onSubmit, loading, error, successMsg }: LoginViewProps) {
   const { classes } = useStyles();
 
   const form = useForm({
@@ -91,6 +95,12 @@ export default function LoginView({ onSubmit, loading, error }: LoginViewProps) 
                   Welcome back to GameSquad!
                 </Title>
 
+                {successMsg && (
+                  <Text color="green" align="center" mb={20}>
+                    {successMsg}
+                  </Text>
+                )}
+
                 <TextInput
                   label="Email address"
                   placeholder="hello@gmail.com"
@@ -104,14 +114,24 @@ export default function LoginView({ onSubmit, loading, error }: LoginViewProps) 
                   size="md"
                   {...form.getInputProps("password")}
                 />
-                <Checkbox label="Keep me logged in" mt="xl" size="md" />
+                <Text align="center" mt="md">
+                  Forgotten your password?{" "}
+                  <Link to={requestResetRoute.path ?? "/request-reset"}>
+                    <Anchor weight={300}>Reset</Anchor>
+                  </Link>
+                </Text>
+                {error && (
+                  <Text color="red" size="sm" mt="xs">
+                    Invalid email or password
+                  </Text>
+                )}
                 <Button type="submit" fullWidth mt="xl" size="md" loading={loading}>
                   Login
                 </Button>
 
                 <Text align="center" mt="md">
                   Don&apos;t have an account?{" "}
-                  <Link to={registerRoute.path}>
+                  <Link to={registerRoute.path ?? "/register"}>
                     <Anchor weight={700}>Register</Anchor>
                   </Link>
                 </Text>

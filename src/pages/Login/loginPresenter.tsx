@@ -1,5 +1,5 @@
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { dashboardRoute } from "../../App";
 import { auth } from "../../firebaseConfig";
@@ -11,6 +11,15 @@ export interface LoginFormValues {
 }
 export default function LoginPresenter() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const verified = searchParams.get("verified");
+  const reset = searchParams.get("reset");
+
+  const successMsg = verified
+    ? "Email verified successfully! You can now log in."
+    : reset
+    ? "Password reset successfully! You can now log in."
+    : undefined;
 
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
@@ -19,8 +28,10 @@ export default function LoginPresenter() {
   }
 
   if (user) {
-    navigate(dashboardRoute.path);
+    navigate(dashboardRoute.path || "/");
   }
 
-  return <LoginView onSubmit={handleSubmit} loading={loading} error={error} />;
+  return (
+    <LoginView onSubmit={handleSubmit} loading={loading} error={error} successMsg={successMsg} />
+  );
 }

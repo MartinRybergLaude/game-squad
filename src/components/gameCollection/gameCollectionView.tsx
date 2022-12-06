@@ -1,21 +1,21 @@
-import { IconThumbUp, IconThumbDown, IconMoneybag } from "@tabler/icons";
 import {
-  Card,
-  Image,
-  Text,
-  Group,
+  ActionIcon,
   Badge,
   Button,
-  Radio,
-  ActionIcon,
+  Card,
   createStyles,
   Grid,
+  Group,
+  Image,
+  Radio,
+  Text,
 } from "@mantine/core";
+import { IconMoneybag, IconThumbDown, IconThumbUp } from "@tabler/icons";
+import { IconHeart } from "@tabler/icons";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(theme => ({
   card: {
-    backgroundColor:
-      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
   },
 
   section: {
@@ -51,8 +51,6 @@ const useStyles = createStyles((theme) => ({
     overflow: "hidden",
     textOverflow: "ellipsis",
   },
-
-  onClick: 
 }));
 
 interface BadgeCardProps {
@@ -101,7 +99,7 @@ function BadgeCard() {
   const { classes, theme } = useStyles();
   const { image, title, description, country, badges } = props;
 
-  const features = badges.map((badge) => (
+  const features = badges.map(badge => (
     <Badge
       color={theme.colorScheme === "dark" ? "dark" : "gray"}
       key={badge.label}
@@ -141,7 +139,6 @@ function BadgeCard() {
         <Radio.Group>
           <Radio value="like"></Radio>
         </Radio.Group>
-        
 
         {}
       </Group>
