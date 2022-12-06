@@ -49,7 +49,7 @@ module.exports = {
     },
   ],
   rules: {
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": ["error", "windows"],
     quotes: ["error", "double"],
     semi: "off",
     "@typescript-eslint/semi": ["error"],

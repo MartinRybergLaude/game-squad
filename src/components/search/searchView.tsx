@@ -1,6 +1,7 @@
 import { ScrollArea, SimpleGrid, TextInput } from "@mantine/core";
 
 import SearchCard from "./searchCard";
+import searchGame from "./searchFunction";
 import searchProps from "./searchPropsStandIn"; // Stand-in for search results list
 
 interface SearchViewProps {
@@ -21,7 +22,12 @@ export default function SearchView() {
 
   return (
     <>
-      <TextInput placeholder="Search" size="xs" mb="sm" />
+      <TextInput
+        placeholder="Search"
+        size="xs"
+        mb="sm"
+        onChange={event => searchGame(event.currentTarget.value.trim())}
+      />
       <ScrollArea style={{ height: 500 }}>
         <SimpleGrid cols={3} breakpoints={[{ maxWidth: "xs", cols: 1 }]}>
           {cards}
