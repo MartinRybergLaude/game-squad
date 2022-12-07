@@ -181,8 +181,11 @@ const squadsData = [
   }
 ];
 
+interface SidebarViewProps {
+  openSettingsModal: () => void;
+}
 
-export function SidebarView(openSettingsModal: any) {
+export function SidebarView({ openSettingsModal }: SidebarViewProps) {
   const { classes} = useStyles();
 
   return (
@@ -193,14 +196,13 @@ export function SidebarView(openSettingsModal: any) {
 
 
       <Navbar.Section className={classes.footer}>
-        <a 
-          href="#" 
+        <button
           className={classes.link} 
-          onClick={openSettingsModal}
+          onClick={() => openSettingsModal()}
         >
           <IconSettings className={classes.linkIcon} stroke={1.5} />
           <span>Settings</span>
-        </a>
+        </button>
         <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>

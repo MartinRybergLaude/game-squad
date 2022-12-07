@@ -1,10 +1,11 @@
 import { AppShell, Center, createStyles, Grid, Modal, Title, Button } from "@mantine/core";
+import { Provider } from "jotai";
 import { useState } from "react";
+import SettingsModalPresenter from "~/components/settings/settingsModalPresenter";
 
 import SidebarPresenter from "~/components/sidebar/sidebarPresenter";
 
 import { GameCollectionView } from "../../components/gameCollection/gameCollectionView";
-import { SettingsModal }from "../../components/settings/settingsView"; // Should actually be the presenter
 
 
 const useStyles = createStyles(theme => ({
@@ -25,11 +26,13 @@ export default function DashboardView() {
   }
 
   return (
-    <AppShell navbar={<SidebarPresenter openSettingsModal={openSettingsModal}/>}>
-        <Title order={1}>Dashboard</Title>
-        <Button onClick={openSettingsModal}>Open Settings</Button>
-        <SettingsModal showSettingsModal={showSettingsModal} setShowSettingsModal={setShowSettingsModal}/>
-        <GameCollectionView />
-    </AppShell>
+    <Provider>
+      <AppShell navbar={<SidebarPresenter/>}>
+          <Title order={1}>Dashboard</Title>
+          <Button onClick={openSettingsModal}>Open Settings</Button>
+          <SettingsModalPresenter />
+          <GameCollectionView />
+      </AppShell>
+    </Provider>
   );
 }
