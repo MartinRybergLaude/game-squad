@@ -8,6 +8,8 @@ import {
   Text,
   ThemeIcon,
   UnstyledButton,
+  Modal,
+  Button,
 } from "@mantine/core";
 import {
   IconChevronLeft,
@@ -18,6 +20,8 @@ import {
   IconSwitchHorizontal,
   TablerIcon,
 } from "@tabler/icons";
+import { openModal, closeAllModals } from '@mantine/modals';
+//import SettingsModal from "../settings/settingsView"; // Should actually be the presenter
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
@@ -177,7 +181,8 @@ const squadsData = [
   }
 ];
 
-export function SidebarView() {
+
+export function SidebarView(openSettingsModal: any) {
   const { classes} = useStyles();
 
   return (
@@ -188,7 +193,11 @@ export function SidebarView() {
 
 
       <Navbar.Section className={classes.footer}>
-        <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
+        <a 
+          href="#" 
+          className={classes.link} 
+          onClick={openSettingsModal}
+        >
           <IconSettings className={classes.linkIcon} stroke={1.5} />
           <span>Settings</span>
         </a>
