@@ -177,24 +177,13 @@ const squadsData = [
   }
 ];
 
-const settingsdata = {
-  label: "Settings",
-  icon: IconSettings,
-  links: [
-    { label: "Kurt", link: "/" },
-    { label: "Fredrik", link: "/" },
-    { label: "Gillar pengar", link: "/" },
-  ],
-};
-
 export function SidebarView() {
-  const { classes, cx } = useStyles();
+  const { classes} = useStyles();
 
   return (
     <Navbar width={{ sm: 200 }} p="xl">
       <Navbar.Section grow>
         <LinksGroup {...{ label: "Squads", icon: IconFriends, links: squadsData }} />
-        <LinksGroup {...settingsdata} />
       </Navbar.Section>
 
 
