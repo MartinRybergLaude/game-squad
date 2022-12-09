@@ -1,27 +1,33 @@
+import React from "react";
 import { useQuery } from "react-query";
+import { useSearchParams } from "react-router-dom";
 
 import { getSelectedGames } from "~/api";
-import { Game } from "~/types";
 
+// import { Game } from "~/types";
 // import searchGame from "./searchFunction";
+// import searchProps from "./searchPropsStandIn";
 import SearchView from "./searchView";
 
-interface GameCardPresenterProps {
-  game: Game;
-}
-
-function searchGame(param: string) {
-  if (param.length > 2) {
-    return getSelectedGames([param], "search");
-  }
-}
-
 export default function SearchPresenter() {
-  function searchFunctionACB(input: string) {
-    const { data } = useQuery(["games"], () => searchGame(input));
-  }
+  const [searchParams, setSearchParams] = React.useState("");
+  // const [, reRender] = React.useState();
 
-  const { data } = useQuery(["games"], () => getSelectedGames(["Thief"], "search"));
+  // function notifyACB() {
+  //   console.log("Refetch!");
+  //   reRender(new Object());
+  // }
 
-  return data ? <SearchView games={data} searchFunction={searchFunctionACB} /> : null;
+  const searchGame = value => {
+    // if (value.length > 2) {
+    setSearchParams(value);
+    // notifyACB();
+    // }
+  };
+  const param = searchParams;
+  const { data } = param
+    ? useQuery(["games"], () => getSelectedGames([param], "search"))
+    : useQuery(["games"], () => getSelectedGames(["thief"], "search"));
+
+  return <SearchView games={data} searchGame={searchGame} />;
 }

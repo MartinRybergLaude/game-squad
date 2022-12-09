@@ -68,7 +68,7 @@ export default function SearchCard(props: SearchCardProps) {
       <div className={classes.flex}>
         <div>
           <Card.Section>
-            <Image src={image} alt={title} height={180} />
+            <Image src={image.replace("t_thumb", "t_cover_big")} alt={title} height={180} />
           </Card.Section>
           <Card.Section className={classes.section} mt="md">
             <Flex direction="column" gap="5px">
