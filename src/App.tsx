@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 
 import RequireAuth from "./components/requireAuth/requireAuth";
 import ModalView from "./components/search/modalView";
@@ -86,9 +87,11 @@ function App() {
         cursorType: "pointer",
       }}
     >
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <ModalsProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </ModalsProvider>
     </MantineProvider>
   );
 }
