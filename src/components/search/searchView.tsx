@@ -4,19 +4,26 @@ import SearchCard from "./searchCard";
 import searchGame from "./searchFunction";
 import searchProps from "./searchPropsStandIn"; // Stand-in for search results list
 
-interface SearchViewProps {
-  searchProps: Array<string>;
+interface GameCollectionViewProps {
+  games: Game[];
 }
 
-export default function SearchView() {
-  const cards = searchProps.map(card => (
+// interface SearchViewProps {
+//   searchProps: Array<string>;
+// }
+
+export default function SearchView({ games }: GameCollectionViewProps) {
+  const cards = games.map(game => (
     <SearchCard
-      image={card.image}
-      title={card.title}
-      description={card.description}
-      key={card.title}
-      genres={card.genres}
-      price={card.price}
+      image={game.cover.url}
+      title={game.name}
+      description={game.summary}
+      key={game.id}
+      // These don't exist in the Game type at the moment
+      genres={["Multiplayer", "Fun"]}
+      price={"$0.00"}
+      // genres={game.genres}
+      // price={game.price}
     />
   ));
 

@@ -4,7 +4,8 @@
 import { useState } from "react";
 import { Button, Group, Modal } from "@mantine/core";
 
-import SearchView from "./searchView";
+// import SearchView from "./searchView";
+import SearchPresenter from "./searchPresenter";
 
 export default function ModalView() {
   const [opened, setOpened] = useState(false);
@@ -12,7 +13,7 @@ export default function ModalView() {
   return (
     <>
       <Modal opened={opened} onClose={() => setOpened(false)} size="xl" title="Add game:">
-        {<SearchView />}
+        {<SearchPresenter />}
       </Modal>
 
       <Group position="center">

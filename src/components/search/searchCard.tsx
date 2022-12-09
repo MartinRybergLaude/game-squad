@@ -1,6 +1,16 @@
 // TODO: modify as needed
 
-import { Badge, Button, Card, createStyles, Group, Image, ScrollArea, Text } from "@mantine/core";
+import {
+  Badge,
+  Button,
+  Card,
+  createStyles,
+  Flex,
+  Group,
+  Image,
+  ScrollArea,
+  Text,
+} from "@mantine/core";
 
 const useStyles = createStyles(theme => ({
   card: {
@@ -61,19 +71,21 @@ export default function SearchCard(props: SearchCardProps) {
             <Image src={image} alt={title} height={180} />
           </Card.Section>
           <Card.Section className={classes.section} mt="md">
-            <Group position="apart">
+            <Flex direction="column" gap="5px">
               <Text size="lg" weight={500}>
                 {title}
               </Text>
-              <Badge color="green" variant="outline">
-                {price}
-              </Badge>
+              <Group>
+                <Badge color="green" variant="outline" size="sm">
+                  {price}
+                </Badge>
+              </Group>
               <ScrollArea type="auto">
                 <Group spacing={7} mb={20} mt={0} noWrap={true}>
                   {categories}
                 </Group>
               </ScrollArea>
-            </Group>
+            </Flex>
 
             <Text className={classes.text} size="xs" mt={0} lineClamp={4}>
               {description}
