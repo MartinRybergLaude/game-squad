@@ -21,6 +21,8 @@ import {
   IconSwitchHorizontal,
   TablerIcon,
 } from "@tabler/icons";
+
+import SettingsModalPresenter from "../settings/settingsModalPresenter";
 //import SettingsModal from "../settings/settingsView"; // Should actually be the presenter
 
 const useStyles = createStyles((theme, _params, getRef) => {
@@ -197,7 +199,15 @@ export function SidebarView({ openSettingsModal }: SidebarViewProps) {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <button className={classes.link} onClick={() => openSettingsModal()}>
+        <button
+          className={classes.link}
+          onClick={() => {
+            openModal({
+              title: "Settings",
+              children: <SettingsModalPresenter />,
+            });
+          }}
+        >
           <IconSettings className={classes.linkIcon} stroke={1.5} />
           <span>Settings</span>
         </button>
