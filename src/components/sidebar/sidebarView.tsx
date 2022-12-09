@@ -1,14 +1,17 @@
 import { useState } from "react";
 import {
   Box,
+  Button,
   Collapse,
   createStyles,
   Group,
+  Modal,
   Navbar,
   Text,
   ThemeIcon,
   UnstyledButton,
 } from "@mantine/core";
+import { closeAllModals, openModal } from "@mantine/modals";
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -18,6 +21,9 @@ import {
   IconSwitchHorizontal,
   TablerIcon,
 } from "@tabler/icons";
+
+import SettingsModalPresenter from "../settings/settingsModalPresenter";
+//import SettingsModal from "../settings/settingsView"; // Should actually be the presenter
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
@@ -55,22 +61,24 @@ const useStyles = createStyles((theme, _params, getRef) => {
     header: {
       paddingBottom: theme.spacing.md,
       marginBottom: theme.spacing.md * 1.5,
-      borderBottom: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
-        }`,
+      borderBottom: `1px solid ${
+        theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
+      }`,
     },
 
     footer: {
       paddingTop: theme.spacing.md,
       marginTop: theme.spacing.md,
-      borderTop: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
-        }`,
+      borderTop: `1px solid ${
+        theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
+      }`,
     },
 
     link: {
       ...theme.fn.focusStyles(),
-      display: 'flex',
-      alignItems: 'align',
-      textDecoration: 'none',
+      display: "flex",
+      alignItems: "align",
+      textDecoration: "none",
       fontSize: theme.fontSizes.sm,
       color: theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7],
       padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
@@ -156,29 +164,33 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
       {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
     </>
   );
-};
+}
 
 const squadsData = [
   {
     label: "Alpha",
-    link: "/"
+    link: "/",
   },
   {
     label: "Beta",
-    link: "/"
+    link: "/",
   },
   {
     label: "Charlie",
-    link: "/"
+    link: "/",
   },
   {
     label: "Delta",
-    link: "/"
-  }
+    link: "/",
+  },
 ];
 
-export function SidebarView() {
-  const { classes} = useStyles();
+interface SidebarViewProps {
+  openSettingsModal: () => void;
+}
+
+export function SidebarView({ openSettingsModal }: SidebarViewProps) {
+  const { classes } = useStyles();
 
   return (
     <Navbar width={{ sm: 200 }} p="xl">
@@ -186,12 +198,19 @@ export function SidebarView() {
         <LinksGroup {...{ label: "Squads", icon: IconFriends, links: squadsData }} />
       </Navbar.Section>
 
-
       <Navbar.Section className={classes.footer}>
-        <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
+        <button
+          className={classes.link}
+          onClick={() => {
+            openModal({
+              title: "Settings",
+              children: <SettingsModalPresenter />,
+            });
+          }}
+        >
           <IconSettings className={classes.linkIcon} stroke={1.5} />
           <span>Settings</span>
-        </a>
+        </button>
         <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
