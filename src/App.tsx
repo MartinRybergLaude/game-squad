@@ -1,7 +1,7 @@
-import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import RequireAuth from "./components/requireAuth/requireAuth";
 import ModalView from "./components/search/modalView";
@@ -79,7 +79,7 @@ function App() {
         colorScheme: "dark",
         globalStyles: () => ({
           body: {
-            overflow: "hidden",
+            overflowX: "hidden",
           },
         }),
         primaryColor: "red",
