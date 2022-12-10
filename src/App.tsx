@@ -1,6 +1,6 @@
-import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import RequireAuth from "./components/requireAuth/requireAuth";
 import ModalView from "./components/search/modalView";

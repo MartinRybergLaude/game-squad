@@ -1,20 +1,16 @@
 import { ScrollArea, SimpleGrid, Text, TextInput } from "@mantine/core";
 
-import SearchCard from "./searchCard";
-// import searchGame from "./searchFunction";
-// import searchProps from "./searchPropsStandIn"; // Stand-in for search results list
+import { Game } from "~/types";
 
-interface GameCollectionViewProps {
-  games: Game[];
-  // searchGame: string;
+import SearchCard from "./searchCard";
+
+interface SearchViewProps {
+  games?: Game[];
+  searchGame: (value: string) => void;
 }
 
-// interface SearchViewProps {
-//   searchProps: Array<string>;
-// }
-
 // TODO: clean up this function
-export default function SearchView({ games, searchGame }: GameCollectionViewProps) {
+export default function SearchView({ games, searchGame }: SearchViewProps) {
   // console.log(games.length);
   if (!games) {
     return (
@@ -24,7 +20,6 @@ export default function SearchView({ games, searchGame }: GameCollectionViewProp
           size="xs"
           mb="sm"
           onChange={event => searchGame(event.currentTarget.value.trim())}
-          // value="Hello"
         />
         <Text>Loading...</Text>;
       </>
