@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import RequireAuth from "./components/requireAuth/requireAuth";
 import ModalView from "./components/search/modalView";
 import AuthPresenter from "./pages/Auth/authPresenter";
-import DashboardView from "./pages/Dashboard/dashboardView";
+import DashboardPresenter from "./pages/Dashboard/dashboardPresenter";
 import LoginPresenter from "./pages/Login/loginPresenter";
 import NotFoundPresenter from "./pages/NotFound/notFoundPresenter";
 import RegisterPresenter from "./pages/Register/registerPresenter";
@@ -19,7 +19,7 @@ export const dashboardRoute: RouteObject = {
   path: "/dashboard",
   element: (
     <RequireAuth>
-      <DashboardView />
+      <DashboardPresenter />
     </RequireAuth>
   ),
 };

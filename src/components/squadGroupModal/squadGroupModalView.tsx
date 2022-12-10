@@ -2,9 +2,9 @@ import { useEffect, useRef } from "react";
 import { Button, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
-import { CreateSquadFormValues } from "./createSquadModalPresenter";
+import { CreateSquadFormValues } from "./squadGroupModalPresenter";
 
-interface CreateSquadModalViewProps {
+interface CreateGroupModalViewProps {
   onSubmit: (values: CreateSquadFormValues) => void;
   loading: boolean;
   error?: string;
@@ -14,7 +14,7 @@ export default function CreateSquadModalView({
   onSubmit,
   loading,
   error,
-}: CreateSquadModalViewProps) {
+}: CreateGroupModalViewProps) {
   const form = useForm({
     initialValues: {
       name: "",

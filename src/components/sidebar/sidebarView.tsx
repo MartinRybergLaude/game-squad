@@ -1,29 +1,9 @@
-import { useState } from "react";
-import {
-  Box,
-  Button,
-  Collapse,
-  createStyles,
-  Group,
-  Modal,
-  Navbar,
-  Text,
-  ThemeIcon,
-  UnstyledButton,
-} from "@mantine/core";
-import { closeAllModals, openModal } from "@mantine/modals";
-import {
-  IconChevronLeft,
-  IconChevronRight,
-  IconFriends,
-  IconLogout,
-  IconSettings,
-  IconSwitchHorizontal,
-  TablerIcon,
-} from "@tabler/icons";
+import { createStyles, Navbar, UnstyledButton } from "@mantine/core";
+import { openModal } from "@mantine/modals";
+import { IconLogout, IconSettings } from "@tabler/icons";
 
 import SettingsModalPresenter from "../settings/settingsModalPresenter";
-//import SettingsModal from "../settings/settingsView"; // Should actually be the presenter
+import GroupSelectPresenter from "../squadSelect/squadSelectPresenter";
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
@@ -77,7 +57,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
     link: {
       ...theme.fn.focusStyles(),
       display: "flex",
-      alignItems: "align",
+      alignItems: "center",
       textDecoration: "none",
       fontSize: theme.fontSizes.sm,
       color: theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7],
@@ -114,92 +94,17 @@ const useStyles = createStyles((theme, _params, getRef) => {
   };
 });
 
-interface LinksGroupProps {
-  icon: TablerIcon;
-  label: string;
-  initiallyOpened?: boolean;
-  links?: { label: string; link: string }[];
-}
-
-export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksGroupProps) {
-  const { classes, theme } = useStyles();
-
-  const hasLinks = Array.isArray(links);
-  const [opened, setOpened] = useState(initiallyOpened || false);
-  const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;
-  const items = (hasLinks ? links : []).map(link => (
-    <Text<"a">
-      component="a"
-      className={classes.link}
-      href={link.link}
-      key={link.label}
-      onClick={event => event.preventDefault()}
-    >
-      {link.label}
-    </Text>
-  ));
-
-  return (
-    <>
-      <UnstyledButton onClick={() => setOpened(o => !o)} className={classes.control}>
-        <Group position="apart" spacing={0}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <ThemeIcon variant="light" size={30}>
-              <Icon size={18} />
-            </ThemeIcon>
-            <Box ml="md">{label}</Box>
-          </Box>
-          {hasLinks && (
-            <ChevronIcon
-              className={classes.chevron}
-              size={14}
-              stroke={1.5}
-              style={{
-                transform: opened ? `rotate(${theme.dir === "rtl" ? -90 : 90}deg)` : "none",
-              }}
-            />
-          )}
-        </Group>
-      </UnstyledButton>
-      {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
-    </>
-  );
-}
-
-const squadsData = [
-  {
-    label: "Alpha",
-    link: "/",
-  },
-  {
-    label: "Beta",
-    link: "/",
-  },
-  {
-    label: "Charlie",
-    link: "/",
-  },
-  {
-    label: "Delta",
-    link: "/",
-  },
-];
-
-interface SidebarViewProps {
-  openSettingsModal: () => void;
-}
-
-export function SidebarView({ openSettingsModal }: SidebarViewProps) {
+export default function SidebarView() {
   const { classes } = useStyles();
 
   return (
     <Navbar width={{ sm: 200 }} p="xl">
       <Navbar.Section grow>
-        <LinksGroup {...{ label: "Squads", icon: IconFriends, links: squadsData }} />
+        <GroupSelectPresenter />
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <button
+        <UnstyledButton
           className={classes.link}
           onClick={() => {
             openModal({
@@ -210,7 +115,7 @@ export function SidebarView({ openSettingsModal }: SidebarViewProps) {
         >
           <IconSettings className={classes.linkIcon} stroke={1.5} />
           <span>Settings</span>
-        </button>
+        </UnstyledButton>
         <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>

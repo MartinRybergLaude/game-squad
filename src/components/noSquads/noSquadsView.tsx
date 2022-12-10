@@ -1,7 +1,7 @@
 import { Button, Group, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 
-import CreateSquadModalPresenter from "../createSquadModal/createSquadModalPresenter";
+import CreateSquadModalPresenter from "../squadGroupModal/squadGroupModalPresenter";
 
 export default function NoSquadsView() {
   return (
