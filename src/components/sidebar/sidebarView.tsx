@@ -23,7 +23,6 @@ import {
 } from "@tabler/icons";
 
 import SettingsModalPresenter from "../settings/settingsModalPresenter";
-//import SettingsModal from "../settings/settingsView"; // Should actually be the presenter
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
@@ -185,11 +184,7 @@ const squadsData = [
   },
 ];
 
-interface SidebarViewProps {
-  openSettingsModal: () => void;
-}
-
-export function SidebarView({ openSettingsModal }: SidebarViewProps) {
+export function SidebarView() {
   const { classes } = useStyles();
 
   return (

@@ -18,18 +18,11 @@ const useStyles = createStyles(theme => ({
 
 export default function DashboardView() {
   const { classes } = useStyles();
-  const [showSettingsModal, setShowSettingsModal] = useState(false);
-
-  function openSettingsModal() {
-    setShowSettingsModal(prev => !prev);
-  }
 
   return (
     <Provider>
       <AppShell navbar={<SidebarPresenter />}>
         <Title order={1}>Dashboard</Title>
-        <Button onClick={openSettingsModal}>Open Settings</Button>
-        <SettingsModalPresenter />
         <GameCollectionView />
       </AppShell>
     </Provider>
