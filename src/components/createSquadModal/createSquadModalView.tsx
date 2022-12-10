@@ -1,14 +1,20 @@
 import { useEffect, useRef } from "react";
-import { Button, TextInput } from "@mantine/core";
+import { Button, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 import { CreateSquadFormValues } from "./createSquadModalPresenter";
 
 interface CreateSquadModalViewProps {
   onSubmit: (values: CreateSquadFormValues) => void;
+  loading: boolean;
+  error?: string;
 }
 
-export default function CreateSquadModalView({ onSubmit }: CreateSquadModalViewProps) {
+export default function CreateSquadModalView({
+  onSubmit,
+  loading,
+  error,
+}: CreateSquadModalViewProps) {
   const form = useForm({
     initialValues: {
       name: "",
@@ -29,8 +35,18 @@ export default function CreateSquadModalView({ onSubmit }: CreateSquadModalViewP
 
   return (
     <form onSubmit={form.onSubmit(values => onSubmit(values))}>
-      <TextInput label="Squad Name" placeholder="Squad Name" autoFocus ref={inputElement} />
-      <Button type="submit" fullWidth mt={24}>
+      <TextInput
+        label="Squad Name"
+        placeholder="Squad Name"
+        ref={inputElement}
+        {...form.getInputProps("name")}
+      />
+      {error && (
+        <Text color="red" size="sm" mt={8}>
+          {error}
+        </Text>
+      )}
+      <Button type="submit" fullWidth mt={24} loading={loading}>
         Create
       </Button>
     </form>
