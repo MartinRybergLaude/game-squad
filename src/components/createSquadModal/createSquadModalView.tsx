@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Button, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
-import { CreateSquadFormValues } from "./squadGroupModalPresenter";
+import { CreateSquadFormValues } from "./createSquadModalPresenter";
 
 interface CreateGroupModalViewProps {
   onSubmit: (values: CreateSquadFormValues) => void;

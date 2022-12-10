@@ -8,7 +8,7 @@ import { auth, db } from "~/firebaseConfig";
 import { selectedSquadIdAtom } from "~/store";
 import { generateSquadHash } from "~/utils";
 
-import CreateSquadModalView from "./squadGroupModalView";
+import CreateSquadModalView from "./createSquadModalView";
 
 export interface CreateSquadFormValues {
   name: string;
