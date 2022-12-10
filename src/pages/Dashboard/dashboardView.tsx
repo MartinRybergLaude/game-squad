@@ -1,21 +1,11 @@
 import { AppShell, Title } from "@mantine/core";
+import { useForm } from "@mantine/form";
 
 import SidebarPresenter from "~/components/sidebar/sidebarPresenter";
 
 import GameCollectionPresenter from "../../components/gameCollection/gameCollectionView";
 
-const useStyles = createStyles(theme => ({
-  formCenter: {
-    height: "100vh",
-    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-      height: "auto",
-    },
-  },
-}));
-
 export default function DashboardView() {
-  const { classes } = useStyles();
-
   return (
     <AppShell navbar={<SidebarPresenter />}>
       <Title order={1}>Dashboard</Title>

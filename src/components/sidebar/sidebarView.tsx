@@ -1,24 +1,21 @@
 import { useState } from "react";
 import {
   Box,
-  Button,
   Collapse,
   createStyles,
   Group,
-  Modal,
   Navbar,
   Text,
   ThemeIcon,
   UnstyledButton,
 } from "@mantine/core";
-import { closeAllModals, openModal } from "@mantine/modals";
+import { openModal } from "@mantine/modals";
 import {
   IconChevronLeft,
   IconChevronRight,
   IconFriends,
   IconLogout,
   IconSettings,
-  IconSwitchHorizontal,
   TablerIcon,
 } from "@tabler/icons";
 
