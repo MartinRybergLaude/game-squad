@@ -1,9 +1,7 @@
 import { ActionIcon, Button, createStyles, Group, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { IconArrowLeft } from "@tabler/icons";
-import { useAtom } from "jotai";
 
-import { selectedSquadIdAtom, squadsAtom } from "~/store";
 import { Squad } from "~/types";
 
 import CreateSquadModalPresenter from "../createSquadModal/createSquadModalPresenter";
