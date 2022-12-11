@@ -1,4 +1,4 @@
-import { Burger, createStyles, Text, Title } from "@mantine/core";
+import { Burger, createStyles, Title } from "@mantine/core";
 
 import { Squad } from "~/types";
 
@@ -45,7 +45,6 @@ export default function SquadScreenView({
   setSidebarOpen,
   sidebarOpen,
   squad,
-  error,
 }: SquadScreenViewProps) {
   const { classes } = useStyles();
   return (
@@ -62,7 +61,7 @@ export default function SquadScreenView({
           {squad?.name || "Loading..."}
         </Title>
       </header>
-      {error ? <Text color="red">{error.message}</Text> : <GameCollectionPresenter />}
+      {squad && <GameCollectionPresenter />}
     </>
   );
 }

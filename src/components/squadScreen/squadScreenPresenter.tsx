@@ -48,7 +48,6 @@ export default function SquadScreenPresenter() {
       setSidebarOpen={setSidebarOpen}
       sidebarOpen={sidebarOpen}
       squad={squadData?.data() as Squad}
-      error={error}
     />
   );
 }
