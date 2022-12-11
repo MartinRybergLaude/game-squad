@@ -3,7 +3,6 @@ import { Burger, createStyles, Text, Title } from "@mantine/core";
 import { Squad } from "~/types";
 
 import GameCollectionPresenter from "../gameCollection/gameCollectionPresenter";
-import LoaderScreenPresenter from "../loaderScreen/loaderScreenPresenter";
 
 const useStyles = createStyles(theme => ({
   header: {
@@ -39,7 +38,6 @@ interface SquadScreenViewProps {
   setSidebarOpen: (sidebarOpen: boolean) => void;
   sidebarOpen: boolean;
   squad?: Squad;
-  loading?: boolean;
   error?: Error;
 }
 
@@ -47,7 +45,6 @@ export default function SquadScreenView({
   setSidebarOpen,
   sidebarOpen,
   squad,
-  loading,
   error,
 }: SquadScreenViewProps) {
   const { classes } = useStyles();
@@ -65,13 +62,7 @@ export default function SquadScreenView({
           {squad?.name || "Loading..."}
         </Title>
       </header>
-      {loading ? (
-        <LoaderScreenPresenter />
-      ) : error ? (
-        <Text color="red">{error.message}</Text>
-      ) : (
-        <GameCollectionPresenter />
-      )}
+      {error ? <Text color="red">{error.message}</Text> : <GameCollectionPresenter />}
     </>
   );
 }

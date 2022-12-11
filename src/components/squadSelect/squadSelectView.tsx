@@ -106,12 +106,10 @@ export default function SquadSelectView({
           Join
         </Button>
       </Group>
-      {squadsLoading ? (
-        <LoaderScreenPresenter />
-      ) : squadsError ? (
-        <Text color="red">{squadsError.message}</Text>
-      ) : (
-        squads.map(squad => (
+      <div style={{ width: "100%", height: "100%", position: "relative" }}>
+        {squadsLoading && <LoaderScreenPresenter spinnerSize="md" />}
+        {squadsError && <Text color="red">{squadsError.message}</Text>}
+        {squads.map(squad => (
           <Button
             className={classes.btn}
             fullWidth
@@ -121,8 +119,8 @@ export default function SquadSelectView({
           >
             {squad.name}
           </Button>
-        ))
-      )}
+        ))}
+      </div>
     </>
   );
 }

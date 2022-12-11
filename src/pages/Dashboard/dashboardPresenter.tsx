@@ -6,7 +6,13 @@ import { collection, query, where } from "firebase/firestore";
 import { useAtom } from "jotai";
 
 import { auth, db } from "~/firebaseConfig";
-import { squadsAtom, squadsErrorAtom, squadsLoadingAtom } from "~/store";
+import {
+  selectedSquadErrorAtom,
+  selectedSquadLoadingAtom,
+  squadsAtom,
+  squadsErrorAtom,
+  squadsLoadingAtom,
+} from "~/store";
 import { ReloadFunction, Squad } from "~/types";
 
 import DashboardView from "./dashboardView";
@@ -40,13 +46,15 @@ export default function DashboardPresenter() {
     setSquadsError(squadsError);
   }, [squadsError]);
 
+  const [selectedSquadLoading] = useAtom(selectedSquadLoadingAtom);
+  const [selectedSquadError] = useAtom(selectedSquadErrorAtom);
+
   return (
     <ReloadContext.Provider value={reload}>
       <ModalsProvider>
         <DashboardView
-          squads={squadsData?.docs.map(doc => doc.data() as Squad)}
-          loading={squadsLoading}
-          error={squadsError}
+          loading={squadsLoading || selectedSquadLoading}
+          error={squadsError || selectedSquadError}
         />
       </ModalsProvider>
     </ReloadContext.Provider>

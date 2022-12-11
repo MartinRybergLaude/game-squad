@@ -1,11 +1,16 @@
+import { useEffect } from "react";
 import { useDocument } from "react-firebase-hooks/firestore";
-import { useMantineTheme } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { doc } from "firebase/firestore";
 import { useAtom } from "jotai";
 
 import { db } from "~/firebaseConfig";
-import { selectedSquadIdAtom, sidebarOpenAtom } from "~/store";
+import {
+  selectedSquadAtom,
+  selectedSquadErrorAtom,
+  selectedSquadIdAtom,
+  selectedSquadLoadingAtom,
+  sidebarOpenAtom,
+} from "~/store";
 import { Squad } from "~/types";
 
 import SquadScreenView from "./squadScreenView";
@@ -13,19 +18,36 @@ import SquadScreenView from "./squadScreenView";
 export default function SquadScreenPresenter() {
   const [sidebarOpen, setSidebarOpen] = useAtom(sidebarOpenAtom);
 
-  const theme = useMantineTheme();
-
   const [selectedSquadId] = useAtom(selectedSquadIdAtom);
-  const [squad, loading, error] = useDocument(
+  const [squadData, loading, error] = useDocument(
     selectedSquadId ? doc(db, "squads", selectedSquadId) : null,
   );
+
+  const [, setSelectedSquad] = useAtom(selectedSquadAtom);
+  const [, setSelectedSquadLoading] = useAtom(selectedSquadLoadingAtom);
+  const [, setSelectedSquadError] = useAtom(selectedSquadErrorAtom);
+
+  useEffect(() => {
+    if (squadData) {
+      setSelectedSquad(squadData.data() as Squad);
+    } else {
+      setSelectedSquad(undefined);
+    }
+  }, [squadData]);
+
+  useEffect(() => {
+    setSelectedSquadLoading(loading);
+  }, [loading]);
+
+  useEffect(() => {
+    setSelectedSquadError(error);
+  }, [error]);
 
   return (
     <SquadScreenView
       setSidebarOpen={setSidebarOpen}
       sidebarOpen={sidebarOpen}
-      squad={squad?.data() as Squad}
-      loading={loading}
+      squad={squadData?.data() as Squad}
       error={error}
     />
   );
