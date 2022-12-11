@@ -94,11 +94,15 @@ const useStyles = createStyles((theme, _params, getRef) => {
   };
 });
 
-export default function SidebarView() {
+interface SidebarViewProps {
+  sidebarOpen: boolean;
+}
+
+export default function SidebarView({ sidebarOpen }: SidebarViewProps) {
   const { classes } = useStyles();
 
   return (
-    <Navbar width={{ sm: 200 }} p="xl">
+    <Navbar width={{ sm: 200 }} p="xl" hidden={!sidebarOpen} hiddenBreakpoint="sm">
       <Navbar.Section grow>
         <GroupSelectPresenter />
       </Navbar.Section>

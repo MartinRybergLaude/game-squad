@@ -1,5 +1,6 @@
-import { Button, createStyles, Group, Title } from "@mantine/core";
+import { ActionIcon, Button, createStyles, Group, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
+import { IconArrowLeft } from "@tabler/icons";
 import { useAtom } from "jotai";
 
 import { selectedSquadIdAtom, squadsAtom } from "~/store";
@@ -21,12 +22,29 @@ const useStyles = createStyles(theme => ({
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
     }`,
   },
+  backButton: {
+    width: 32,
+    height: 32,
+    display: "block",
+    [`@media (min-width: ${theme.breakpoints.sm}px)`]: {
+      display: "none",
+    },
+  },
 }));
 
-export default function GroupSelectView() {
-  const [squads] = useAtom(squadsAtom);
-  const [selectedSquadId, setSelectedSquadId] = useAtom(selectedSquadIdAtom);
+interface GroupSelectViewProps {
+  squads: Squad[];
+  selectedSquadId: string | null;
+  onSelectSquadId: (squadId: string) => void;
+  onCloseSidebar: () => void;
+}
 
+export default function GroupSelectView({
+  squads,
+  selectedSquadId,
+  onSelectSquadId,
+  onCloseSidebar,
+}: GroupSelectViewProps) {
   const { classes } = useStyles();
 
   function getButtonVariant(squad: Squad) {
@@ -39,9 +57,14 @@ export default function GroupSelectView() {
 
   return (
     <>
-      <Title ml={8} order={3}>
-        Squads
-      </Title>
+      <Group align="center">
+        <ActionIcon onClick={() => onCloseSidebar()} className={classes.backButton}>
+          <IconArrowLeft size={32} />
+        </ActionIcon>
+        <Title ml={8} order={3} mt={2}>
+          Squads
+        </Title>
+      </Group>
       <Group grow mt={16} className={classes.bottomDivider}>
         <Button
           compact
@@ -64,7 +87,7 @@ export default function GroupSelectView() {
           fullWidth
           key={squad.id}
           variant={getButtonVariant(squad)}
-          onClick={() => setSelectedSquadId(squad.id)}
+          onClick={() => onSelectSquadId(squad.id)}
         >
           {squad.name}
         </Button>

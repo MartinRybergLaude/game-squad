@@ -5,7 +5,7 @@ import { collection, doc, query, where } from "firebase/firestore";
 import { useAtom } from "jotai";
 
 import { auth, db } from "~/firebaseConfig";
-import { squadsAtom } from "~/store";
+import { sidebarOpenAtom, squadsAtom } from "~/store";
 import { Squad } from "~/types";
 
 import DashboardView from "./dashboardView";
