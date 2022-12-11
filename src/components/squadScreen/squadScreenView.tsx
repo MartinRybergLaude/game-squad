@@ -1,8 +1,9 @@
-import { Burger, createStyles, Title } from "@mantine/core";
+import { Burger, createStyles, Text, Title } from "@mantine/core";
 
 import { Squad } from "~/types";
 
 import GameCollectionPresenter from "../gameCollection/gameCollectionPresenter";
+import LoaderScreenPresenter from "../loaderScreen/loaderScreenPresenter";
 
 const useStyles = createStyles(theme => ({
   header: {
@@ -23,16 +24,27 @@ const useStyles = createStyles(theme => ({
 interface SquadScreenViewProps {
   setSidebarOpen: (sidebarOpen: boolean) => void;
   showBurger: boolean;
-  squad: Squad;
+  squad?: Squad;
+  loading?: boolean;
+  error?: Error;
 }
 
-export default function SquadScreenView({ setSidebarOpen, showBurger }: SquadScreenViewProps) {
+export default function SquadScreenView({
+  setSidebarOpen,
+  showBurger,
+  squad,
+  loading,
+  error,
+}: SquadScreenViewProps) {
   const { classes } = useStyles();
+  if (loading) return <LoaderScreenPresenter />;
+  if (error) return <Text color="red">{error.message}</Text>;
+  if (!squad) return null;
   return (
     <>
       <header className={classes.header}>
         {showBurger && <Burger onClick={() => setSidebarOpen(true)} opened={false} />}
-        <Title order={3}>Squad</Title>
+        <Title order={3}>{squad.name}</Title>
       </header>
       <GameCollectionPresenter />
     </>

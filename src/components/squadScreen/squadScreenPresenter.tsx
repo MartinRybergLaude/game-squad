@@ -1,8 +1,12 @@
+import { useDocument } from "react-firebase-hooks/firestore";
 import { useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { doc } from "firebase/firestore";
 import { useAtom } from "jotai";
 
-import { sidebarOpenAtom } from "~/store";
+import { db } from "~/firebaseConfig";
+import { selectedSquadIdAtom, sidebarOpenAtom } from "~/store";
+import { Squad } from "~/types";
 
 import SquadScreenView from "./squadScreenView";
 
@@ -13,5 +17,18 @@ export default function SquadScreenPresenter() {
 
   const hideBurger = useMediaQuery(`(min-width: ${theme.breakpoints.sm}px)`);
 
-  return <SquadScreenView setSidebarOpen={setSidebarOpen} showBurger={!hideBurger} />;
+  const [selectedSquadId] = useAtom(selectedSquadIdAtom);
+  const [squad, loading, error] = useDocument(
+    selectedSquadId ? doc(db, "squads", selectedSquadId) : null,
+  );
+
+  return (
+    <SquadScreenView
+      setSidebarOpen={setSidebarOpen}
+      showBurger={!hideBurger}
+      squad={squad?.data() as Squad}
+      loading={loading}
+      error={error}
+    />
+  );
 }

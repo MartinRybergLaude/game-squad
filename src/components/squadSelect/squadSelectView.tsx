@@ -1,10 +1,12 @@
-import { ActionIcon, Button, createStyles, Group, Title } from "@mantine/core";
+import { ActionIcon, Button, createStyles, Group, Text, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { IconArrowLeft } from "@tabler/icons";
+import { FirebaseError } from "firebase/app";
 
 import { Squad } from "~/types";
 
 import CreateSquadModalPresenter from "../createSquadModal/createSquadModalPresenter";
+import LoaderScreenPresenter from "../loaderScreen/loaderScreenPresenter";
 
 const useStyles = createStyles(theme => ({
   btn: {
@@ -32,6 +34,8 @@ const useStyles = createStyles(theme => ({
 
 interface GroupSelectViewProps {
   squads: Squad[];
+  squadsLoading?: boolean;
+  squadsError?: FirebaseError;
   selectedSquadId: string | null;
   onSelectSquadId: (squadId: string) => void;
   onCloseSidebar: () => void;
@@ -39,6 +43,8 @@ interface GroupSelectViewProps {
 
 export default function GroupSelectView({
   squads,
+  squadsLoading,
+  squadsError,
   selectedSquadId,
   onSelectSquadId,
   onCloseSidebar,
@@ -79,17 +85,23 @@ export default function GroupSelectView({
           Join
         </Button>
       </Group>
-      {squads.map(squad => (
-        <Button
-          className={classes.btn}
-          fullWidth
-          key={squad.id}
-          variant={getButtonVariant(squad)}
-          onClick={() => onSelectSquadId(squad.id)}
-        >
-          {squad.name}
-        </Button>
-      ))}
+      {squadsLoading ? (
+        <LoaderScreenPresenter />
+      ) : squadsError ? (
+        <Text color="red">{squadsError.message}</Text>
+      ) : (
+        squads.map(squad => (
+          <Button
+            className={classes.btn}
+            fullWidth
+            key={squad.id}
+            variant={getButtonVariant(squad)}
+            onClick={() => onSelectSquadId(squad.id)}
+          >
+            {squad.name}
+          </Button>
+        ))
+      )}
     </>
   );
 }

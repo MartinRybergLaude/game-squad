@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { closeAllModals } from "@mantine/modals";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useAtom } from "jotai";
 
 import { auth, db } from "~/firebaseConfig";
@@ -31,7 +31,7 @@ export default function CreateSquadModalPresenter() {
     setLoading(true);
     try {
       const hash = generateSquadHash();
-      await addDoc(collection(db, "squads"), {
+      await setDoc(doc(db, "squads", hash), {
         id: hash,
         name: values.name,
         owner: user.uid,
