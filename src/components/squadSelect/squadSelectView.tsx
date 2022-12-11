@@ -1,4 +1,5 @@
-import { ActionIcon, Button, createStyles, Group, Text, Title } from "@mantine/core";
+import { useEffect, useState } from "react";
+import { ActionIcon, Burger, Button, createStyles, Group, Text, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { IconArrowLeft } from "@tabler/icons";
 import { FirebaseError } from "firebase/app";
@@ -22,17 +23,25 @@ const useStyles = createStyles(theme => ({
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
     }`,
   },
-  backButton: {
-    width: 32,
-    height: 32,
+  burger: {
+    marginLeft: 4,
     display: "block",
     [`@media (min-width: ${theme.breakpoints.sm}px)`]: {
       display: "none",
     },
   },
+  headerTitle: {
+    marginLeft: 4,
+    marginBottom: -2,
+    fontSize: theme.fontSizes.lg,
+    [`@media (min-width: ${theme.breakpoints.sm}px)`]: {
+      fontSize: theme.fontSizes.xl,
+    },
+  },
 }));
 
 interface GroupSelectViewProps {
+  sidebarOpen: boolean;
   squads: Squad[];
   squadsLoading?: boolean;
   squadsError?: FirebaseError;
@@ -41,7 +50,8 @@ interface GroupSelectViewProps {
   onCloseSidebar: () => void;
 }
 
-export default function GroupSelectView({
+export default function SquadSelectView({
+  sidebarOpen,
   squads,
   squadsLoading,
   squadsError,
@@ -50,6 +60,15 @@ export default function GroupSelectView({
   onCloseSidebar,
 }: GroupSelectViewProps) {
   const { classes } = useStyles();
+  const [openBurger, setOpenBurger] = useState(false);
+
+  // Burger icon animation
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setOpenBurger(sidebarOpen);
+    }, 10);
+    return () => clearTimeout(timeout);
+  }, [sidebarOpen]);
 
   function getButtonVariant(squad: Squad) {
     if (selectedSquadId && selectedSquadId === squad.id) {
@@ -62,10 +81,13 @@ export default function GroupSelectView({
   return (
     <>
       <Group align="center">
-        <ActionIcon onClick={() => onCloseSidebar()} className={classes.backButton}>
-          <IconArrowLeft size={32} />
-        </ActionIcon>
-        <Title ml={8} order={3} mt={2}>
+        <Burger
+          size="sm"
+          opened={openBurger}
+          onClick={() => onCloseSidebar()}
+          className={classes.burger}
+        />
+        <Title className={classes.headerTitle} order={3}>
           Squads
         </Title>
       </Group>

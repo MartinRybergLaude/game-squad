@@ -19,10 +19,18 @@ const useStyles = createStyles(theme => ({
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
     }`,
   },
+  headerTitle: {
+    marginBottom: -2,
+    fontSize: theme.fontSizes.lg,
+    [`@media (min-width: ${theme.breakpoints.sm}px)`]: {
+      fontSize: theme.fontSizes.xl,
+    },
+  },
 }));
 
 interface SquadScreenViewProps {
   setSidebarOpen: (sidebarOpen: boolean) => void;
+  sidebarOpen: boolean;
   showBurger: boolean;
   squad?: Squad;
   loading?: boolean;
@@ -31,22 +39,30 @@ interface SquadScreenViewProps {
 
 export default function SquadScreenView({
   setSidebarOpen,
+  sidebarOpen,
   showBurger,
   squad,
   loading,
   error,
 }: SquadScreenViewProps) {
   const { classes } = useStyles();
-  if (loading) return <LoaderScreenPresenter />;
-  if (error) return <Text color="red">{error.message}</Text>;
-  if (!squad) return null;
   return (
     <>
       <header className={classes.header}>
-        {showBurger && <Burger onClick={() => setSidebarOpen(true)} opened={false} />}
-        <Title order={3}>{squad.name}</Title>
+        {showBurger && (
+          <Burger size="sm" onClick={() => setSidebarOpen(true)} opened={sidebarOpen} />
+        )}
+        <Title order={2} className={classes.headerTitle}>
+          {squad?.name || ""}
+        </Title>
       </header>
-      <GameCollectionPresenter />
+      {loading ? (
+        <LoaderScreenPresenter />
+      ) : error ? (
+        <Text color="red">{error.message}</Text>
+      ) : (
+        <GameCollectionPresenter />
+      )}
     </>
   );
 }

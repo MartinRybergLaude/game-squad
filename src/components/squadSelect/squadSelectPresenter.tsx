@@ -8,10 +8,10 @@ import {
   squadsLoadingAtom,
 } from "~/store";
 
-import GroupSelectView from "./squadSelectView";
+import SquadSelectView from "./squadSelectView";
 
-export default function GroupSelectPresenter() {
-  const [, setSidebarOpen] = useAtom(sidebarOpenAtom);
+export default function SquadSelectPresenter() {
+  const [sidebarOpen, setSidebarOpen] = useAtom(sidebarOpenAtom);
   const [squads] = useAtom(squadsAtom);
   const [squadsLoading] = useAtom(squadsLoadingAtom);
   const [squadsError] = useAtom(squadsErrorAtom);
@@ -22,7 +22,8 @@ export default function GroupSelectPresenter() {
     setSidebarOpen(false);
   }
   return (
-    <GroupSelectView
+    <SquadSelectView
+      sidebarOpen={sidebarOpen}
       squads={squads}
       squadsLoading={squadsLoading}
       squadsError={squadsError}

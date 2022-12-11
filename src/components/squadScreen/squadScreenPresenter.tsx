@@ -11,7 +11,7 @@ import { Squad } from "~/types";
 import SquadScreenView from "./squadScreenView";
 
 export default function SquadScreenPresenter() {
-  const [, setSidebarOpen] = useAtom(sidebarOpenAtom);
+  const [sidebarOpen, setSidebarOpen] = useAtom(sidebarOpenAtom);
 
   const theme = useMantineTheme();
 
@@ -25,6 +25,7 @@ export default function SquadScreenPresenter() {
   return (
     <SquadScreenView
       setSidebarOpen={setSidebarOpen}
+      sidebarOpen={sidebarOpen}
       showBurger={!hideBurger}
       squad={squad?.data() as Squad}
       loading={loading}
