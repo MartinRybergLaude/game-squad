@@ -7,8 +7,8 @@ import { sidebarOpenAtom } from "~/store";
 import SquadScreenView from "./squadScreenView";
 
 export default function SquadScreenPresenter() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSidebarOpen] = useAtom(sidebarOpenAtom);
+  const [, setSidebarOpen] = useAtom(sidebarOpenAtom);
+
   const theme = useMantineTheme();
 
   const hideBurger = useMediaQuery(`(min-width: ${theme.breakpoints.sm}px)`);

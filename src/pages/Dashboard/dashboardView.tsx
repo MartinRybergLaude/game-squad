@@ -1,4 +1,4 @@
-import { AppShell, Title } from "@mantine/core";
+import { AppShell } from "@mantine/core";
 
 import NoSquadsPresenter from "~/components/noSquads/noSquadsPresenter";
 import SidebarPresenter from "~/components/sidebar/sidebarPresenter";

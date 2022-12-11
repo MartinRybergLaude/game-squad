@@ -5,8 +5,7 @@ import { selectedSquadIdAtom, sidebarOpenAtom, squadsAtom } from "~/store";
 import GroupSelectView from "./squadSelectView";
 
 export default function GroupSelectPresenter() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSidebarOpen] = useAtom(sidebarOpenAtom);
+  const [, setSidebarOpen] = useAtom(sidebarOpenAtom);
   const [squads] = useAtom(squadsAtom);
   const [selectedSquadId, setSelectedSquadId] = useAtom(selectedSquadIdAtom);
 

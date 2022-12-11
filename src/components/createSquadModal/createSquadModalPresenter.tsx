@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { closeAllModals } from "@mantine/modals";
 import { addDoc, collection } from "firebase/firestore";
 import { useAtom } from "jotai";
 
 import { auth, db } from "~/firebaseConfig";
+import { ReloadContext } from "~/pages/Dashboard/dashboardPresenter";
 import { selectedSquadIdAtom } from "~/store";
 import { generateSquadHash } from "~/utils";
 
@@ -19,6 +20,7 @@ export default function CreateSquadModalPresenter() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const [, setSelectedSquadId] = useAtom(selectedSquadIdAtom);
+  const reloadSquads = useContext(ReloadContext);
 
   async function handleCreateSquad(values: CreateSquadFormValues) {
     if (!user) {
@@ -37,6 +39,7 @@ export default function CreateSquadModalPresenter() {
       });
       setSelectedSquadId(hash);
       setLoading(false);
+      reloadSquads();
       closeAllModals();
     } catch (e) {
       if (e instanceof Error) setError(e.message);

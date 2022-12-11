@@ -20,3 +20,5 @@ export interface Squad {
   users: string[];
   games?: BaseGame[];
 }
+
+export type ReloadFunction = () => void;
