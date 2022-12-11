@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
@@ -27,9 +28,11 @@ export default function LoginPresenter() {
     signInWithEmailAndPassword(values.email, values.password);
   }
 
-  if (user) {
-    navigate(dashboardRoute.path || "/");
-  }
+  useEffect(() => {
+    if (user && user.user.emailVerified) {
+      navigate(dashboardRoute.path || "/dashboard");
+    }
+  }, [user, navigate]);
 
   return (
     <LoginView onSubmit={handleSubmit} loading={loading} error={error} successMsg={successMsg} />

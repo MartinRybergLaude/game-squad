@@ -1,10 +1,11 @@
-import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, redirect, RouteObject, RouterProvider } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
-import { ModalsProvider } from "@mantine/modals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { onAuthStateChanged } from "firebase/auth";
 
 import RequireAuth from "./components/requireAuth/requireAuth";
 import ModalView from "./components/search/modalView";
+import { auth } from "./firebaseConfig";
 import AuthPresenter from "./pages/Auth/authPresenter";
 import DashboardPresenter from "./pages/Dashboard/dashboardPresenter";
 import LoginPresenter from "./pages/Login/loginPresenter";
@@ -15,13 +16,33 @@ import VerificationPresenter from "./pages/Verification/verificationPresenter";
 
 const queryClient = new QueryClient();
 
+// Handles redirect based on auth state
+async function authLoader(on: "authed" | "unauthed" = "authed", to: string) {
+  const authPromise = new Promise<string | null>(resolve => {
+    onAuthStateChanged(auth, user => {
+      if (on === "authed" && user) {
+        if (!user.emailVerified) {
+          resolve("/verification");
+        }
+        resolve(to);
+      } else if (on === "unauthed" && !user) {
+        resolve(to);
+      } else {
+        resolve(null);
+      }
+    });
+  });
+  const redirectTo = await authPromise;
+  if (redirectTo) {
+    return redirect(redirectTo);
+  }
+  return null;
+}
+
 export const dashboardRoute: RouteObject = {
   path: "/dashboard",
-  element: (
-    <RequireAuth>
-      <DashboardPresenter />
-    </RequireAuth>
-  ),
+  loader: async () => authLoader("unauthed", "/login"),
+  element: <DashboardPresenter />,
 };
 
 export const notFoundRoute: RouteObject = {
@@ -31,6 +52,7 @@ export const notFoundRoute: RouteObject = {
 
 export const loginRoute: RouteObject = {
   path: "/login",
+  loader: async () => authLoader("authed", "/dashboard"),
   element: <LoginPresenter />,
 };
 
