@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { ActionIcon, Burger, Button, createStyles, Group, Text, Title } from "@mantine/core";
+import { Burger, Button, createStyles, Group, Text, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
-import { IconArrowLeft } from "@tabler/icons";
 import { FirebaseError } from "firebase/app";
 
 import { Squad } from "~/types";

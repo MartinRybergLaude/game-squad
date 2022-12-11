@@ -22,8 +22,15 @@ const useStyles = createStyles(theme => ({
   headerTitle: {
     marginBottom: -2,
     fontSize: theme.fontSizes.lg,
+
     [`@media (min-width: ${theme.breakpoints.sm}px)`]: {
       fontSize: theme.fontSizes.xl,
+    },
+  },
+  burger: {
+    display: "block",
+    [`@media (min-width: ${theme.breakpoints.sm}px)`]: {
+      display: "none",
     },
   },
 }));
@@ -31,7 +38,6 @@ const useStyles = createStyles(theme => ({
 interface SquadScreenViewProps {
   setSidebarOpen: (sidebarOpen: boolean) => void;
   sidebarOpen: boolean;
-  showBurger: boolean;
   squad?: Squad;
   loading?: boolean;
   error?: Error;
@@ -40,7 +46,6 @@ interface SquadScreenViewProps {
 export default function SquadScreenView({
   setSidebarOpen,
   sidebarOpen,
-  showBurger,
   squad,
   loading,
   error,
@@ -49,11 +54,15 @@ export default function SquadScreenView({
   return (
     <>
       <header className={classes.header}>
-        {showBurger && (
-          <Burger size="sm" onClick={() => setSidebarOpen(true)} opened={sidebarOpen} />
-        )}
-        <Title order={2} className={classes.headerTitle}>
-          {squad?.name || ""}
+        <Burger
+          size="sm"
+          onClick={() => setSidebarOpen(true)}
+          opened={sidebarOpen}
+          className={classes.burger}
+        />
+
+        <Title order={2} className={classes.headerTitle} style={{ opacity: squad ? 1 : 0 }}>
+          {squad?.name || "Loading..."}
         </Title>
       </header>
       {loading ? (

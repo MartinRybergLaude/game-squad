@@ -15,8 +15,6 @@ export default function SquadScreenPresenter() {
 
   const theme = useMantineTheme();
 
-  const hideBurger = useMediaQuery(`(min-width: ${theme.breakpoints.sm}px)`);
-
   const [selectedSquadId] = useAtom(selectedSquadIdAtom);
   const [squad, loading, error] = useDocument(
     selectedSquadId ? doc(db, "squads", selectedSquadId) : null,
@@ -26,7 +24,6 @@ export default function SquadScreenPresenter() {
     <SquadScreenView
       setSidebarOpen={setSidebarOpen}
       sidebarOpen={sidebarOpen}
-      showBurger={!hideBurger}
       squad={squad?.data() as Squad}
       loading={loading}
       error={error}

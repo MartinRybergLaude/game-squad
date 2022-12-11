@@ -3,7 +3,6 @@ import { MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { onAuthStateChanged } from "firebase/auth";
 
-import RequireAuth from "./components/requireAuth/requireAuth";
 import ModalView from "./components/search/modalView";
 import { auth } from "./firebaseConfig";
 import AuthPresenter from "./pages/Auth/authPresenter";
