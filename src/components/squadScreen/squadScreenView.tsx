@@ -17,13 +17,14 @@ const useStyles = createStyles(theme => ({
 
 interface SquadScreenViewProps {
   setSidebarOpen: (sidebarOpen: boolean) => void;
+  showBurger: boolean;
 }
 
-export default function SquadScreenView({ setSidebarOpen }: SquadScreenViewProps) {
+export default function SquadScreenView({ setSidebarOpen, showBurger }: SquadScreenViewProps) {
   const { classes } = useStyles();
   return (
     <header className={classes.header}>
-      <Burger onClick={() => setSidebarOpen(true)} opened={false} />
+      {showBurger && <Burger onClick={() => setSidebarOpen(true)} opened={false} />}
       <Title order={3}>Squad</Title>
     </header>
   );
