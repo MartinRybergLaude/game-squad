@@ -3,6 +3,7 @@ import { ScrollArea, SimpleGrid, Text, TextInput } from "@mantine/core";
 import { Game } from "~/types";
 
 import SearchCard from "./searchCard";
+import SearchCardPresenter from "./searchCardPresenter";
 
 interface SearchViewProps {
   games?: Game[];
@@ -25,28 +26,10 @@ export default function SearchView({ games, searchGame }: SearchViewProps) {
       </>
     );
   }
+  console.log(games);
   const cards =
     games.length != 0 ? (
-      games.map(game => (
-        <SearchCard
-          image={
-            //Sometimes games lack image urls
-            game.cover
-              ? game.cover.url
-                ? game.cover.url
-                : "https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?w=2000" // This is a lack-of-image-image
-              : "https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?w=2000" // We should probably replace it with something better!
-          }
-          title={game.name}
-          description={game.summary}
-          key={game.id}
-          // These don't exist in the Game type at the moment
-          genres={["Multiplayer", "Fun"]}
-          price={"$0.00"}
-          // genres={game.genres}
-          // price={game.price}
-        />
-      ))
+      games.map(game => <SearchCardPresenter game={game} key={game.id} />)
     ) : (
       <Text>Sorry, no results!</Text>
     );

@@ -1,5 +1,3 @@
-// TODO: modify as needed
-
 import {
   Badge,
   Button,
@@ -11,6 +9,9 @@ import {
   ScrollArea,
   Text,
 } from "@mantine/core";
+import { useQuery } from "@tanstack/react-query";
+
+import { getGenresByIds } from "~/api";
 
 const useStyles = createStyles(theme => ({
   card: {
@@ -50,18 +51,23 @@ interface SearchCardProps {
   title: string;
   description: string;
   price: string;
-  genres: string[];
+  genres: number[];
 }
 
-export default function SearchCard(props: SearchCardProps) {
-  const { classes } = useStyles();
-  const { image, title, description, genres, price } = props;
+interface genreProps {
+  id: number;
+  name: string;
+}
 
-  const categories = genres.map((genre: string) => (
-    <Badge color="red" variant="outline" key={genre} size="sm">
-      {genre}
-    </Badge>
-  ));
+export default function SearchCard({ image, title, description, genres, price }: SearchCardProps) {
+  const { classes } = useStyles();
+  const categories = genres
+    ? genres.map((genre: genreProps) => (
+        <Badge color="red" variant="outline" key={genre.id} size="sm">
+          {genre.name}
+        </Badge>
+      ))
+    : "";
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
