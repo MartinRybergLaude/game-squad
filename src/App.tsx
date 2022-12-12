@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { createBrowserRouter, redirect, RouteObject, RouterProvider } from "react-router-dom";
-import { MantineProvider } from "@mantine/core";
+import { ColorScheme, ColorSchemeProvider, MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -92,26 +93,32 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{
-        colorScheme: "dark",
-        globalStyles: () => ({
-          body: {
-            overflowX: "hidden",
-          },
-        }),
-        primaryColor: "red",
-        defaultRadius: "xs",
-        cursorType: "pointer",
-      }}
-    >
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </MantineProvider>
+    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          colorScheme: colorScheme,
+          globalStyles: () => ({
+            body: {
+              overflowX: "hidden",
+            },
+          }),
+          primaryColor: "red",
+          defaultRadius: "xs",
+          cursorType: "pointer",
+        }}
+      >
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 }
 

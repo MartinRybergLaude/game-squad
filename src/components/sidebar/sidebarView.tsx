@@ -2,6 +2,7 @@ import { createStyles, Navbar, UnstyledButton } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { IconLogout, IconSettings } from "@tabler/icons";
 
+import LogoutModalPresenter from "../logout/logoutModalPresenter";
 import SettingsModalPresenter from "../settings/settingsModalPresenter";
 import GroupSelectPresenter from "../squadSelect/squadSelectPresenter";
 
@@ -120,10 +121,18 @@ export default function SidebarView({ sidebarOpen }: SidebarViewProps) {
           <IconSettings className={classes.linkIcon} stroke={1.5} />
           <span>Settings</span>
         </UnstyledButton>
-        <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
+        <UnstyledButton
+          className={classes.link}
+          onClick={() => {
+            openModal({
+              title: "Logout",
+              children: <LogoutModalPresenter />,
+            });
+          }}
+        >
           <IconLogout className={classes.linkIcon} stroke={1.5} />
-          <span>Logout</span>
-        </a>
+          <span>Log out</span>
+        </UnstyledButton>
       </Navbar.Section>
     </Navbar>
   );
