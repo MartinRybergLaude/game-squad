@@ -13,9 +13,8 @@ import SearchCard from "./searchCard";
 
 export default function SearchCardPresenter(game: GameGame) {
   if (game) {
-    const { data } = game.game.genres
-      ? useQuery([game.game.genres], () => getGenresByIds(game.game.genres))
-      : null;
+    const g = game.game.genres;
+    const { data } = useQuery(["genres"], () => getGenresByIds(g));
 
     return (
       <SearchCard

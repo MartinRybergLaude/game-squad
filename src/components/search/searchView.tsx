@@ -16,17 +16,12 @@ export default function SearchView({ games, searchGame }: SearchViewProps) {
   if (!games) {
     return (
       <>
-        <TextInput
-          placeholder="Search"
-          size="xs"
-          mb="sm"
-          onChange={event => searchGame(event.currentTarget.value.trim())}
-        />
-        <Text>Loading...</Text>;
+        <TextInput placeholder="Search" size="xs" mb="sm" onChange={searchGame} />
+        <Text>Loading...</Text>
       </>
     );
   }
-  console.log(games);
+  // console.log(games);
   const cards =
     games.length != 0 ? (
       games.map(game => <SearchCardPresenter game={game} key={game.id} />)
@@ -36,12 +31,7 @@ export default function SearchView({ games, searchGame }: SearchViewProps) {
 
   return (
     <>
-      <TextInput
-        placeholder="Search"
-        size="xs"
-        mb="sm"
-        onChange={event => searchGame(event.currentTarget.value.trim())}
-      />
+      <TextInput placeholder="Search" size="xs" mb="sm" onChange={searchGame} />
       <ScrollArea style={{ height: 500 }}>
         <SimpleGrid cols={3} breakpoints={[{ maxWidth: "xs", cols: 1 }]}>
           {cards}
