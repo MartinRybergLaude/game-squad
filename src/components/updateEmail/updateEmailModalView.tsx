@@ -1,8 +1,7 @@
-import { Button, createStyles, Group, Modal, Tabs, Text, TextInput } from "@mantine/core";
+import { Button, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { closeAllModals } from "@mantine/modals";
 
-import { UpdateFormValues } from "./updateUsernameModalPresenter";
+import { UpdateFormValues } from "./updateEmailModalPresenter";
 
 interface UpdateViewProps {
   onSubmit: (values: UpdateFormValues) => void;
@@ -11,7 +10,7 @@ interface UpdateViewProps {
   loading?: boolean;
 }
 
-export default function UpdateUserNameModalView({
+export default function UpdateEmailModalView({
   onSubmit,
   errorMsg,
   successMsg,
@@ -19,17 +18,17 @@ export default function UpdateUserNameModalView({
 }: UpdateViewProps) {
   const form = useForm({
     initialValues: {
-      username: "",
+      email: "",
     },
 
     validate: {
-      username: value => (value.length >= 6 ? null : "Username must be at least 6 characters long"),
+      email: value => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
 
   return (
     <>
-      <Text size="sm">Write your new username here</Text>
+      <Text size="sm">Write your new email here</Text>
 
       {successMsg && (
         <Text size="sm" color="green">
@@ -49,13 +48,13 @@ export default function UpdateUserNameModalView({
         })}
       >
         <TextInput
-          label="Your new username"
-          placeholder="XxKurtFredrik1337xX"
+          label="Your new email adress"
+          placeholder="hello@gmail.com"
           required
-          {...form.getInputProps("username")}
+          {...form.getInputProps("email")}
         />
         <Button type="submit" fullWidth mt="md" loading={loading}>
-          update username
+          update email
         </Button>
       </form>
     </>

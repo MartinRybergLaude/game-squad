@@ -19,6 +19,7 @@ import {
   TablerIcon,
 } from "@tabler/icons";
 
+import LogoutModalPresenter from "../logout/logoutModalPresenter";
 import SettingsModalPresenter from "../settings/settingsModalPresenter";
 
 const useStyles = createStyles((theme, _params, getRef) => {
@@ -203,10 +204,18 @@ export function SidebarView() {
           <IconSettings className={classes.linkIcon} stroke={1.5} />
           <span>Settings</span>
         </button>
-        <a href="#" className={classes.link} onClick={event => event.preventDefault()}>
+        <button
+          className={classes.link}
+          onClick={() => {
+            openModal({
+              title: "Logout",
+              children: <LogoutModalPresenter />,
+            });
+          }}
+        >
           <IconLogout className={classes.linkIcon} stroke={1.5} />
-          <span>Logout</span>
-        </a>
+          <span>Logut</span>
+        </button>
       </Navbar.Section>
     </Navbar>
   );
