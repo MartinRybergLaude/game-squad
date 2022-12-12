@@ -5,7 +5,7 @@ import { Game } from "~/types";
 import GameCardPresenter from "../gameCard/gameCardPresenter";
 
 interface GameCollectionViewProps {
-  games: Game[];
+  games?: Game[];
 }
 
 export default function GameCollectionView({ games }: GameCollectionViewProps) {
@@ -16,7 +16,7 @@ export default function GameCollectionView({ games }: GameCollectionViewProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {games.map(game => (
+      {games?.map(game => (
         <GameCardPresenter key={game.id} game={game} />
       ))}
     </motion.div>

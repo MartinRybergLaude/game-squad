@@ -2,7 +2,7 @@ import { FirebaseError } from "firebase/app";
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
-import { Squad } from "./types";
+import { Game, Squad } from "./types";
 
 // Contains a list of groups the user is a member of
 export const squadsAtom = atom<Squad[]>([]);
@@ -14,7 +14,9 @@ export const selectedSquadIdAtom = atomWithStorage<string | null>("selectedSquad
 
 export const selectedSquadAtom = atom<Squad | undefined>(undefined);
 export const selectedSquadLoadingAtom = atom(false);
-export const selectedSquadErrorAtom = atom<FirebaseError | undefined>(undefined);
+export const selectedSquadErrorAtom = atom<FirebaseError | Error | undefined>(undefined);
+
+export const selectedSquadGamesAtom = atom<Game[]>([]);
 
 // Determines whether sidebar is open in mobile view
 export const sidebarOpenAtom = atom(false);

@@ -1,12 +1,15 @@
 import { useEffect } from "react";
 import { useDocument } from "react-firebase-hooks/firestore";
+import { useQuery } from "@tanstack/react-query";
 import { doc } from "firebase/firestore";
 import { useAtom } from "jotai";
 
+import { getSelectedGames } from "~/api";
 import { db } from "~/firebaseConfig";
 import {
   selectedSquadAtom,
   selectedSquadErrorAtom,
+  selectedSquadGamesAtom,
   selectedSquadIdAtom,
   selectedSquadLoadingAtom,
   sidebarOpenAtom,
@@ -23,25 +26,42 @@ export default function SquadScreenPresenter() {
     selectedSquadId ? doc(db, "squads", selectedSquadId) : null,
   );
 
-  const [, setSelectedSquad] = useAtom(selectedSquadAtom);
+  const [selectedSquadGames, setSelectedSquadGames] = useAtom(selectedSquadGamesAtom);
+  const [selectedSquad, setSelectedSquad] = useAtom(selectedSquadAtom);
   const [, setSelectedSquadLoading] = useAtom(selectedSquadLoadingAtom);
   const [, setSelectedSquadError] = useAtom(selectedSquadErrorAtom);
 
-  useEffect(() => {
-    if (squadData) {
-      setSelectedSquad(squadData.data() as Squad);
-    } else {
-      setSelectedSquad(undefined);
-    }
-  }, [squadData]);
+  const {
+    data: gameData,
+    isLoading,
+    error: gameError,
+  } = useQuery({
+    queryKey: ["games", selectedSquad?.games],
+    queryFn: () =>
+      getSelectedGames(
+        selectedSquad && selectedSquad.games ? selectedSquad.games.map(game => game.id) : [],
+      ),
+  });
 
   useEffect(() => {
-    setSelectedSquadLoading(loading);
+    if (squadData && gameData) {
+      setSelectedSquad(squadData.data() as Squad);
+      setSelectedSquadGames(gameData);
+    } else {
+      setSelectedSquad(undefined);
+      setSelectedSquadGames([]);
+    }
+  }, [squadData, gameData]);
+
+  useEffect(() => {
+    setSelectedSquadLoading(loading || isLoading);
   }, [loading]);
 
   useEffect(() => {
-    setSelectedSquadError(error);
-  }, [error]);
+    setSelectedSquadError(error || (gameError instanceof Error ? gameError : undefined));
+  }, [error, gameError]);
+
+  // Fetches the games belonging to the selected squad
 
   return (
     <SquadScreenView

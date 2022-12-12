@@ -10,7 +10,7 @@ import SquadScreenPresenter from "~/components/squadScreen/squadScreenPresenter"
 
 interface DashboardViewProps {
   loading?: boolean;
-  error?: FirestoreError | FirebaseError;
+  error?: FirestoreError | FirebaseError | Error;
 }
 export default function DashboardView({ loading, error }: DashboardViewProps) {
   return (
