@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Burger, Button, createStyles, Group, Text, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { FirebaseError } from "firebase/app";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { Squad } from "~/types";
 
@@ -38,6 +39,21 @@ const useStyles = createStyles(theme => ({
     },
   },
 }));
+
+const containerAnimation = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const childAnimation = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+};
 
 interface GroupSelectViewProps {
   sidebarOpen: boolean;
@@ -106,20 +122,29 @@ export default function SquadSelectView({
           Join
         </Button>
       </Group>
-      <div style={{ width: "100%", height: "100%", position: "relative" }}>
-        {squadsLoading && <LoaderScreenPresenter spinnerSize="md" />}
+      <div style={{ width: "100%", height: "auto", minHeight: "128px", position: "relative" }}>
+        <AnimatePresence>
+          {squadsLoading && <LoaderScreenPresenter spinnerSize="md" />}
+        </AnimatePresence>
         {squadsError && <Text color="red">{squadsError.message}</Text>}
-        {squads.map(squad => (
-          <Button
-            className={classes.btn}
-            fullWidth
-            key={squad.id}
-            variant={getButtonVariant(squad)}
-            onClick={() => onSelectSquadId(squad.id)}
-          >
-            {squad.name}
-          </Button>
-        ))}
+        <AnimatePresence>
+          {squads.length > 0 && (
+            <motion.div variants={containerAnimation} initial="hidden" animate="show">
+              {squads.map(squad => (
+                <motion.div key={squad.id} variants={childAnimation}>
+                  <Button
+                    className={classes.btn}
+                    fullWidth
+                    variant={getButtonVariant(squad)}
+                    onClick={() => onSelectSquadId(squad.id)}
+                  >
+                    {squad.name}
+                  </Button>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 import { Loader } from "@mantine/core";
+import { motion } from "framer-motion";
 
 interface LoaderScreenViewProps {
   spinnerSize?: "xs" | "sm" | "md" | "lg" | "xl";
@@ -6,10 +7,16 @@ interface LoaderScreenViewProps {
 
 export default function LoaderScreenView({ spinnerSize }: LoaderScreenViewProps) {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       style={{
+        zIndex: 1000,
         height: "100%",
         width: "100%",
+        top: 0,
+        left: 0,
         position: "absolute",
         display: "flex",
         justifyContent: "center",
@@ -17,6 +24,6 @@ export default function LoaderScreenView({ spinnerSize }: LoaderScreenViewProps)
       }}
     >
       <Loader size={spinnerSize || "xl"} />
-    </div>
+    </motion.div>
   );
 }

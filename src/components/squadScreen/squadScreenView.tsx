@@ -1,4 +1,5 @@
 import { Burger, createStyles, Title } from "@mantine/core";
+import { AnimatePresence } from "framer-motion";
 
 import { Squad } from "~/types";
 
@@ -61,7 +62,7 @@ export default function SquadScreenView({
           {squad?.name || "Loading..."}
         </Title>
       </header>
-      {squad && <GameCollectionPresenter />}
+      <AnimatePresence>{squad && <GameCollectionPresenter />}</AnimatePresence>
     </>
   );
 }
