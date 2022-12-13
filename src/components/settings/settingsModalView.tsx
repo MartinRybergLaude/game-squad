@@ -13,7 +13,7 @@ export default function SettingsModalView() {
 
   return (
     <>
-      <Tabs defaultValue="gallery">
+      <Tabs defaultValue="Account">
         <Tabs.List>
           <Tabs.Tab value="Account" icon={<IconSettings size={14} />}>
             Account

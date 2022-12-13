@@ -20,9 +20,6 @@ export default function UpdateEmailModalPresenter() {
 
   const [user] = useAuthState(auth);
 
-  // User is not logged in
-  if (!user) null;
-
   async function handleResendEmail() {
     setResendSuccessText(undefined);
     if (user && !user.emailVerified) {
