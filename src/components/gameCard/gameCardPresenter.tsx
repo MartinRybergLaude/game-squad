@@ -1,4 +1,4 @@
-import { Game } from "~/types";
+import { Game } from "~/utils/types";
 
 import GameCardView from "./gameCardView";
 

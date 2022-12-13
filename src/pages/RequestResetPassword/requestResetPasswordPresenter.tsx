@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
 
-import { auth } from "~/firebaseConfig";
+import { auth } from "~/utils/firebaseConfig";
 
 import RequestResetPasswordView from "./requestResetPasswordView";
 

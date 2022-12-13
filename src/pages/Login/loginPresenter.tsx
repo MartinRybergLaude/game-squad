@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
+import { auth } from "~/utils/firebaseConfig";
+
 import { dashboardRoute } from "../../App";
-import { auth } from "../../firebaseConfig";
 import LoginView from "./loginView";
 
 export interface LoginFormValues {

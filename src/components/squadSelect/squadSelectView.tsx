@@ -4,7 +4,7 @@ import { openModal } from "@mantine/modals";
 import { FirebaseError } from "firebase/app";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { Squad } from "~/types";
+import { Squad } from "~/utils/types";
 
 import CreateSquadModalPresenter from "../createSquadModal/createSquadModalPresenter";
 import LoaderScreenPresenter from "../loaderScreen/loaderScreenPresenter";

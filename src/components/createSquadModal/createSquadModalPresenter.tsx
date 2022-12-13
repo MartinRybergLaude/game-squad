@@ -4,10 +4,10 @@ import { closeAllModals } from "@mantine/modals";
 import { doc, setDoc } from "firebase/firestore";
 import { useAtom } from "jotai";
 
-import { auth, db } from "~/firebaseConfig";
 import { ReloadContext } from "~/pages/Dashboard/dashboardPresenter";
-import { selectedSquadIdAtom } from "~/store";
-import { generateSquadHash } from "~/utils";
+import { auth, db } from "~/utils/firebaseConfig";
+import { selectedSquadIdAtom } from "~/utils/store";
+import { generateSquadHash } from "~/utils/utils";
 
 import CreateSquadModalView from "./createSquadModalView";
 

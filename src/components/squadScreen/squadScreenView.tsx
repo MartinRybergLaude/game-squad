@@ -1,9 +1,11 @@
-import { Burger, createStyles, Title } from "@mantine/core";
+import { Burger, Button, createStyles, Title } from "@mantine/core";
+import { openModal } from "@mantine/modals";
 import { AnimatePresence } from "framer-motion";
 
-import { Squad } from "~/types";
+import { Squad } from "~/utils/types";
 
 import GameCollectionPresenter from "../gameCollection/gameCollectionPresenter";
+import SearchPresenter from "../search/searchPresenter";
 
 const useStyles = createStyles(theme => ({
   header: {
@@ -62,6 +64,17 @@ export default function SquadScreenView({
           {squad?.name || "Loading..."}
         </Title>
       </header>
+      <Button
+        variant="light"
+        onClick={() =>
+          openModal({
+            title: "Add game",
+            children: <SearchPresenter />,
+          })
+        }
+      >
+        Add game
+      </Button>
       <AnimatePresence>{squad && <GameCollectionPresenter />}</AnimatePresence>
     </>
   );

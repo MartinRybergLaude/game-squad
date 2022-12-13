@@ -6,11 +6,11 @@ import { FirebaseError } from "firebase/app";
 import { applyActionCode, Auth, confirmPasswordReset } from "firebase/auth";
 
 import ResetPasswordView from "~/components/resetPassword/resetPasswordView";
+import { auth } from "~/utils/firebaseConfig";
 
 import { loginRoute, requestResetRoute } from "../../App";
 import AuthInfoView from "../../components/authInfo/authInfoView";
 import LoaderScreenView from "../../components/loaderScreen/loaderScreenView";
-import { auth } from "../../firebaseConfig";
 
 export interface ResetPasswordFormValues {
   password: string;

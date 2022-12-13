@@ -3,7 +3,7 @@ import { useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useAtom } from "jotai";
 
-import { sidebarOpenAtom } from "~/store";
+import { sidebarOpenAtom } from "~/utils/store";
 
 import SidebarView from "./sidebarView";
 

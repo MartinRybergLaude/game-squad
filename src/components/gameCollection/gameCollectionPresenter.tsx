@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 
-import { selectedSquadGamesAtom } from "~/store";
+import { selectedSquadGamesAtom } from "~/utils/store";
 
 import GameCollectionView from "./gameCollectionView";
 

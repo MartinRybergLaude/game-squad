@@ -3,7 +3,7 @@ import { useAuthState, useSendEmailVerification, useUpdateEmail } from "react-fi
 import { Link, useNavigate } from "react-router-dom";
 
 import { verificationRoute } from "~/App";
-import { auth } from "~/firebaseConfig";
+import { auth } from "~/utils/firebaseConfig";
 
 import UpdateEmailModalView from "./updateEmailModalView";
 

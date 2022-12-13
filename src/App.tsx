@@ -4,8 +4,6 @@ import { ColorScheme, ColorSchemeProvider, MantineProvider } from "@mantine/core
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { onAuthStateChanged } from "firebase/auth";
 
-import ModalView from "./components/search/modalView";
-import { auth } from "./firebaseConfig";
 import AuthPresenter from "./pages/Auth/authPresenter";
 import DashboardPresenter from "./pages/Dashboard/dashboardPresenter";
 import LoginPresenter from "./pages/Login/loginPresenter";
@@ -13,6 +11,7 @@ import NotFoundPresenter from "./pages/NotFound/notFoundPresenter";
 import RegisterPresenter from "./pages/Register/registerPresenter";
 import RequestResetPasswordPresenter from "./pages/RequestResetPassword/requestResetPasswordPresenter";
 import VerificationPresenter from "./pages/Verification/verificationPresenter";
+import { auth } from "./utils/firebaseConfig";
 
 const queryClient = new QueryClient();
 
@@ -66,11 +65,6 @@ export const registerRoute: RouteObject = {
   element: <RegisterPresenter />,
 };
 
-export const searchRoute: RouteObject = {
-  path: "/search",
-  element: <ModalView />,
-};
-
 export const verificationRoute: RouteObject = {
   path: "/verification",
   element: <VerificationPresenter />,
@@ -87,7 +81,6 @@ const router = createBrowserRouter([
   registerRoute,
   authRoute,
   verificationRoute,
-  searchRoute,
   notFoundRoute,
   requestResetRoute,
 ]);

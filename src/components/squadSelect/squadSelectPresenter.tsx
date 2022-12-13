@@ -6,7 +6,7 @@ import {
   squadsAtom,
   squadsErrorAtom,
   squadsLoadingAtom,
-} from "~/store";
+} from "~/utils/store";
 
 import SquadSelectView from "./squadSelectView";
 

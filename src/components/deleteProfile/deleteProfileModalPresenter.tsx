@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthState, useDeleteUser } from "react-firebase-hooks/auth";
 
-import { auth } from "~/firebaseConfig";
+import { auth } from "~/utils/firebaseConfig";
 
 import DeleteProfileModalView from "./deleteProfileModalView";
 
