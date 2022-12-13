@@ -1,4 +1,6 @@
-import { Burger, createStyles, Title } from "@mantine/core";
+import { Burger, createStyles, Grid, Title } from "@mantine/core";
+import { IconArrowUpLeft } from "@tabler/icons";
+import { AnimatePresence } from "framer-motion";
 
 import { Squad } from "~/types";
 
@@ -37,6 +39,7 @@ const useStyles = createStyles(theme => ({
 interface SquadScreenViewProps {
   setSidebarOpen: (sidebarOpen: boolean) => void;
   sidebarOpen: boolean;
+  noSquad: boolean;
   squad?: Squad;
   error?: Error;
 }
@@ -45,23 +48,51 @@ export default function SquadScreenView({
   setSidebarOpen,
   sidebarOpen,
   squad,
+  noSquad,
 }: SquadScreenViewProps) {
   const { classes } = useStyles();
-  return (
-    <>
-      <header className={classes.header}>
-        <Burger
-          size="sm"
-          onClick={() => setSidebarOpen(true)}
-          opened={sidebarOpen}
-          className={classes.burger}
-        />
+  if (!noSquad) {
+    return (
+      <>
+        <header className={classes.header}>
+          <Burger
+            size="sm"
+            onClick={() => setSidebarOpen(true)}
+            opened={sidebarOpen}
+            className={classes.burger}
+          />
 
-        <Title order={2} className={classes.headerTitle} style={{ opacity: squad ? 1 : 0 }}>
-          {squad?.name || "Loading..."}
-        </Title>
-      </header>
-      {squad && <GameCollectionPresenter />}
-    </>
-  );
+          <Title order={2} className={classes.headerTitle} style={{ opacity: squad ? 1 : 0 }}>
+            {squad?.name || "Loading..."}
+          </Title>
+        </header>
+        <AnimatePresence>{squad && <GameCollectionPresenter />}</AnimatePresence>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <header className={classes.header}>
+          <Burger
+            size="sm"
+            onClick={() => setSidebarOpen(true)}
+            opened={sidebarOpen}
+            className={classes.burger}
+          />
+
+          <Title order={2} className={classes.headerTitle} style={{ opacity: squad ? 1 : 0 }}>
+            {
+              //vet inte vad som ska vara här
+            }
+          </Title>
+        </header>
+        <Grid>
+          <IconArrowUpLeft size={50} stroke={4} />
+          <p>You have no squads! Create or join one over here!</p>
+        </Grid>
+
+        <AnimatePresence>{squad && <GameCollectionPresenter />}</AnimatePresence>
+      </>
+    );
+  }
 }

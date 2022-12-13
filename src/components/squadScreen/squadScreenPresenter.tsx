@@ -27,6 +27,8 @@ export default function SquadScreenPresenter() {
   const [, setSelectedSquadLoading] = useAtom(selectedSquadLoadingAtom);
   const [, setSelectedSquadError] = useAtom(selectedSquadErrorAtom);
 
+  let noSquad = false;
+
   useEffect(() => {
     if (squadData) {
       setSelectedSquad(squadData.data() as Squad);
@@ -43,11 +45,20 @@ export default function SquadScreenPresenter() {
     setSelectedSquadError(error);
   }, [error]);
 
+  if (!selectedSquadId) {
+    noSquad = true;
+  }
+
+  useEffect(() => {
+    console.log("selectedSquadId", selectedSquadId);
+  }, [selectedSquadId]);
+
   return (
     <SquadScreenView
       setSidebarOpen={setSidebarOpen}
       sidebarOpen={sidebarOpen}
       squad={squadData?.data() as Squad}
+      noSquad={noSquad}
     />
   );
 }
