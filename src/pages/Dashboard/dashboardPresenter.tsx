@@ -5,15 +5,15 @@ import { ModalsProvider } from "@mantine/modals";
 import { collection, query, where } from "firebase/firestore";
 import { useAtom } from "jotai";
 
-import { auth, db } from "~/firebaseConfig";
+import { auth, db } from "~/utils/firebaseConfig";
 import {
   selectedSquadErrorAtom,
   selectedSquadLoadingAtom,
   squadsAtom,
   squadsErrorAtom,
   squadsLoadingAtom,
-} from "~/store";
-import { ReloadFunction, Squad } from "~/types";
+} from "~/utils/store";
+import { ReloadFunction, Squad } from "~/utils/types";
 
 import DashboardView from "./dashboardView";
 

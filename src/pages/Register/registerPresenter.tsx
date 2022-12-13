@@ -5,8 +5,9 @@ import {
 } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
+import { auth } from "~/utils/firebaseConfig";
+
 import { verificationRoute } from "../../App";
-import { auth } from "../../firebaseConfig";
 import RegisterView from "./registerView";
 
 export interface RegisterFormValues {

@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { doc } from "firebase/firestore";
 import { useAtom } from "jotai";
 
-import { getSelectedGames } from "~/api";
-import { db } from "~/firebaseConfig";
+import { getSelectedGames } from "~/utils/api";
+import { db } from "~/utils/firebaseConfig";
 import {
   selectedSquadAtom,
   selectedSquadErrorAtom,
@@ -13,8 +13,8 @@ import {
   selectedSquadIdAtom,
   selectedSquadLoadingAtom,
   sidebarOpenAtom,
-} from "~/store";
-import { Squad } from "~/types";
+} from "~/utils/store";
+import { Squad } from "~/utils/types";
 
 import SquadScreenView from "./squadScreenView";
 
@@ -26,7 +26,7 @@ export default function SquadScreenPresenter() {
     selectedSquadId ? doc(db, "squads", selectedSquadId) : null,
   );
 
-  const [selectedSquadGames, setSelectedSquadGames] = useAtom(selectedSquadGamesAtom);
+  const [, setSelectedSquadGames] = useAtom(selectedSquadGamesAtom);
   const [selectedSquad, setSelectedSquad] = useAtom(selectedSquadAtom);
   const [, setSelectedSquadLoading] = useAtom(selectedSquadLoadingAtom);
   const [, setSelectedSquadError] = useAtom(selectedSquadErrorAtom);

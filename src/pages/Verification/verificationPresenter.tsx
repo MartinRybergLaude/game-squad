@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useAuthState, useSendEmailVerification } from "react-firebase-hooks/auth";
 
+import { auth } from "~/utils/firebaseConfig";
+
 import AuthInfoView from "../../components/authInfo/authInfoView";
-import { auth } from "../../firebaseConfig";
 
 export default function VerificationPresenter() {
   const [user] = useAuthState(auth);

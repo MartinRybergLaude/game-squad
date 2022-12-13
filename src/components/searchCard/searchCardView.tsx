@@ -1,6 +1,14 @@
-// TODO: modify as needed
-
-import { Badge, Button, Card, createStyles, Group, Image, ScrollArea, Text } from "@mantine/core";
+import {
+  Badge,
+  Button,
+  Card,
+  createStyles,
+  Flex,
+  Group,
+  Image,
+  ScrollArea,
+  Text,
+} from "@mantine/core";
 
 const useStyles = createStyles(theme => ({
   card: {
@@ -40,40 +48,47 @@ interface SearchCardProps {
   title: string;
   description: string;
   price: string;
-  genres: string[];
+  genres?: string[];
 }
 
-export default function SearchCard(props: SearchCardProps) {
+export default function SearchCardView({
+  image,
+  title,
+  description,
+  genres,
+  price,
+}: SearchCardProps) {
   const { classes } = useStyles();
-  const { image, title, description, genres, price } = props;
-
-  const categories = genres.map((genre: string) => (
-    <Badge color="red" variant="outline" key={genre} size="sm">
-      {genre}
-    </Badge>
-  ));
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
       <div className={classes.flex}>
         <div>
           <Card.Section>
-            <Image src={image} alt={title} height={180} />
+            <Image src={image.replace("t_thumb", "t_cover_big")} alt={title} height={180} />
           </Card.Section>
           <Card.Section className={classes.section} mt="md">
-            <Group position="apart">
+            <Flex direction="column" gap="5px">
               <Text size="lg" weight={500}>
                 {title}
               </Text>
-              <Badge color="green" variant="outline">
-                {price}
-              </Badge>
+              <Group>
+                <Badge color="green" variant="outline" size="sm">
+                  {price}
+                </Badge>
+              </Group>
               <ScrollArea type="auto">
                 <Group spacing={7} mb={20} mt={0} noWrap={true}>
-                  {categories}
+                  {genres &&
+                    genres.length > 0 &&
+                    genres.map(genre => (
+                      <Badge color="red" variant="outline" key={genre} size="sm">
+                        {genre}
+                      </Badge>
+                    ))}
                 </Group>
               </ScrollArea>
-            </Group>
+            </Flex>
 
             <Text className={classes.text} size="xs" mt={0} lineClamp={4}>
               {description}
@@ -83,7 +98,7 @@ export default function SearchCard(props: SearchCardProps) {
 
         <Group mt="xs">
           <Button radius="md" style={{ flex: 1 }}>
-            Add to list!
+            Add
           </Button>
         </Group>
       </div>

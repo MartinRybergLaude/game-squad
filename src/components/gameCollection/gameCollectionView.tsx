@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import { Game } from "~/types";
+import { Game } from "~/utils/types";
 
 import GameCardPresenter from "../gameCard/gameCardPresenter";
 

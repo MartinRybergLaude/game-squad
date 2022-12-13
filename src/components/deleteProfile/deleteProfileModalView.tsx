@@ -41,7 +41,7 @@ export default function DeleteProfileModalView({
           onSubmit();
         })}
       >
-        <Button fullWidth variant="default" mt="md" onClick={closeAllModals}>
+        <Button fullWidth variant="default" mt="md" onClick={() => closeAllModals}>
           No, don&apos;t delete it
         </Button>
         <Button type="submit" fullWidth mt="md" loading={loading} variant="filled">

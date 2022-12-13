@@ -1,6 +1,5 @@
 import { Button, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { closeAllModals } from "@mantine/modals";
 
 interface LogOutViewProps {
   onSubmit: () => void;
