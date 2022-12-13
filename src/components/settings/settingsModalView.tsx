@@ -1,14 +1,33 @@
-import { ActionIcon, Button, Group, Tabs, useMantineColorScheme } from "@mantine/core";
+import { ThemeContext } from "@emotion/react";
+import {
+  ActionIcon,
+  Button,
+  ColorScheme,
+  Group,
+  Tabs,
+  Text,
+  useMantineColorScheme,
+} from "@mantine/core";
 import { openModal } from "@mantine/modals";
-import { IconMoonStars, IconSettings, IconSun } from "@tabler/icons";
+import { IconEdit, IconMoonStars, IconSettings, IconSun } from "@tabler/icons";
+import { User } from "firebase/auth";
 
 import DeleteProfileModalPresenter from "../deleteProfile/deleteProfileModalPresenter";
 import UpdateEmailModalPresenter from "../updateEmail/updateEmailModalPresenter";
 import UpdatePasswordModalPresenter from "../updatePassword/updatePasswordModalPresenter";
 import UpdateUsernameModalPresenter from "../updateUsername/updateUsernameModalPresenter";
 
-export default function SettingsModalView() {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+interface SettingsViewProps {
+  user: User | null | undefined;
+  colorScheme: string;
+  toggleColorScheme: (colorScheme?: ColorScheme | undefined) => void;
+}
+
+export default function SettingsModalView({
+  user,
+  colorScheme,
+  toggleColorScheme,
+}: SettingsViewProps) {
   const dark = colorScheme === "dark";
 
   return (
@@ -24,48 +43,78 @@ export default function SettingsModalView() {
         </Tabs.List>
         <Tabs.Panel value="Account" pt="xs">
           <div>
-            <Group mt={16} position="apart" grow>
-              Change name
-              <Button
-                onClick={() => {
-                  openModal({
-                    title: "Change username",
-                    children: <UpdateUsernameModalPresenter />,
-                  });
-                }}
-              >
-                Click here
-              </Button>
+            <Group mt={16} position="apart">
+              Current username
+              <Group position="right" spacing="xs">
+                <Text fz="sm" align="right" fs="italic" fw={700}>
+                  {user?.displayName}
+                </Text>
+                <ActionIcon
+                  color="dark.3"
+                  ml={-12}
+                  mt={4}
+                  variant="transparent"
+                  onClick={() => {
+                    openModal({
+                      title: "Username",
+                      children: <UpdateUsernameModalPresenter />,
+                    });
+                  }}
+                  title="Change username"
+                >
+                  <IconEdit size={16} />
+                </ActionIcon>
+              </Group>
             </Group>
             <Group mt={16} position="apart" grow>
               Change Email
-              <Button
-                onClick={() => {
-                  openModal({
-                    title: "Change email",
-                    children: <UpdateEmailModalPresenter />,
-                  });
-                }}
-              >
-                Click here
-              </Button>
+              <Group position="right" spacing="xs">
+                <Text fz="sm" fs="italic" fw={700}>
+                  {user?.email}
+                </Text>
+                <ActionIcon
+                  color="dark.3"
+                  ml={-12}
+                  mt={4}
+                  variant="transparent"
+                  onClick={() => {
+                    openModal({
+                      title: "Change email",
+                      children: <UpdateEmailModalPresenter />,
+                    });
+                  }}
+                  title="Change email"
+                >
+                  <IconEdit size={16} />
+                </ActionIcon>
+              </Group>
             </Group>
             <Group mt={16} position="apart" grow>
               Change password
-              <Button
-                onClick={() => {
-                  openModal({
-                    title: "Change password",
-                    children: <UpdatePasswordModalPresenter />,
-                  });
-                }}
-              >
-                Click here
-              </Button>
+              <Group position="right" spacing="xs">
+                <Text fz="sm" fs="italic" fw={700}>
+                  **********
+                </Text>
+                <ActionIcon
+                  color="dark.3"
+                  ml={-12}
+                  mt={4}
+                  variant="transparent"
+                  onClick={() => {
+                    openModal({
+                      title: "Change password",
+                      children: <UpdatePasswordModalPresenter />,
+                    });
+                  }}
+                  title="Change password"
+                >
+                  <IconEdit size={16} />
+                </ActionIcon>
+              </Group>
             </Group>
-            <Group mt={16} position="apart" grow>
-              Delete account
+            <Group mt={16} position="center">
               <Button
+                size="md"
                 color="red"
                 onClick={() => {
                   openModal({
@@ -75,7 +124,7 @@ export default function SettingsModalView() {
                   });
                 }}
               >
-                Delete
+                Delete account
               </Button>
             </Group>
           </div>
