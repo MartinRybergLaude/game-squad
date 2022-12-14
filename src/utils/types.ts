@@ -18,6 +18,7 @@ export interface Squad {
   id: string;
   name: string;
   owner: string;
+  invite_code: string;
   users: string[];
   games?: BaseGame[];
 }

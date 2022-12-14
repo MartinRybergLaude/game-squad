@@ -7,7 +7,7 @@ import { useAtom } from "jotai";
 import { ReloadContext } from "~/pages/Dashboard/dashboardPresenter";
 import { auth, db } from "~/utils/firebaseConfig";
 import { selectedSquadIdAtom } from "~/utils/store";
-import { generateSquadHash } from "~/utils/utils";
+import { generateInviteCode, generateSquadHash } from "~/utils/utils";
 
 import CreateSquadModalView from "./createSquadModalView";
 
@@ -30,14 +30,16 @@ export default function CreateSquadModalPresenter() {
     setError(undefined);
     setLoading(true);
     try {
-      const hash = generateSquadHash();
-      await setDoc(doc(db, "squads", hash), {
-        id: hash,
+      const squadHash = generateSquadHash();
+      const inviteCode = generateInviteCode();
+      await setDoc(doc(db, "squads", squadHash), {
+        id: squadHash,
         name: values.name,
         owner: user.uid,
+        invite_code: inviteCode,
         users: [user?.uid],
       });
-      setSelectedSquadId(hash);
+      setSelectedSquadId(squadHash);
       setLoading(false);
       reloadSquads();
       closeAllModals();

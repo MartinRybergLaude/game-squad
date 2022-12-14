@@ -1,10 +1,9 @@
-import { Burger, Button, createStyles, Title } from "@mantine/core";
-import { openModal } from "@mantine/modals";
+import { Burger, createStyles, Title } from "@mantine/core";
 
 import { Squad } from "~/utils/types";
 
 import GameCollectionPresenter from "../gameCollection/gameCollectionPresenter";
-import SearchPresenter from "../search/searchPresenter";
+import SquadInfoPresenter from "../squadInfo/squadInfoPresenter";
 
 const useStyles = createStyles(theme => ({
   header: {
@@ -41,12 +40,14 @@ interface SquadScreenViewProps {
   sidebarOpen: boolean;
   squad?: Squad;
   error?: Error;
+  isOwner: boolean;
 }
 
 export default function SquadScreenView({
   setSidebarOpen,
   sidebarOpen,
   squad,
+  isOwner,
 }: SquadScreenViewProps) {
   const { classes } = useStyles();
   return (
@@ -63,17 +64,8 @@ export default function SquadScreenView({
           {squad?.name || "Loading..."}
         </Title>
       </header>
-      <Button
-        variant="light"
-        onClick={() =>
-          openModal({
-            title: "Add game",
-            children: <SearchPresenter />,
-          })
-        }
-      >
-        Add game
-      </Button>
+      {squad && <SquadInfoPresenter squad={squad} isOwner={isOwner} />}
+
       <GameCollectionPresenter />
     </>
   );

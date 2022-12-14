@@ -1,11 +1,12 @@
 import { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { useQuery } from "@tanstack/react-query";
 import { doc } from "firebase/firestore";
 import { useAtom } from "jotai";
 
 import { getSelectedGames } from "~/utils/api";
-import { db } from "~/utils/firebaseConfig";
+import { auth, db } from "~/utils/firebaseConfig";
 import {
   selectedSquadAtom,
   selectedSquadErrorAtom,
@@ -19,6 +20,7 @@ import { Squad } from "~/utils/types";
 import SquadScreenView from "./squadScreenView";
 
 export default function SquadScreenPresenter() {
+  const [user] = useAuthState(auth);
   const [sidebarOpen, setSidebarOpen] = useAtom(sidebarOpenAtom);
 
   const [selectedSquadId] = useAtom(selectedSquadIdAtom);
@@ -61,13 +63,14 @@ export default function SquadScreenPresenter() {
     setSelectedSquadError(error || (gameError instanceof Error ? gameError : undefined));
   }, [error, gameError]);
 
-  // Fetches the games belonging to the selected squad
+  const isOwner = selectedSquad?.owner === user?.uid;
 
   return (
     <SquadScreenView
       setSidebarOpen={setSidebarOpen}
       sidebarOpen={sidebarOpen}
       squad={squadData?.data() as Squad}
+      isOwner={isOwner}
     />
   );
 }
