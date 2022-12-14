@@ -44,9 +44,9 @@ export default function SquadScreenPresenter() {
   });
 
   useEffect(() => {
-    if (squadData && gameData) {
+    if (squadData) {
       setSelectedSquad(squadData.data() as Squad);
-      setSelectedSquadGames(gameData);
+      setSelectedSquadGames(gameData || []);
     } else {
       setSelectedSquad(undefined);
       setSelectedSquadGames([]);

@@ -11,7 +11,7 @@ interface GameCollectionViewProps {
 export default function GameCollectionView({ games }: GameCollectionViewProps) {
   return (
     <motion.div
-      style={{ display: "flex", flexWrap: "wrap", gap: 16, maxWidth: 900 }}
+      style={{ display: "flex", flexWrap: "wrap", gap: 16, maxWidth: 900, marginTop: 16 }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

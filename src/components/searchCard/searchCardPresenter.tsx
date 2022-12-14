@@ -1,22 +1,58 @@
+import { useState } from "react";
+import { closeAllModals } from "@mantine/modals";
+import { FirebaseError } from "firebase/app";
+import { arrayUnion, doc, FirestoreError, updateDoc } from "firebase/firestore";
+import { useAtom } from "jotai";
+
+import { db } from "~/utils/firebaseConfig";
+import { selectedSquadAtom } from "~/utils/store";
 import { Game, GenreObject, Genres } from "~/utils/types";
 
 import SearchCardView from "./searchCardView";
 
-// Yes this is bad
 interface SearchCardViewProps {
   game: Game;
 }
 
 export default function SearchCardPresenter({ game }: SearchCardViewProps) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<FirebaseError | undefined>(undefined);
+
+  const [selectedSquad] = useAtom(selectedSquadAtom);
+
+  async function handleAddGame() {
+    if (!selectedSquad) return;
+    setLoading(true);
+    const squadRef = doc(db, "squads", selectedSquad.id);
+
+    // Atomically add a new region to the "regions" array field.
+    try {
+      await updateDoc(squadRef, {
+        games: arrayUnion({
+          id: game.id,
+          upvotes: 0,
+          downvotes: 0,
+        }),
+      });
+      setLoading(false);
+      closeAllModals();
+    } catch (e) {
+      if (e instanceof FirestoreError) {
+        setError(e);
+        setLoading(false);
+      }
+    }
+  }
+
   return (
     <SearchCardView
+      loading={loading}
+      error={error}
+      onAdd={handleAddGame}
       image={
-        //Sometimes games lack image urls
-        game.cover
+        game.cover && game.cover.url
           ? game.cover.url
-            ? game.cover.url
-            : "https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?w=2000" // This is a lack-of-image-image
-          : "https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?w=2000" // We should probably replace it with something better!
+          : "https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?w=2000"
       }
       title={game.name}
       description={game.summary}

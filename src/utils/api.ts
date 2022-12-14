@@ -7,16 +7,14 @@ export function getSelectedGames(ids?: string[]): Promise<Game[]> | null {
   if (ids == null || ids.length === 0) return null;
   return fetch(`${API_URL}`, {
     method: "POST",
-    body: `fields name, cover.url, first_release_date, platforms.abbreviation, rating, rating_count, summary, total_rating, total_rating_count, url; where id = (${ids.join(
-      ",",
-    )});`,
+    body: `fields name, genres, cover.url, url; where id = (${ids.join(",")});`,
   }).then(response => response.json());
 }
 
 export function getGamesBySearch(searchText: string): Promise<Game[]> {
   return fetch(`${API_URL}`, {
     method: "POST",
-    body: `fields name, cover.url, category, first_release_date, genres, platforms.abbreviation, rating, rating_count, summary, total_rating, total_rating_count, url;
+    body: `fields name, cover.url, genres, summary, url;
            where name ~ "${searchText}"* & category = 0;
            sort rating desc;
            limit 5;`,

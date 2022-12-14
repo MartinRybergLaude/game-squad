@@ -1,22 +1,14 @@
-import { useState } from "react";
 import {
-  ActionIcon,
   Badge,
-  Button,
   Card,
   Center,
-  Checkbox,
-  CheckboxProps,
   createStyles,
-  Grid,
   Group,
   Image,
-  Radio,
   SegmentedControl,
-  SimpleGrid,
   Text,
 } from "@mantine/core";
-import { IconMoneybag, IconQuestionMark, IconThumbDown, IconThumbUp } from "@tabler/icons";
+import { IconQuestionMark, IconThumbDown, IconThumbUp } from "@tabler/icons";
 
 const useStyles = createStyles(theme => ({
   card: {
@@ -71,24 +63,35 @@ const useStyles = createStyles(theme => ({
 }));
 
 interface GameCardProps {
-  image: string;
+  image?: string;
   title: string;
-  description: string;
+  genres?: string[];
 }
 
-export default function GameCard({ image, title }: GameCardProps) {
+export default function GameCard({ image, title, genres }: GameCardProps) {
   const { classes } = useStyles();
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
       <Card.Section>
-        <Image src={image.replace("t_thumb", "t_cover_big")} alt={title} height={180} />
+        <Image
+          src={
+            image
+              ? image.replace("t_thumb", "t_cover_big")
+              : "https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?w=2000"
+          }
+          alt={title}
+          height={180}
+        />
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
         <Group>
-          <Badge size="sm">CO-OP</Badge>
-          <Badge size="sm">Horror</Badge>
+          {genres?.map(genre => (
+            <Badge key={genre} size="sm">
+              {genre}
+            </Badge>
+          ))}
         </Group>
         <Text className={classes.truncateText} size="lg" weight={500} mt={8}>
           {title}

@@ -44,19 +44,25 @@ const useStyles = createStyles(theme => ({
 }));
 
 interface SearchCardProps {
+  loading?: boolean;
+  error?: Error;
   image: string;
   title: string;
   description: string;
   price: string;
   genres?: string[];
+  onAdd: () => void;
 }
 
 export default function SearchCardView({
+  loading,
+  error,
   image,
   title,
   description,
   genres,
   price,
+  onAdd,
 }: SearchCardProps) {
   const { classes } = useStyles();
 
@@ -96,8 +102,14 @@ export default function SearchCardView({
           </Card.Section>
         </div>
 
+        {error && (
+          <Text size="xs" color="red">
+            {error.message}
+          </Text>
+        )}
+
         <Group mt="xs">
-          <Button radius="md" style={{ flex: 1 }}>
+          <Button radius="md" style={{ flex: 1 }} onClick={() => onAdd()} loading={loading}>
             Add
           </Button>
         </Group>

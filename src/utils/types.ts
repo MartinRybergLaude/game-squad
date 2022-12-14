@@ -2,9 +2,9 @@ export interface Game extends BaseGame {
   name: string;
   summary: string;
   genres?: string[];
-  cover: {
-    id: number;
-    url: string;
+  cover?: {
+    id?: number;
+    url?: string;
   };
 }
 
