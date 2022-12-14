@@ -1,8 +1,7 @@
 import { Burger, Button, createStyles, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
-import { AnimatePresence } from "framer-motion";
 
-import { Game, Squad } from "~/utils/types";
+import { Squad } from "~/utils/types";
 
 import GameCollectionPresenter from "../gameCollection/gameCollectionPresenter";
 import SearchPresenter from "../search/searchPresenter";

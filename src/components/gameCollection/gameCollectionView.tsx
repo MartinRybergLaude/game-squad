@@ -1,5 +1,3 @@
-import { AnimatePresence, motion } from "framer-motion";
-
 import { Game } from "~/utils/types";
 
 import GameCardPresenter from "../gameCard/gameCardPresenter";
