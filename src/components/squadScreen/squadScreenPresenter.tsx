@@ -55,7 +55,7 @@ export default function SquadScreenPresenter() {
 
   useEffect(() => {
     setSelectedSquadLoading(loading || isLoading);
-  }, [loading]);
+  }, [loading, isLoading]);
 
   useEffect(() => {
     setSelectedSquadError(error || (gameError instanceof Error ? gameError : undefined));

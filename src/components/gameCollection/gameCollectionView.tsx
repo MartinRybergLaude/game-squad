@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { Game } from "~/utils/types";
 
@@ -9,16 +9,11 @@ interface GameCollectionViewProps {
 }
 
 export default function GameCollectionView({ games }: GameCollectionViewProps) {
+  const gameCards = games?.map(game => <GameCardPresenter key={game.id} game={game} />);
+
   return (
-    <motion.div
-      style={{ display: "flex", flexWrap: "wrap", gap: 16, maxWidth: 900, marginTop: 16 }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      {games?.map(game => (
-        <GameCardPresenter key={game.id} game={game} />
-      ))}
-    </motion.div>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 16, maxWidth: 900, marginTop: 16 }}>
+      {gameCards}
+    </div>
   );
 }

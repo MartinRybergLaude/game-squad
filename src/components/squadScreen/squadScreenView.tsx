@@ -2,7 +2,7 @@ import { Burger, Button, createStyles, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { AnimatePresence } from "framer-motion";
 
-import { Squad } from "~/utils/types";
+import { Game, Squad } from "~/utils/types";
 
 import GameCollectionPresenter from "../gameCollection/gameCollectionPresenter";
 import SearchPresenter from "../search/searchPresenter";
@@ -75,7 +75,7 @@ export default function SquadScreenView({
       >
         Add game
       </Button>
-      <AnimatePresence>{squad && <GameCollectionPresenter />}</AnimatePresence>
+      <GameCollectionPresenter />
     </>
   );
 }
