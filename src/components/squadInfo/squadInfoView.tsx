@@ -76,7 +76,7 @@ export default function SquadInfoView({
         onClick={() =>
           openModal({
             title: "Add game",
-            children: <SearchPresenter />,
+            children: <SearchPresenter players={2} />,
           })
         }
       >

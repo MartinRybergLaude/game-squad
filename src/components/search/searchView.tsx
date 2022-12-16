@@ -17,7 +17,7 @@ export default function SearchView({ games, loading, searchGame }: SearchViewPro
   return (
     <>
       <TextInput placeholder="Search" size="xs" mb="sm" onChange={searchGame} />
-      <div style={{ minHeight: 200, width: "100%", position: "relative" }}>
+      <div style={{ minHeight: 200, width: "xl", position: "relative" }}>
         <AnimatePresence>
           {games && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
