@@ -14,6 +14,7 @@ interface SquadInfoPresenterProps {
 }
 
 export default function SquadInfoPresenter({ squad, isOwner }: SquadInfoPresenterProps) {
+  const [hasCopiedCode, setHasCopiedCode] = useState(false);
   const [refreshCodeLoading, setRefreshCodeLoading] = useState(false);
   const [refreshCodeError, setRefreshCodeError] = useState<FirebaseError | undefined>(undefined);
 
@@ -36,6 +37,11 @@ export default function SquadInfoPresenter({ squad, isOwner }: SquadInfoPresente
     }
   }
 
+  function handleCopyCode() {
+    setHasCopiedCode(true);
+    setTimeout(() => setHasCopiedCode(false), 2000);
+  }
+
   return (
     <SquadInfoView
       isOwner={isOwner}
@@ -43,6 +49,8 @@ export default function SquadInfoPresenter({ squad, isOwner }: SquadInfoPresente
       onRefreshCode={handleRefreshCode}
       refreshCodeLoading={refreshCodeLoading}
       refreshCodeError={refreshCodeError}
+      hasCopiedCode={hasCopiedCode}
+      onCopyCode={handleCopyCode}
     />
   );
 }

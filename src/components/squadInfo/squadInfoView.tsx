@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Card, Group, Text } from "@mantine/core";
+import { ActionIcon, Button, Card, Group, Text, Tooltip } from "@mantine/core";
 import { closeAllModals, openConfirmModal, openModal } from "@mantine/modals";
 import { IconRefresh } from "@tabler/icons";
 
@@ -12,6 +12,8 @@ interface SquadInfoViewProps {
   onRefreshCode: () => void;
   refreshCodeLoading?: boolean;
   refreshCodeError?: Error;
+  hasCopiedCode: boolean;
+  onCopyCode: () => void;
 }
 export default function SquadInfoView({
   squad,
@@ -19,6 +21,8 @@ export default function SquadInfoView({
   onRefreshCode,
   refreshCodeLoading,
   refreshCodeError,
+  hasCopiedCode,
+  onCopyCode,
 }: SquadInfoViewProps) {
   const openConfirmRefreshModal = () =>
     openConfirmModal({
@@ -37,13 +41,24 @@ export default function SquadInfoView({
   return (
     <Card>
       <Group>
-        <Card withBorder>
+        <Card withBorder style={{ overflow: "visible" }}>
           <Group>
             <Text weight={500}>
-              Invite code: <span style={{ fontWeight: 800 }}>{squad.invite_code}</span>
+              Invite code:{" "}
+              <Tooltip label={hasCopiedCode ? "Copied!" : "Click to copy"}>
+                <span
+                  style={{ fontWeight: 800, cursor: "pointer" }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(squad.invite_code);
+                    onCopyCode();
+                  }}
+                >
+                  {squad.invite_code}
+                </span>
+              </Tooltip>
             </Text>
             {isOwner && (
-              <ActionIcon onClick={openConfirmRefreshModal} loading={refreshCodeLoading}>
+              <ActionIcon size="sm" onClick={openConfirmRefreshModal} loading={refreshCodeLoading}>
                 <IconRefresh />
               </ActionIcon>
             )}

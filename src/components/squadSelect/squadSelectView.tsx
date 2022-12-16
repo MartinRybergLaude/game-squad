@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Squad } from "~/utils/types";
 
 import CreateSquadModalPresenter from "../createSquadModal/createSquadModalPresenter";
+import JoinSquadModalPresenter from "../joinSquadModal/joinSquadModalPresenter";
 import LoaderScreenPresenter from "../loaderScreen/loaderScreenPresenter";
 
 const useStyles = createStyles(theme => ({
@@ -118,7 +119,16 @@ export default function SquadSelectView({
         >
           Create
         </Button>
-        <Button variant="outline" compact>
+        <Button
+          variant="subtle"
+          compact
+          onClick={() => {
+            openModal({
+              title: "Join Squad",
+              children: <JoinSquadModalPresenter />,
+            });
+          }}
+        >
           Join
         </Button>
       </Group>
