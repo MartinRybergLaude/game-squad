@@ -15,13 +15,29 @@ export default function SearchPresenter({ players }: SearchPresenterProp) {
   const [searchText, setSearchText] = React.useState("");
   const playerIds = multiplayerIds(players);
 
+  // const { playerIds } = useQuery(["searchText", searchText], () => getMultiplayerIds(players));
+  // console.log(data);
+  // data ? console.log(Array.from(Object.keys(data))) : null;
+
+  console.log(playerIds);
+  // console.log(playerIds);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e ? setSearchText(e.target.value) : setSearchText("");
   };
 
   const { data: games, isLoading } = useQuery(["searchText", searchText], () =>
-    getGamesBySearch(searchText, 20),
+    getGamesBySearch(searchText, 20, playerIds),
   );
+
+  // console.log(isLoading);
+
+  console.log(games);
+
+  // if (games == null) {
+  //   isLoading = true;
+  // }
+
   // const { data: games, isLoading } = playerIds
   //   ? useQuery(["searchText", searchText], () => getGamesBySearch(searchText, 20, playerIds))
   //   : { data: undefined, isLoading: true };
