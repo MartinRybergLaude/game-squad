@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { useUpdatePassword } from "react-firebase-hooks/auth";
+import { useSignOut, useUpdatePassword } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router";
 
+import { loginRoute } from "~/App";
 import { auth } from "~/utils/firebaseConfig";
 
 import UpdatePasswordModalView from "./updatePasswordModalView";
@@ -13,12 +15,23 @@ export interface UpdateFormValues {
 export default function UpdatePasswordModalPresenter() {
   const [updatePassword, updating, error] = useUpdatePassword(auth);
   const [sendSuccessText, setSendSuccessText] = useState<string>();
+  const navigate = useNavigate();
+  const [signOut] = useSignOut(auth);
 
   async function handlePasswordUpdate(values: UpdateFormValues) {
     setSendSuccessText(undefined);
     const requestPasswordUpdate = await updatePassword(values.password);
     if (requestPasswordUpdate) {
       setSendSuccessText("Your Password has been updated!");
+      signOut();
+      navigate(`${loginRoute.path}?changeAccountSettings=true`);
+      return null;
+    } else {
+      console.log("Caught error");
+      console.log(error);
+      signOut();
+      navigate(`${loginRoute.path}?reset=true`);
+      return null;
     }
   }
 
