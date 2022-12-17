@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useSignOut, useUpdatePassword } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router";
 
-import { loginRoute } from "~/App";
 import { auth } from "~/utils/firebaseConfig";
 
+import { loginRoute } from "../../App";
 import UpdatePasswordModalView from "./updatePasswordModalView";
 
 export interface UpdateFormValues {
