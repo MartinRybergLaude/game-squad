@@ -13,7 +13,7 @@ import {
   selectedSquadIdAtom,
   selectedSquadLoadingAtom,
 } from "~/utils/store";
-import { Squad } from "~/utils/types";
+import { BaseGame, Game, Squad } from "~/utils/types";
 
 import SquadScreenView from "./squadScreenView";
 
@@ -40,10 +40,31 @@ export default function SquadScreenPresenter() {
       ),
   });
 
+  function mergeGameData(apiGameData?: Game[] | null, squadGameData?: BaseGame[] | null): Game[] {
+    if (!apiGameData || !squadGameData) return [];
+    return squadGameData.map(game => {
+      const apiGame = apiGameData.find(apiGame => apiGame.id === game.id);
+      if (!apiGame) throw new Error("No game match!");
+      return {
+        id: game.id,
+        upvotes: game.upvotes,
+        downvotes: game.downvotes,
+        name: apiGame.name,
+        cover: {
+          url: apiGame.cover?.url,
+          id: apiGame.cover?.id,
+        },
+        summary: apiGame.summary,
+        genres: apiGame.genres,
+      };
+    });
+  }
+
   useEffect(() => {
     if (squadData) {
-      setSelectedSquad(squadData.data() as Squad);
-      setSelectedSquadGames(gameData || []);
+      const squad = squadData.data() as Squad;
+      setSelectedSquad(squad);
+      setSelectedSquadGames(mergeGameData(gameData, squad ? squad.games : null));
     } else {
       setSelectedSquad(undefined);
       setSelectedSquadGames([]);

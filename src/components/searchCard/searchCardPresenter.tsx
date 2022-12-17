@@ -30,8 +30,8 @@ export default function SearchCardPresenter({ game }: SearchCardViewProps) {
       await updateDoc(squadRef, {
         games: arrayUnion({
           id: game.id,
-          upvotes: 0,
-          downvotes: 0,
+          upvotes: [],
+          downvotes: [],
         }),
       });
       setLoading(false);

@@ -10,6 +10,8 @@ import {
 } from "@mantine/core";
 import { IconQuestionMark, IconThumbDown, IconThumbUp } from "@tabler/icons";
 
+import { Vote } from "./gameCardPresenter";
+
 const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
@@ -63,12 +65,24 @@ const useStyles = createStyles(theme => ({
 }));
 
 interface GameCardProps {
+  upvotes: number;
+  downvotes: number;
   image?: string;
   title: string;
   genres?: string[];
+  vote: Vote;
+  onVote: (vote: Vote) => void;
 }
 
-export default function GameCard({ image, title, genres }: GameCardProps) {
+export default function GameCardView({
+  upvotes,
+  downvotes,
+  image,
+  title,
+  genres,
+  vote,
+  onVote,
+}: GameCardProps) {
   const { classes } = useStyles();
 
   return (
@@ -93,16 +107,18 @@ export default function GameCard({ image, title, genres }: GameCardProps) {
             </Badge>
           ))}
         </Group>
-        <Text className={classes.truncateText} size="lg" weight={500} mt={8}>
-          {title}
-        </Text>
+        <Group>
+          <Text size="sm">{`Upvotes ${upvotes}`}</Text>
+          <Text size="sm">{`Downvotes ${downvotes}`}</Text>
+        </Group>
       </Card.Section>
 
       <Group position="center" mt="xs">
         <SegmentedControl
           radius="lg"
           size="lg"
-          defaultValue="undecided"
+          value={vote}
+          onChange={onVote}
           data={[
             {
               label: (
@@ -110,7 +126,7 @@ export default function GameCard({ image, title, genres }: GameCardProps) {
                   <IconThumbUp size={18} className={classes.like} stroke={1.5} />
                 </Center>
               ),
-              value: "like",
+              value: "up",
             },
             {
               label: (
@@ -118,7 +134,7 @@ export default function GameCard({ image, title, genres }: GameCardProps) {
                   <IconQuestionMark size={18} className={classes.undecided} stroke={1.5} />
                 </Center>
               ),
-              value: "undecided",
+              value: "none",
             },
             {
               label: (
@@ -126,7 +142,7 @@ export default function GameCard({ image, title, genres }: GameCardProps) {
                   <IconThumbDown size={18} className={classes.dislike} stroke={1.5} />
                 </Center>
               ),
-              value: "dislike",
+              value: "down",
             },
           ]}
         />
