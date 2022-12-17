@@ -46,11 +46,42 @@ export function multiplayerIds(players: number) {
   return data ? Object.assign({}, ...data.map(x => ({ [x.id]: x.onlinecoopmax }))) : {};
 }
 
-export function getMultiplayerIds(players: number): Promise<Game[]> {
+// export function getMultiplayerIds(players: number): Promise<Game[]> {
+//   return fetch(`${MULTIPLAYER_URL}`, {
+//     method: "POST",
+//     body: `fields onlinecoopmax;
+//       where onlinecoopmax >= ${players};
+//       limit 500;`, // 500 is the limit, unfortunately
+//   }).then(response => response.json());
+// }
+
+// I am sorry
+export async function fetchAllMultiplayer(players, id = 0, previousResponse = []) {
   return fetch(`${MULTIPLAYER_URL}`, {
     method: "POST",
     body: `fields onlinecoopmax;
-      where onlinecoopmax >= ${players};
+      where onlinecoopmax >= ${players} & id > ${id};
       limit 500;`, // 500 is the limit, unfortunately
-  }).then(response => response.json());
+  })
+    .then(response => response.json())
+    .then(async newResponse => {
+      const response = Object.assign(
+        {},
+        previousResponse,
+        Object.assign({}, ...newResponse.map(x => ({ [x.id]: x.onlinecoopmax }))), // Convert to dict
+      ); // Combine the two dicts
+      const responseKeys = Object.keys(response);
+
+      if (newResponse.length != 0) {
+        const i = responseKeys[responseKeys.length - 1];
+        // console.log(i);
+        // console.log(newResponse.length);
+
+        return await fetchAllMultiplayer(players, i, response);
+      }
+
+      return response;
+    });
 }
+
+// console.log(fetchAllMultiplayer(4));

@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import debouce from "lodash.debounce";
 
-import { getGamesBySearch, getMultiplayerIds } from "~/utils/api";
+import { fetchAllMultiplayer, getGamesBySearch } from "~/utils/api";
 
 import SearchView from "./searchView";
 
@@ -15,14 +15,17 @@ export default function SearchPresenter({ players }: SearchPresenterProp) {
   const [searchText, setSearchText] = React.useState("");
   const [playerIds, playerUpdate] = React.useState({});
 
+  // console.log(fetchAllMultiplayer(players));
+
   useEffect(() => {
     const fetchData = async () => {
       // get the data from the api
-      const data = await getMultiplayerIds(players);
-      const playerDict = Object.assign({}, ...data.map(x => ({ [x.id]: x.onlinecoopmax })));
+      // console.log(await fetchAllMultiplayer(players));
+      const data = await fetchAllMultiplayer(players);
+      // const playerDict = Object.assign({}, ...data.map(x => ({ [x.id]: x.onlinecoopmax })));
 
       // UPDATE (not)
-      playerUpdate(playerDict);
+      playerUpdate(data);
     };
 
     // call the function
