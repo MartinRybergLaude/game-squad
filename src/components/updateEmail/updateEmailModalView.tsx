@@ -42,6 +42,12 @@ export default function UpdateEmailModalView({
         </Text>
       )}
 
+      {loading && (
+        <Text size="sm" color="red">
+          {loading}
+        </Text>
+      )}
+
       <form
         onSubmit={form.onSubmit(values => {
           onSubmit(values);
