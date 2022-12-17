@@ -1,13 +1,5 @@
-import { ThemeContext } from "@emotion/react";
-import {
-  ActionIcon,
-  Button,
-  ColorScheme,
-  Group,
-  Tabs,
-  Text,
-  useMantineColorScheme,
-} from "@mantine/core";
+import { NavigateFunction } from "react-router";
+import { ActionIcon, Button, ColorScheme, Group, Tabs, Text } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { IconEdit, IconMoonStars, IconSettings, IconSun } from "@tabler/icons";
 import { User } from "firebase/auth";
@@ -57,7 +49,9 @@ export default function SettingsModalView({
                   onClick={() => {
                     openModal({
                       title: "Username",
-                      children: <UpdateUsernameModalPresenter />,
+                      children: (
+                        <UpdateUsernameModalPresenter navigate={navigate} signOut={signOut} />
+                      ),
                     });
                   }}
                   title="Change username"
@@ -130,17 +124,15 @@ export default function SettingsModalView({
           </div>
         </Tabs.Panel>
         <Tabs.Panel value="Theme" pt="xs">
-          <Group>
+          <Group position="center">
             <ActionIcon
               variant="outline"
               color={dark ? "white" : "dark"}
               onClick={() => toggleColorScheme()}
               title="Toggle color scheme"
             >
-              {dark ? <IconSun size={24} /> : <IconMoonStars size={24} />}
+              {dark ? <IconSun size={40} /> : <IconMoonStars size={40} />}
             </ActionIcon>
-            <Button variant="outline">2</Button>
-            <Button variant="outline">3</Button>
           </Group>
         </Tabs.Panel>
       </Tabs>

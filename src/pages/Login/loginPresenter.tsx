@@ -23,7 +23,7 @@ export default function LoginPresenter() {
     : reset
     ? "Password reset successfully! You can now log in."
     : changeAccountSettings
-    ? "Please log in again to change account settings"
+    ? "To change your account settings, please log in again"
     : undefined;
 
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);

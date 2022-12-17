@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import {
   useAuthState,
   useSendEmailVerification,
+<<<<<<< HEAD
   useUpdateEmail,
   useVerifyBeforeUpdateEmail,
+=======
+  useSignOut,
+  useUpdateEmail,
+>>>>>>> e0f87d8d0b0ade5e994f6a470e5a894f03e4522e
 } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,11 +22,20 @@ export interface UpdateFormValues {
 }
 
 export default function UpdateEmailModalPresenter() {
+<<<<<<< HEAD
   //const [updateEmail, updating, error] = useUpdateEmail(auth);
   const [sendEmailVerification, sending, emailError] = useSendEmailVerification(auth);
   const [sendSuccessText, setSendSuccessText] = useState<string>();
   const [resendSuccessText, setResendSuccessText] = useState<string>();
   const [verifyBeforeUpdateEmail, updating, error] = useVerifyBeforeUpdateEmail(auth);
+=======
+  const [updateEmail, updating, error] = useUpdateEmail(auth);
+  const [sendEmailVerification, sending, emailError] = useSendEmailVerification(auth);
+  const [sendSuccessText, setSendSuccessText] = useState<string>();
+  const [resendSuccessText, setResendSuccessText] = useState<string>();
+  const navigate = useNavigate();
+  const [signOut] = useSignOut(auth);
+>>>>>>> e0f87d8d0b0ade5e994f6a470e5a894f03e4522e
 
   const [user] = useAuthState(auth);
 
@@ -46,6 +60,10 @@ export default function UpdateEmailModalPresenter() {
     const requestEmailUpdate = await updateEmail(values.email);
     if (requestEmailUpdate) {
       setSendSuccessText("Your email has been updated!");
+    } else {
+      signOut();
+      navigate(`${loginRoute.path}?changeAccountSettings=true`);
+      return null;
     }
   }*/
 
