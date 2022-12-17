@@ -46,16 +46,8 @@ export default function SquadScreenPresenter() {
       const apiGame = apiGameData.find(apiGame => apiGame.id === game.id);
       if (!apiGame) throw new Error("No game match!");
       return {
-        id: game.id,
-        upvotes: game.upvotes,
-        downvotes: game.downvotes,
-        name: apiGame.name,
-        cover: {
-          url: apiGame.cover?.url,
-          id: apiGame.cover?.id,
-        },
-        summary: apiGame.summary,
-        genres: apiGame.genres,
+        ...game,
+        ...apiGame,
       };
     });
   }
