@@ -2,13 +2,8 @@ import { useEffect, useState } from "react";
 import {
   useAuthState,
   useSendEmailVerification,
-<<<<<<< HEAD
-  useUpdateEmail,
-  useVerifyBeforeUpdateEmail,
-=======
   useSignOut,
   useUpdateEmail,
->>>>>>> e0f87d8d0b0ade5e994f6a470e5a894f03e4522e
 } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -22,28 +17,14 @@ export interface UpdateFormValues {
 }
 
 export default function UpdateEmailModalPresenter() {
-<<<<<<< HEAD
-  //const [updateEmail, updating, error] = useUpdateEmail(auth);
-  const [sendEmailVerification, sending, emailError] = useSendEmailVerification(auth);
-  const [sendSuccessText, setSendSuccessText] = useState<string>();
-  const [resendSuccessText, setResendSuccessText] = useState<string>();
-  const [verifyBeforeUpdateEmail, updating, error] = useVerifyBeforeUpdateEmail(auth);
-=======
   const [updateEmail, updating, error] = useUpdateEmail(auth);
   const [sendEmailVerification, sending, emailError] = useSendEmailVerification(auth);
   const [sendSuccessText, setSendSuccessText] = useState<string>();
   const [resendSuccessText, setResendSuccessText] = useState<string>();
   const navigate = useNavigate();
   const [signOut] = useSignOut(auth);
->>>>>>> e0f87d8d0b0ade5e994f6a470e5a894f03e4522e
 
   const [user] = useAuthState(auth);
-
-  console.log(user);
-
-  const actionCodeSettings = {
-    url: "https://www.gamesquad.win/" + `${loginRoute.path}?verified=true`,
-  };
 
   async function handleResendEmail() {
     setResendSuccessText(undefined);
@@ -55,7 +36,6 @@ export default function UpdateEmailModalPresenter() {
     }
   }
 
-  /*
   async function handleEmailUpdate(values: UpdateFormValues) {
     const requestEmailUpdate = await updateEmail(values.email);
     if (requestEmailUpdate) {
@@ -64,14 +44,6 @@ export default function UpdateEmailModalPresenter() {
       signOut();
       navigate(`${loginRoute.path}?changeAccountSettings=true`);
       return null;
-    }
-  }*/
-
-  async function handleEmailUpdate(values: UpdateFormValues) {
-    const requestEmailUpdate = await verifyBeforeUpdateEmail(values.email, actionCodeSettings);
-    if (requestEmailUpdate) {
-      //alert("Please check your email to verify your updated email address");
-      setSendSuccessText("Your email has been updated!");
     }
   }
 

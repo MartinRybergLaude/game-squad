@@ -1,19 +1,21 @@
 import { useState } from "react";
-import { useUpdateProfile } from "react-firebase-hooks/auth";
+import { useSignOut, useUpdateProfile } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router";
 
 import { loginRoute } from "~/App";
 import { auth } from "~/utils/firebaseConfig";
 
-import { routeLoginPageFuncs } from "../settings/settingsModalPresenter";
 import UpdateUsernameModalView from "./updateUsernameModalView";
 
 export interface UpdateFormValues {
   username: string;
 }
 
-export default function UpdateUsernameModalPresenter({ navigate, signOut }: routeLoginPageFuncs) {
+export default function UpdateUsernameModalPresenter() {
   const [updateProfile, updating, error] = useUpdateProfile(auth);
   const [sendSuccessText, setSendSuccessText] = useState<string>();
+  const navigate = useNavigate();
+  const [signOut] = useSignOut(auth);
 
   async function handleUsernameUpdate(values: UpdateFormValues) {
     setSendSuccessText(undefined);

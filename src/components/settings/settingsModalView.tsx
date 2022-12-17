@@ -49,9 +49,7 @@ export default function SettingsModalView({
                   onClick={() => {
                     openModal({
                       title: "Username",
-                      children: (
-                        <UpdateUsernameModalPresenter navigate={navigate} signOut={signOut} />
-                      ),
+                      children: <UpdateUsernameModalPresenter />,
                     });
                   }}
                   title="Change username"

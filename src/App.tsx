@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import AuthPresenter from "./pages/Auth/authPresenter";
 import DashboardPresenter from "./pages/Dashboard/dashboardPresenter";
+import HomepagePresenter from "./pages/Homepage/homepagePresenter";
 import LoginPresenter from "./pages/Login/loginPresenter";
 import NotFoundPresenter from "./pages/NotFound/notFoundPresenter";
 import RegisterPresenter from "./pages/Register/registerPresenter";
@@ -44,6 +45,11 @@ export const dashboardRoute: RouteObject = {
   element: <DashboardPresenter />,
 };
 
+export const homepageRoute: RouteObject = {
+  path: "/homepage",
+  element: <HomepagePresenter />,
+};
+
 export const notFoundRoute: RouteObject = {
   path: "*",
   element: <NotFoundPresenter />,
@@ -76,6 +82,7 @@ export const authRoute: RouteObject = {
 };
 
 const router = createBrowserRouter([
+  homepageRoute,
   dashboardRoute,
   loginRoute,
   registerRoute,
