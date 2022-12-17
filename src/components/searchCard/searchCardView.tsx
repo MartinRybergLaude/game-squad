@@ -49,7 +49,7 @@ interface SearchCardProps {
   image: string;
   title: string;
   description: string;
-  price: string;
+  players?: number;
   genres?: string[];
   onAdd: () => void;
 }
@@ -61,7 +61,7 @@ export default function SearchCardView({
   title,
   description,
   genres,
-  price,
+  players,
   onAdd,
 }: SearchCardProps) {
   const { classes } = useStyles();
@@ -80,7 +80,7 @@ export default function SearchCardView({
               </Text>
               <Group>
                 <Badge color="green" variant="outline" size="sm">
-                  {price}
+                  {String(players) + " players"}
                 </Badge>
               </Group>
               <ScrollArea type="auto">

@@ -18,15 +18,15 @@ export function getSelectedGames(ids?: string[]): Promise<Game[]> | null {
 export function getGamesBySearch(
   searchText: string,
   limit = 5,
-  multiplayerIds?: string[],
-): Promise<Game[]> | undefined {
-  if (multiplayerIds == null || multiplayerIds.length === 0) return undefined;
+  multiplayerIds?: { [key: number]: number },
+): Promise<Game[]> | null {
+  if (multiplayerIds == null || Object.keys(multiplayerIds).length === 0) return null;
   return fetch(`${API_URL}`, {
     method: "POST",
     body: `fields name, cover.url, genres, summary, url, multiplayer_modes;
-           where name ~ "${searchText}"* & category = 0 & multiplayer_modes = (${multiplayerIds.join(
-      ",",
-    )}); 
+           where name ~ "${searchText}"* & category = 0 & multiplayer_modes = (${Object.keys(
+      multiplayerIds,
+    ).join(",")}); 
            sort rating desc;
            limit ${limit};`,
   }).then(response => response.json());
@@ -41,10 +41,9 @@ export function getGenresByIds(ids: number[]): Promise<Game[]> {
 }
 
 export function multiplayerIds(players: number) {
-  const { data } = useQuery(["players"], () => getMultiplayerIds(players));
-  // console.log(data);
-  // data ? console.log(Array.from(Object.keys(data))) : null;
-  return data ? Object.keys(data) : undefined;
+  const { data } = useQuery(["players"], async () => await getMultiplayerIds(players));
+  // Returns dictionary where id:onlinecoopmax
+  return data ? Object.assign({}, ...data.map(x => ({ [x.id]: x.onlinecoopmax }))) : {};
 }
 
 export function getMultiplayerIds(players: number): Promise<Game[]> {

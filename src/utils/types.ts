@@ -6,6 +6,7 @@ export interface Game extends BaseGame {
     id?: number;
     url?: string;
   };
+  multiplayer_modes: number;
 }
 
 export interface BaseGame {

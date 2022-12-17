@@ -10,10 +10,15 @@ import SearchCardPresenter from "../searchCard/searchCardPresenter";
 interface SearchViewProps {
   games?: Game[];
   loading?: boolean;
+  players: {
+    [key: number]: number;
+  };
   searchGame: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function SearchView({ games, loading, searchGame }: SearchViewProps) {
+export default function SearchView({ games, loading, players, searchGame }: SearchViewProps) {
+  // console.log(players);
+  // console.log(games);
   return (
     <>
       <TextInput placeholder="Search" size="xs" mb="sm" onChange={searchGame} />
@@ -24,7 +29,11 @@ export default function SearchView({ games, loading, searchGame }: SearchViewPro
               <ScrollArea style={{ height: 500 }}>
                 <SimpleGrid cols={3} breakpoints={[{ maxWidth: "xs", cols: 1 }]}>
                   {games.map(game => (
-                    <SearchCardPresenter game={game} key={game.id} />
+                    <SearchCardPresenter
+                      game={game}
+                      key={game.id}
+                      players={game ? players[parseInt(game.multiplayer_modes)] : undefined}
+                    />
                   ))}
                 </SimpleGrid>
               </ScrollArea>
