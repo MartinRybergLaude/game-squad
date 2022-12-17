@@ -16,11 +16,14 @@ export default function LoginPresenter() {
   const [searchParams] = useSearchParams();
   const verified = searchParams.get("verified");
   const reset = searchParams.get("reset");
+  const changeAccountSettings = searchParams.get("changeAccountSettings");
 
   const successMsg = verified
     ? "Email verified successfully! You can now log in."
     : reset
     ? "Password reset successfully! You can now log in."
+    : changeAccountSettings
+    ? "Please log in again to change account settings"
     : undefined;
 
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);

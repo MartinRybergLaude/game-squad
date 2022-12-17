@@ -47,7 +47,7 @@ export default function SettingsModalView({
               Current username
               <Group position="right" spacing="xs">
                 <Text fz="sm" align="right" fs="italic" fw={700}>
-                  {user?.displayName}
+                  {user?.displayName ? user?.displayName : "No username"}
                 </Text>
                 <ActionIcon
                   color="dark.3"
@@ -66,7 +66,7 @@ export default function SettingsModalView({
                 </ActionIcon>
               </Group>
             </Group>
-            <Group mt={16} position="apart" grow>
+            <Group mt={16} position="apart">
               Change Email
               <Group position="right" spacing="xs">
                 <Text fz="sm" fs="italic" fw={700}>
@@ -89,7 +89,7 @@ export default function SettingsModalView({
                 </ActionIcon>
               </Group>
             </Group>
-            <Group mt={16} position="apart" grow>
+            <Group mt={16} position="apart">
               Change password
               <Group position="right" spacing="xs">
                 <Text fz="sm" fs="italic" fw={700}>

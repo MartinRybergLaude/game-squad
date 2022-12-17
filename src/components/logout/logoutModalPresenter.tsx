@@ -17,6 +17,8 @@ export default function LogoutModalPresenter() {
     const requestSignOut = await signOut();
     if (requestSignOut) {
       closeAllModals();
+      console.log(loginRoute.path ?? "/login");
+      console.log(navigate(loginRoute.path ?? "/login"));
       navigate(loginRoute.path ?? "/login");
       return null;
     }

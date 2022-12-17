@@ -13,7 +13,7 @@ export default function SettingsModalPresenter() {
     <SettingsModalView
       user={user}
       colorScheme={colorScheme}
-      toggleCOlorScheme={toggleColorScheme}
+      toggleColorScheme={toggleColorScheme}
     />
   );
 }
