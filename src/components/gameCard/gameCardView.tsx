@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Badge,
   Card,
   Center,
@@ -8,7 +9,7 @@ import {
   SegmentedControl,
   Text,
 } from "@mantine/core";
-import { IconQuestionMark, IconThumbDown, IconThumbUp } from "@tabler/icons";
+import { IconQuestionMark, IconThumbDown, IconThumbUp, IconX } from "@tabler/icons";
 
 const useStyles = createStyles(theme => ({
   card: {
@@ -60,20 +61,31 @@ const useStyles = createStyles(theme => ({
       width: "0",
     },
   },
+  overlay: {
+    position: "absolute",
+    opacity: "0.5",
+    transition: "0.3s ease",
+    zIndex: 2,
+    right: "0",
+  },
 }));
 
 interface GameCardProps {
   image?: string;
   title: string;
   genres?: string[];
+  onRemove: () => void;
 }
 
-export default function GameCard({ image, title, genres }: GameCardProps) {
+export default function GameCard({ image, title, genres, onRemove }: GameCardProps) {
   const { classes } = useStyles();
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
       <Card.Section>
+        <ActionIcon variant="subtle" className={classes.overlay} onClick={() => onRemove()}>
+          <IconX />
+        </ActionIcon>
         <Image
           src={
             image
