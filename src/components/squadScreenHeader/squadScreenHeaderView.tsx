@@ -1,4 +1,5 @@
-import { ActionIcon, Burger, createStyles, Group, Menu, Title } from "@mantine/core";
+import { ActionIcon, Burger, createStyles, Group, Menu, Text, Title } from "@mantine/core";
+import { openConfirmModal } from "@mantine/modals";
 import { IconDoorExit, IconDotsVertical, IconTrash } from "@tabler/icons";
 
 import { Squad } from "~/utils/types";
@@ -52,7 +53,7 @@ export function SquadScreenHeaderView({
 
   return (
     <header className={classes.header}>
-      <Group>
+      <Group noWrap>
         <Burger
           size="sm"
           onClick={() => onSidebarOpen()}
@@ -73,7 +74,25 @@ export function SquadScreenHeaderView({
           </Menu.Target>
           <Menu.Dropdown>
             {isOwner ? (
-              <Menu.Item color="red" icon={<IconTrash />} onClick={() => onDeleteOrLeaveSquad()}>
+              <Menu.Item
+                color="red"
+                icon={<IconTrash />}
+                onClick={() =>
+                  openConfirmModal({
+                    title: `Delete ${squad.name}?`,
+                    centered: true,
+                    children: (
+                      <Text size="sm">
+                        {`Are you sure you want to delete ${squad.name}? This action cannot be undone.`}
+                      </Text>
+                    ),
+                    labels: { confirm: "Delete squad", cancel: "Cancel" },
+                    confirmProps: { color: "red" },
+                    onCancel: () => null,
+                    onConfirm: () => onDeleteOrLeaveSquad(),
+                  })
+                }
+              >
                 Delete squad
               </Menu.Item>
             ) : (

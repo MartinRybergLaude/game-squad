@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Burger, Button, createStyles, Group, Text, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
+import { IconUserCheck } from "@tabler/icons";
 import { FirebaseError } from "firebase/app";
+import { User } from "firebase/auth";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { Squad } from "~/utils/types";
@@ -15,7 +17,7 @@ const useStyles = createStyles(theme => ({
     marginTop: theme.spacing.sm,
     paddingLeft: 8,
     "> div": {
-      justifyContent: "flex-start",
+      justifyContent: "space-between",
     },
   },
   bottomDivider: {
@@ -64,6 +66,7 @@ interface GroupSelectViewProps {
   selectedSquadId: string | null;
   onSelectSquadId: (squadId: string) => void;
   onCloseSidebar: () => void;
+  user?: User | null;
 }
 
 export default function SquadSelectView({
@@ -74,6 +77,7 @@ export default function SquadSelectView({
   selectedSquadId,
   onSelectSquadId,
   onCloseSidebar,
+  user,
 }: GroupSelectViewProps) {
   const { classes } = useStyles();
   const [openBurger, setOpenBurger] = useState(false);
@@ -140,18 +144,22 @@ export default function SquadSelectView({
         <AnimatePresence>
           {squads.length > 0 && (
             <motion.div variants={containerAnimation} initial="hidden" animate="show">
-              {squads.map(squad => (
-                <motion.div key={squad.id} variants={childAnimation}>
-                  <Button
-                    className={classes.btn}
-                    fullWidth
-                    variant={getButtonVariant(squad)}
-                    onClick={() => onSelectSquadId(squad.id)}
-                  >
-                    {squad.name}
-                  </Button>
-                </motion.div>
-              ))}
+              {squads.map(squad => {
+                const isOwner = squad.owner === user?.uid;
+                return (
+                  <motion.div key={squad.id} variants={childAnimation}>
+                    <Button
+                      className={classes.btn}
+                      fullWidth
+                      variant={getButtonVariant(squad)}
+                      onClick={() => onSelectSquadId(squad.id)}
+                      rightIcon={isOwner && <IconUserCheck size={18} />}
+                    >
+                      {squad.name}
+                    </Button>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           )}
         </AnimatePresence>
