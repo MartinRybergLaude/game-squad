@@ -6,16 +6,15 @@ import { useAtom } from "jotai";
 
 import { db } from "~/utils/firebaseConfig";
 import { selectedSquadAtom } from "~/utils/store";
-import { Game, GenreObject, Genres, MultiplayerMaxPlayers } from "~/utils/types";
+import { Game, GenreObject, Genres } from "~/utils/types";
 
 import SearchCardView from "./searchCardView";
 
 interface SearchCardViewProps {
   game: Game;
-  maxPlayers?: MultiplayerMaxPlayers;
 }
 
-export default function SearchCardPresenter({ game, maxPlayers }: SearchCardViewProps) {
+export default function SearchCardPresenter({ game }: SearchCardViewProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<FirebaseError | undefined>(undefined);
 
@@ -59,7 +58,6 @@ export default function SearchCardPresenter({ game, maxPlayers }: SearchCardView
       description={game.summary}
       key={game.id}
       genres={game.genres && game.genres.map(genre => Genres[genre as keyof GenreObject])}
-      maxPlayers={maxPlayers}
     />
   );
 }

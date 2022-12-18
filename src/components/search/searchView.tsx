@@ -1,8 +1,8 @@
 import { ChangeEvent } from "react";
-import { Group, ScrollArea, SimpleGrid, TextInput } from "@mantine/core";
+import { Group, ScrollArea, TextInput } from "@mantine/core";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { Game, MultiplayerModeObject } from "~/utils/types";
+import { Game } from "~/utils/types";
 
 import LoaderScreenPresenter from "../loaderScreen/loaderScreenPresenter";
 import SearchCardPresenter from "../searchCard/searchCardPresenter";
@@ -10,16 +10,10 @@ import SearchCardPresenter from "../searchCard/searchCardPresenter";
 interface SearchViewProps {
   games?: Game[] | null;
   loading?: boolean;
-  multiplayerModes?: MultiplayerModeObject;
   onSearchTextChanged: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function SearchView({
-  games,
-  loading,
-  multiplayerModes,
-  onSearchTextChanged,
-}: SearchViewProps) {
+export default function SearchView({ games, loading, onSearchTextChanged }: SearchViewProps) {
   return (
     <>
       <TextInput placeholder="Search" size="xs" mb="sm" onChange={onSearchTextChanged} />
@@ -30,13 +24,7 @@ export default function SearchView({
               <ScrollArea style={{ height: 500 }}>
                 <Group style={{ width: "100%" }}>
                   {games.map(game => (
-                    <SearchCardPresenter
-                      game={game}
-                      key={game.id}
-                      maxPlayers={
-                        multiplayerModes ? multiplayerModes[game.multiplayer_modes] : undefined
-                      }
-                    />
+                    <SearchCardPresenter game={game} key={game.id} />
                   ))}
                 </Group>
               </ScrollArea>

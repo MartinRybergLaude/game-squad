@@ -34,10 +34,6 @@ export type ReloadFunction = () => void;
 
 export type GenreObject = { [key: string]: string };
 
-export type MultiplayerModeObject = { [key: string]: MultiplayerMaxPlayers };
-
-export type MultiplayerMaxPlayers = { coop: number; online: number };
-
 export const Genres: GenreObject = {
   "2": "Point-and-click",
   "4": "Fighting",
