@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Badge,
   Card,
   Center,
@@ -8,7 +9,7 @@ import {
   SegmentedControl,
   Text,
 } from "@mantine/core";
-import { IconQuestionMark, IconThumbDown, IconThumbUp } from "@tabler/icons";
+import { IconQuestionMark, IconThumbDown, IconThumbUp, IconX } from "@tabler/icons";
 
 import { Vote } from "./gameCardPresenter";
 
@@ -16,16 +17,29 @@ const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
     width: "240px",
-    height: "340px",
+    height: "380px",
   },
 
-  section: {
+  topsection: {
+    height: "240px",
+    width: "240px",
+  },
+
+  midSection: {
     borderBottom: `1px solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
     paddingBottom: theme.spacing.md,
+    height: "120px",
+  },
+
+  lowSection: {
+    paddingLeft: theme.spacing.md,
+    paddingRight: theme.spacing.md,
+    paddingBottom: theme.spacing.md,
+    height: "20px",
   },
 
   like: {
@@ -51,7 +65,8 @@ const useStyles = createStyles(theme => ({
   },
 
   truncateText: {
-    width: "20ch",
+    width: "200px",
+    height: "65px",
     whitespace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -61,6 +76,20 @@ const useStyles = createStyles(theme => ({
       position: "fixed",
       width: "0",
     },
+  },
+
+  truncateGroup: {
+    width: "230px",
+    maxHeight: "55px",
+    overflow: "hidden",
+  },
+
+  overlay: {
+    position: "absolute",
+    opacity: "0.5",
+    transition: "0.3s ease",
+    zIndex: 2,
+    right: "0",
   },
 }));
 
@@ -72,6 +101,7 @@ interface GameCardProps {
   genres?: string[];
   vote: Vote;
   onVote: (vote: Vote) => void;
+  onRemove: () => void;
 }
 
 export default function GameCardView({
@@ -82,12 +112,16 @@ export default function GameCardView({
   genres,
   vote,
   onVote,
+  onRemove,
 }: GameCardProps) {
   const { classes } = useStyles();
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
       <Card.Section>
+        <ActionIcon variant="subtle" className={classes.overlay} onClick={() => onRemove()}>
+          <IconX />
+        </ActionIcon>
         <Image
           src={
             image
@@ -99,8 +133,8 @@ export default function GameCardView({
         />
       </Card.Section>
 
-      <Card.Section className={classes.section} mt="md">
-        <Group>
+      <Card.Section className={classes.midSection} mt="md">
+        <Group className={classes.truncateGroup}>
           {genres?.map(genre => (
             <Badge key={genre} size="sm">
               {genre}
@@ -112,8 +146,7 @@ export default function GameCardView({
           <Text size="sm">{`Downvotes ${downvotes}`}</Text>
         </Group>
       </Card.Section>
-
-      <Group position="center" mt="xs">
+      <Group position="center" mt="xs" className={classes.lowSection}>
         <SegmentedControl
           radius="lg"
           size="lg"

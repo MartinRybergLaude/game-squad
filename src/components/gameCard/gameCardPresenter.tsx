@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { User } from "firebase/auth";
-import { doc, runTransaction } from "firebase/firestore";
+import { arrayUnion, deleteField, doc, runTransaction, updateDoc } from "firebase/firestore";
 import { useAtom } from "jotai";
 
 import { auth, db } from "~/utils/firebaseConfig";
@@ -101,6 +101,29 @@ export default function GameCardPresenter({ game }: GameCardPresenterProps) {
     return game;
   }
 
+  async function handleRemoveGame() {
+    if (!selectedSquad) throw Error("Squad is undefined");
+    if (!game) throw Error("Game is undefined");
+
+    try {
+      await runTransaction(db, async transaction => {
+        const squadRef = doc(db, "squads", selectedSquad.id);
+        const docSnap = await transaction.get(squadRef);
+
+        if (docSnap.exists()) {
+          const newData = docSnap
+            .data()
+            .games.filter((isGame: { id: string }) => isGame.id != game.id.toString());
+          updateDoc(squadRef, {
+            games: newData,
+          });
+        }
+      });
+    } catch (e) {
+      console.error("Transaction failed!");
+    }
+  }
+
   return (
     <GameCardView
       title={game.name}
@@ -110,6 +133,7 @@ export default function GameCardPresenter({ game }: GameCardPresenterProps) {
       image={game?.cover?.url}
       vote={vote}
       onVote={handleVote}
+      onRemove={handleRemoveGame}
     />
   );
 }
