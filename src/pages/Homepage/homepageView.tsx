@@ -26,7 +26,7 @@ const useStyles = createStyles(theme => ({
   },
 
   container: {
-    height: 700,
+    height: 600,
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-end",
@@ -94,7 +94,7 @@ const useStyles = createStyles(theme => ({
   },
 
   control: {
-    marginTop: theme.spacing.xl * 1.5,
+    marginTop: theme.spacing.xl * 2.5,
 
     [theme.fn.smallerThan("sm")]: {
       width: "100%",
@@ -169,9 +169,7 @@ export default function HomepageView({ onSubmit }: HomepageViewProps) {
       />
       <Container className={classes.container}>
         <Title className={classes.headTitle}>GameSquad</Title>
-        <Title className={classes.subTitle} mt={50}>
-          A place for making choices that stick
-        </Title>
+        <Title className={classes.subTitle}>A place for making choices that stick</Title>
         <Text className={classes.description} size="xl" mt="xl">
           Pick games that you want to play with your mates – GameSquad allows all this and more! (It
           does not, atm) (Pending better description)
@@ -193,8 +191,8 @@ export default function HomepageView({ onSubmit }: HomepageViewProps) {
           </Button>
         </form>
       </Container>
-      <Container size="lg" py="xs" mt={-60}>
-        <SimpleGrid cols={3} spacing="xl" mt={50} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
+      <Container size="lg" py="xs" mt={-70}>
+        <SimpleGrid cols={3} spacing="xl" mt={0} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
           {features}
         </SimpleGrid>
       </Container>

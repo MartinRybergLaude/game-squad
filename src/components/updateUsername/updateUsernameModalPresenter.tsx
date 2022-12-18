@@ -23,9 +23,11 @@ export default function UpdateUsernameModalPresenter() {
     if (requestUsernameUpdate) {
       setSendSuccessText("Your username has been updated!");
     } else {
-      signOut();
-      navigate(`${loginRoute.path}?changeAccountSettings=true`);
-      return null;
+      const loggedOut = await signOut();
+      if (loggedOut) {
+        navigate(`${loginRoute.path}?changeAccountSettings=true`);
+        return null;
+      }
     }
   }
 

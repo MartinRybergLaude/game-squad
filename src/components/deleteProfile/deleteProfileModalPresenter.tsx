@@ -19,10 +19,13 @@ export default function DeleteProfileModalPresenter() {
     const requestDeleteUser = await deleteUser();
     if (requestDeleteUser) {
       setSendSuccessText("Your profile has been deleted. You will be redirected to the login page");
-    } else {
-      signOut();
-      navigate(`${loginRoute.path}?changeAccountSettings=true`);
+      navigate(`${loginRoute.path}`);
       return null;
+    } else {
+      const loggedOut = await signOut();
+      if (loggedOut) {
+        navigate(`${loginRoute.path}?changeAccountSettings=true`);
+      }
     }
   }
 
@@ -35,9 +38,3 @@ export default function DeleteProfileModalPresenter() {
     />
   );
 }
-
-/* TODO: 
--Add requirement for recent login!!! 
--Maybe add catch for errors?
--After the profile is deleted, a new modal should be shown or something like that with the confirmation message, so the old modal doesn't stay
-*/
