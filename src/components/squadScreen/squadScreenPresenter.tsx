@@ -41,15 +41,19 @@ export default function SquadScreenPresenter() {
   });
 
   function mergeGameData(apiGameData?: Game[] | null, squadGameData?: BaseGame[] | null): Game[] {
-    if (!apiGameData || !squadGameData) return [];
-    return squadGameData.map(game => {
-      const apiGame = apiGameData.find(apiGame => apiGame.id === game.id);
-      if (!apiGame) throw new Error("No game match!");
-      return {
-        ...game,
-        ...apiGame,
-      };
-    });
+    try {
+      if (!apiGameData || !squadGameData) return [];
+      return squadGameData.map(game => {
+        const apiGame = apiGameData.find(apiGame => apiGame.id === game.id);
+        if (!apiGame) throw new Error("No game match!");
+        return {
+          ...game,
+          ...apiGame,
+        };
+      });
+    } catch (e) {
+      return [];
+    }
   }
 
   useEffect(() => {
