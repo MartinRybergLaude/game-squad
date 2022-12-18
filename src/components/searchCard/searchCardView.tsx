@@ -10,6 +10,8 @@ import {
   Text,
 } from "@mantine/core";
 
+import { MultiplayerMaxPlayers } from "~/utils/types";
+
 const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
@@ -49,7 +51,7 @@ interface SearchCardProps {
   image: string;
   title: string;
   description: string;
-  players?: number;
+  maxPlayers?: MultiplayerMaxPlayers;
   genres?: string[];
   onAdd: () => void;
 }
@@ -61,10 +63,47 @@ export default function SearchCardView({
   title,
   description,
   genres,
-  players,
+  maxPlayers,
   onAdd,
 }: SearchCardProps) {
   const { classes } = useStyles();
+
+  const playersBadge = (maxPlayers: MultiplayerMaxPlayers) => {
+    const { coop, online } = maxPlayers;
+    if (!coop && !online) return null;
+    else if (coop && !online) {
+      return (
+        <Badge color="green" variant="outline" size="sm">
+          {`${coop}p co-op`}
+        </Badge>
+      );
+    } else if (online && !coop) {
+      return (
+        <Badge color="green" variant="outline" size="sm">
+          {`${online}p online`}
+        </Badge>
+      );
+    } else if (online && coop) {
+      if (online == coop) {
+        return (
+          <Badge color="green" variant="outline" size="sm">
+            {`${online}p online`}
+          </Badge>
+        );
+      } else {
+        return (
+          <>
+            <Badge color="green" variant="outline" size="sm">
+              {`${coop}p co-op`}
+            </Badge>
+            <Badge color="green" variant="outline" size="sm">
+              {`${online}p online`}
+            </Badge>
+          </>
+        );
+      }
+    }
+  };
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
@@ -78,11 +117,7 @@ export default function SearchCardView({
               <Text size="lg" weight={500}>
                 {title}
               </Text>
-              <Group>
-                <Badge color="green" variant="outline" size="sm">
-                  {String(players) + " players"}
-                </Badge>
-              </Group>
+              <Group>{maxPlayers && playersBadge(maxPlayers)}</Group>
               <ScrollArea type="auto">
                 <Group spacing={7} mb={20} mt={0} noWrap={true}>
                   {genres &&

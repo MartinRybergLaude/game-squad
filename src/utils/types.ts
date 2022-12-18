@@ -24,9 +24,19 @@ export interface Squad {
   games?: BaseGame[];
 }
 
+export interface MultiplayerId {
+  id: number;
+  onlinecoopmax: number;
+  onlinemax: number;
+}
+
 export type ReloadFunction = () => void;
 
 export type GenreObject = { [key: string]: string };
+
+export type MultiplayerModeObject = { [key: string]: MultiplayerMaxPlayers };
+
+export type MultiplayerMaxPlayers = { coop: number; online: number };
 
 export const Genres: GenreObject = {
   "2": "Point-and-click",
