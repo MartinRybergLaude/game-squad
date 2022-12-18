@@ -17,7 +17,7 @@ interface SearchViewProps {
 export default function SearchView({
   games,
   loading,
-  multiplayerModes,
+  // multiplayerModes,
   onSearchTextChanged,
 }: SearchViewProps) {
   return (
@@ -33,9 +33,7 @@ export default function SearchView({
                     <SearchCardPresenter
                       game={game}
                       key={game.id}
-                      maxPlayers={
-                        multiplayerModes ? multiplayerModes[game.multiplayer_modes] : undefined
-                      }
+                      maxPlayers={game.multiplayer_modes}
                     />
                   ))}
                 </Group>

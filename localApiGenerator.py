@@ -49,4 +49,4 @@ api_genre_link = "https://z9n3vcs114.execute-api.eu-north-1.amazonaws.com/produc
 api_multiplayer_link = "https://z9n3vcs114.execute-api.eu-north-1.amazonaws.com/production/v4/multiplayer_modes"
 
 # writeGenreApi(api_link, "genres.JSON")
-writeMultiplayerApi(api_multiplayer_link, "multiplayer.JSON")
+# writeMultiplayerApi(api_multiplayer_link, "multiplayer.JSON")

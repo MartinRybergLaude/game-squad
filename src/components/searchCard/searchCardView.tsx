@@ -10,6 +10,7 @@ import {
   Text,
 } from "@mantine/core";
 
+import { multiplayerData } from "~/utils/multiplayer";
 import { MultiplayerMaxPlayers } from "~/utils/types";
 
 const useStyles = createStyles(theme => ({
@@ -51,7 +52,7 @@ interface SearchCardProps {
   image: string;
   title: string;
   description: string;
-  maxPlayers?: MultiplayerMaxPlayers;
+  maxPlayers: number;
   genres?: string[];
   onAdd: () => void;
 }
@@ -68,8 +69,13 @@ export default function SearchCardView({
 }: SearchCardProps) {
   const { classes } = useStyles();
 
-  const playersBadge = (maxPlayers: MultiplayerMaxPlayers) => {
-    const { coop, online } = maxPlayers;
+  const playersBadge = (maxPlayers: number[]) => {
+    const coop = multiplayerData[maxPlayers[0]]
+      ? multiplayerData[maxPlayers[0]].onlinecoopmax
+      : null;
+
+    const online = multiplayerData[maxPlayers[0]] ? multiplayerData[maxPlayers[0]].onlinemax : null;
+
     if (!coop && !online) return null;
     else if (coop && !online) {
       return (

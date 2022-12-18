@@ -12,7 +12,7 @@ import SearchCardView from "./searchCardView";
 
 interface SearchCardViewProps {
   game: Game;
-  maxPlayers?: MultiplayerMaxPlayers;
+  maxPlayers: number;
 }
 
 export default function SearchCardPresenter({ game, maxPlayers }: SearchCardViewProps) {

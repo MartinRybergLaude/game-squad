@@ -25,9 +25,8 @@ export interface Squad {
 }
 
 export interface MultiplayerId {
-  id: number;
-  onlinecoopmax: number;
-  onlinemax: number;
+  onlinecoopmax?: number;
+  onlinemax?: number;
 }
 
 export type ReloadFunction = () => void;
