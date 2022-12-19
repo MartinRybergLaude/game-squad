@@ -42,7 +42,7 @@ export default function UpdateEmailModalPresenter() {
       setSendSuccessText("Your email has been updated!");
     } else {
       signOut();
-      navigate(`${loginRoute.path}?changeAccountSettings=true`);
+      //navigate(`${loginRoute.path}?changeAccountSettings=true`);
       return null;
     }
   }

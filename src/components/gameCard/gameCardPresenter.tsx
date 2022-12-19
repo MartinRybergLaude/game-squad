@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { User } from "firebase/auth";
-import { arrayUnion, deleteField, doc, runTransaction, updateDoc } from "firebase/firestore";
+import { doc, runTransaction, updateDoc } from "firebase/firestore";
 import { useAtom } from "jotai";
 
 import { auth, db } from "~/utils/firebaseConfig";
@@ -127,6 +127,7 @@ export default function GameCardPresenter({ game }: GameCardPresenterProps) {
   return (
     <GameCardView
       title={game.name}
+      summary={game.summary}
       upvotes={game.upvotes?.length}
       downvotes={game.downvotes?.length}
       genres={game.genres && game.genres.map(genre => Genres[genre as keyof GenreObject])}

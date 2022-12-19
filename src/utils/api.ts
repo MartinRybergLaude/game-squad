@@ -6,7 +6,7 @@ export function getSelectedGames(ids?: string[]): Promise<Game[]> | null {
   if (ids == null || ids.length === 0) return null;
   return fetch(`${API_URL}`, {
     method: "POST",
-    body: `fields name, genres, cover.url, url; where id = (${ids.join(",")});`,
+    body: `fields name, genres, summary, cover.url, url; where id = (${ids.join(",")});`,
   }).then(response => response.json());
 }
 
