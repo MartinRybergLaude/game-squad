@@ -18,6 +18,7 @@ const useStyles = createStyles(theme => ({
       "url(https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80)",
     backgroundSize: "cover",
     backgroundPosition: "center",
+    backdropFilter: "hue-rotate(260deg)",
     height: "100vh",
   },
 
@@ -105,7 +106,7 @@ const useStyles = createStyles(theme => ({
 
   cardTitle: {
     "&::after": {
-      content: '""',
+      content: "''",
       display: "block",
       backgroundColor: theme.fn.primaryColor(),
       width: 45,
@@ -176,26 +177,18 @@ export default function HomepageView({ onSubmit, onLoginClick }: HomepageViewPro
             onSubmit();
           })}
         >
-          <Button
-            type="submit"
-            variant="gradient"
-            gradient={{ from: "teal", to: "blue", deg: 60 }}
-            size="xl"
-            radius="xl"
-            className={classes.control}
-          >
+          <Button type="submit" variant="filled" size="xl" className={classes.control}>
             Get started
           </Button>
           <Button
-            variant="filled"
-            color="dark"
-            size="md"
-            radius="xl"
+            variant="outline"
+            color="red"
+            size="xl"
             ml={20}
             className={classes.control}
             onClick={() => onLoginClick()}
           >
-            Login
+            Log in
           </Button>
         </form>
       </Container>
