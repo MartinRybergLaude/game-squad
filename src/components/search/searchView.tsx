@@ -38,7 +38,11 @@ export default function SearchView({ games, loading, onSearchTextChanged }: Sear
               <ScrollArea style={{ height: "70vh", minHeight: "300px" }}>
                 <div style={{ width: "100%", display: "flex", flexWrap: "wrap", gap: 16 }}>
                   {games.map(game => (
-                    <SearchCardPresenter game={game} key={game.id} />
+                    <SearchCardPresenter
+                      game={game}
+                      key={game.id}
+                      maxPlayers={game.multiplayer_modes}
+                    />
                   ))}
                 </div>
               </ScrollArea>

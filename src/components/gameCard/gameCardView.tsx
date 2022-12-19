@@ -12,6 +12,7 @@ import {
 import { closeAllModals, openConfirmModal } from "@mantine/modals";
 import { IconThumbDown, IconThumbUp, IconX } from "@tabler/icons";
 
+import PlayersBadgesPresenter from "../playersBadges/playersBadgesPresenter";
 import { Vote } from "./gameCardPresenter";
 
 const useStyles = createStyles(theme => ({
@@ -114,6 +115,7 @@ interface GameCardProps {
   summary: string;
   genres?: string[];
   vote: Vote;
+  maxPlayers: number[];
   onVote: (vote: Vote) => void;
   onRemove: () => void;
 }
@@ -128,6 +130,7 @@ export default function GameCardView({
   vote,
   onVote,
   onRemove,
+  maxPlayers,
 }: GameCardProps) {
   const { classes } = useStyles();
 
@@ -166,12 +169,15 @@ export default function GameCardView({
         <IconX color="white" />
       </ActionIcon>
       <div className={classes.scrollY}>
-        <Group spacing={7} mt={80} mb={12}>
+        <Group spacing={8} mt={80}>
           {genres?.map(genre => (
             <Badge color="red" variant="filled" key={genre} size="sm">
               {genre}
             </Badge>
           ))}
+        </Group>
+        <Group spacing={4} mt={4} mb={12}>
+          {maxPlayers && <PlayersBadgesPresenter maxPlayers={maxPlayers} />}
         </Group>
         <Title order={4} color="white">
           {title}

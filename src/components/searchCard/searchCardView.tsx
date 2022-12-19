@@ -1,5 +1,7 @@
 import { Badge, Button, Card, createStyles, Group, Text, Title } from "@mantine/core";
 
+import PlayersBadgesPresenter from "../playersBadges/playersBadgesPresenter";
+
 const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
@@ -96,6 +98,7 @@ interface GameCardProps {
   image?: string;
   title: string;
   summary: string;
+  maxPlayers: number[];
   genres?: string[];
   onAdd: () => void;
 }
@@ -108,6 +111,7 @@ export default function GameCardView({
   summary,
   genres,
   onAdd,
+  maxPlayers,
 }: GameCardProps) {
   const { classes } = useStyles();
 
@@ -124,12 +128,15 @@ export default function GameCardView({
       }}
     >
       <div className={classes.scrollY}>
-        <Group spacing={7} mt={80} mb={12}>
+        <Group spacing={8} mt={80}>
           {genres?.map(genre => (
             <Badge color="red" variant="filled" key={genre} size="sm">
               {genre}
             </Badge>
           ))}
+        </Group>
+        <Group spacing={4} mt={4} mb={12}>
+          {maxPlayers && <PlayersBadgesPresenter maxPlayers={maxPlayers} />}
         </Group>
         <Title order={4} color="white">
           {title}

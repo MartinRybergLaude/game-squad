@@ -12,9 +12,10 @@ import SearchCardView from "./searchCardView";
 
 interface SearchCardViewProps {
   game: Game;
+  maxPlayers: number[];
 }
 
-export default function SearchCardPresenter({ game }: SearchCardViewProps) {
+export default function SearchCardPresenter({ game, maxPlayers }: SearchCardViewProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<FirebaseError | undefined>(undefined);
 
@@ -56,6 +57,7 @@ export default function SearchCardPresenter({ game }: SearchCardViewProps) {
       }
       title={game.name}
       summary={game.summary}
+      maxPlayers={maxPlayers}
       key={game.id}
       genres={game.genres && game.genres.map(genre => Genres[genre as keyof GenreObject])}
     />

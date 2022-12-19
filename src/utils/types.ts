@@ -6,7 +6,7 @@ export interface Game extends BaseGame {
     id?: number;
     url?: string;
   };
-  multiplayer_modes: number;
+  multiplayer_modes: number[];
 }
 
 export interface BaseGame {
@@ -24,15 +24,13 @@ export interface Squad {
   games?: BaseGame[];
 }
 
-export interface MultiplayerId {
-  id: number;
-  onlinecoopmax: number;
-  onlinemax: number;
-}
-
 export type ReloadFunction = () => void;
 
 export type GenreObject = { [key: string]: string };
+
+export type MultiplayerModeObject = { [key: string]: MultiplayerMaxPlayers };
+
+export type MultiplayerMaxPlayers = { onlinecoopmax?: number; onlinemax?: number };
 
 export const Genres: GenreObject = {
   "2": "Point-and-click",
