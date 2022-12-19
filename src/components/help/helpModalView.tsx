@@ -47,7 +47,7 @@ export default function HelpModalView() {
         </Accordion.Item>
 
         <Accordion.Item className={classes.item} value="squadCreate">
-          <Accordion.Control>How do I join a squad?</Accordion.Control>
+          <Accordion.Control>How do I create a squad?</Accordion.Control>
           <Accordion.Panel>
             <Text>
               You can create a squad by pressing the red button that says &apos;create&apos; to
@@ -61,7 +61,7 @@ export default function HelpModalView() {
         </Accordion.Item>
 
         <Accordion.Item className={classes.item} value="squadJoin">
-          <Accordion.Control>How do I add games to a squad</Accordion.Control>
+          <Accordion.Control>How do I join a squad?</Accordion.Control>
           <Accordion.Panel>
             <Text>
               You can join a squad by pressing the &apos;join&apos; button in the upper left corner

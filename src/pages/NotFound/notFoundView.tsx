@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button, Container, createStyles, Group, Text, Title } from "@mantine/core";
 
-import { homepageRoute, loginRoute } from "../../App";
+import { homepageRoute } from "../../App";
 
 const useStyles = createStyles(theme => ({
   root: {

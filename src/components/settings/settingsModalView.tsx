@@ -6,7 +6,6 @@ import { User } from "firebase/auth";
 import DeleteProfileModalPresenter from "../deleteProfile/deleteProfileModalPresenter";
 import UpdateEmailModalPresenter from "../updateEmail/updateEmailModalPresenter";
 import UpdatePasswordModalPresenter from "../updatePassword/updatePasswordModalPresenter";
-import UpdateUsernameModalPresenter from "../updateUsername/updateUsernameModalPresenter";
 
 interface SettingsViewProps {
   user: User | null | undefined;
@@ -34,29 +33,6 @@ export default function SettingsModalView({
         </Tabs.List>
         <Tabs.Panel value="Account" pt="xs">
           <div>
-            <Group mt={16} position="apart">
-              Current username
-              <Group position="right" spacing="xs">
-                <Text fz="sm" align="right" fs="italic" fw={700}>
-                  {user?.displayName ? user?.displayName : "No username"}
-                </Text>
-                <ActionIcon
-                  color="dark.3"
-                  ml={-12}
-                  mt={4}
-                  variant="transparent"
-                  onClick={() => {
-                    openModal({
-                      title: "Username",
-                      children: <UpdateUsernameModalPresenter />,
-                    });
-                  }}
-                  title="Change username"
-                >
-                  <IconEdit size={16} />
-                </ActionIcon>
-              </Group>
-            </Group>
             <Group mt={16} position="apart">
               Change Email
               <Group position="right" spacing="xs">
