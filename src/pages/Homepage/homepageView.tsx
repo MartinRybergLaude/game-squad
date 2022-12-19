@@ -105,7 +105,7 @@ const useStyles = createStyles(theme => ({
 
   cardTitle: {
     "&::after": {
-      content: '""',
+      content: "''",
       display: "block",
       backgroundColor: theme.fn.primaryColor(),
       width: 45,

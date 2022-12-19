@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useAuthState, useSignOut, useUpdatePassword } from "react-firebase-hooks/auth";
+import { useSignOut, useUpdatePassword } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router";
 
 import { auth } from "~/utils/firebaseConfig";
 
-import { loginRoute } from "../../App";
+import { handleSignOut } from "../updateEmailModal/updateEmailModalPresenter";
 import UpdatePasswordModalView from "./updatePasswordModalView";
 
 export interface UpdateFormValues {
@@ -25,11 +25,7 @@ export default function UpdatePasswordModalPresenter() {
       setSendSuccessText("Your Password has been updated!");
       return null;
     } else {
-      const loggedOut = await signOut();
-      if (loggedOut) {
-        navigate(`${loginRoute.path}?changeAccountSettings=true`);
-        return null;
-      }
+      handleSignOut(signOut, navigate);
     }
   }
 

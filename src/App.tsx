@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Helmet } from "react-helmet";
 import { createBrowserRouter, redirect, RouteObject, RouterProvider } from "react-router-dom";
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -94,32 +93,28 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+  const [colorScheme] = useState<ColorScheme>("dark");
 
   return (
-    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          colorScheme: colorScheme,
-          globalStyles: () => ({
-            body: {
-              overflowX: "hidden",
-            },
-          }),
-          primaryColor: "red",
-          defaultRadius: "xs",
-          cursorType: "pointer",
-        }}
-      >
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-        </QueryClientProvider>
-      </MantineProvider>
-    </ColorSchemeProvider>
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{
+        colorScheme: colorScheme,
+        globalStyles: () => ({
+          body: {
+            overflowX: "hidden",
+          },
+        }),
+        primaryColor: "red",
+        defaultRadius: "xs",
+        cursorType: "pointer",
+      }}
+    >
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </MantineProvider>
   );
 }
 
