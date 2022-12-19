@@ -5,6 +5,7 @@ import { ModalsProvider } from "@mantine/modals";
 import { collection, query, where } from "firebase/firestore";
 import { useAtom } from "jotai";
 
+import SEO from "~/components/seo/seo";
 import { auth, db } from "~/utils/firebaseConfig";
 import {
   selectedSquadErrorAtom,
@@ -50,13 +51,16 @@ export default function DashboardPresenter() {
   const [selectedSquadError] = useAtom(selectedSquadErrorAtom);
 
   return (
-    <ReloadContext.Provider value={reload}>
-      <ModalsProvider>
-        <DashboardView
-          loading={squadsLoading || selectedSquadLoading}
-          error={squadsError || selectedSquadError}
-        />
-      </ModalsProvider>
-    </ReloadContext.Provider>
+    <>
+      <SEO title="Dashboard" description="Your squads and their members" />
+      <ReloadContext.Provider value={reload}>
+        <ModalsProvider>
+          <DashboardView
+            loading={squadsLoading || selectedSquadLoading}
+            error={squadsError || selectedSquadError}
+          />
+        </ModalsProvider>
+      </ReloadContext.Provider>
+    </>
   );
 }

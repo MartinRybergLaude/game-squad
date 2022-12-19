@@ -25,7 +25,7 @@ export default function SquadScreenPresenter() {
 
   const [, setSelectedSquadGames] = useAtom(selectedSquadGamesAtom);
   const [selectedSquad, setSelectedSquad] = useAtom(selectedSquadAtom);
-  const [, setSelectedSquadLoading] = useAtom(selectedSquadLoadingAtom);
+  const [selectedSquadLoading, setSelectedSquadLoading] = useAtom(selectedSquadLoadingAtom);
   const [, setSelectedSquadError] = useAtom(selectedSquadErrorAtom);
 
   const {
@@ -76,5 +76,5 @@ export default function SquadScreenPresenter() {
     setSelectedSquadError(error || (gameError instanceof Error ? gameError : undefined));
   }, [error, gameError]);
 
-  return <SquadScreenView selectedSquad={selectedSquad} />;
+  return <SquadScreenView squad={selectedSquad} loading={selectedSquadLoading} />;
 }

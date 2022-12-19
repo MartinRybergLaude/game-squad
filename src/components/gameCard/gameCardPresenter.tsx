@@ -132,6 +132,7 @@ export default function GameCardPresenter({ game }: GameCardPresenterProps) {
       downvotes={game.downvotes?.length}
       genres={game.genres && game.genres.map(genre => Genres[genre as keyof GenreObject])}
       image={game?.cover?.url}
+      maxPlayers={game.multiplayer_modes}
       vote={vote}
       onVote={handleVote}
       onRemove={handleRemoveGame}

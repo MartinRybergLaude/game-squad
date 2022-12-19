@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import { ScrollArea, TextInput } from "@mantine/core";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -14,9 +14,23 @@ interface SearchViewProps {
 }
 
 export default function SearchView({ games, loading, onSearchTextChanged }: SearchViewProps) {
+  // Hack to focus on the input field, since autoFocus doesn't work in modals
+  const inputElement = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (inputElement.current) {
+      inputElement.current.focus();
+    }
+  }, []);
+
   return (
     <>
-      <TextInput placeholder="Search" size="xs" mb="sm" onChange={onSearchTextChanged} />
+      <TextInput
+        ref={inputElement}
+        placeholder="Search"
+        size="xs"
+        mb="sm"
+        onChange={onSearchTextChanged}
+      />
       <div style={{ minHeight: 200, width: "100%", position: "relative" }}>
         <AnimatePresence>
           {games && (
@@ -24,7 +38,11 @@ export default function SearchView({ games, loading, onSearchTextChanged }: Sear
               <ScrollArea style={{ height: "70vh", minHeight: "300px" }}>
                 <div style={{ width: "100%", display: "flex", flexWrap: "wrap", gap: 16 }}>
                   {games.map(game => (
-                    <SearchCardPresenter game={game} key={game.id} />
+                    <SearchCardPresenter
+                      game={game}
+                      key={game.id}
+                      maxPlayers={game.multiplayer_modes}
+                    />
                   ))}
                 </div>
               </ScrollArea>
