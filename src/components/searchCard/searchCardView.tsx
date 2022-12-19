@@ -40,7 +40,6 @@ const useStyles = createStyles(theme => ({
   text: {
     height: 75,
   },
-  // Nobody's gonna know
 }));
 
 interface SearchCardProps {

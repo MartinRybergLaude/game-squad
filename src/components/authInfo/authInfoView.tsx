@@ -69,7 +69,6 @@ const useStyles = createStyles(theme => ({
 interface AuthInfoViewProps {
   title: string;
   description: string;
-
   submitLabel?: string;
   submitText: string;
   onSubmit: () => void;

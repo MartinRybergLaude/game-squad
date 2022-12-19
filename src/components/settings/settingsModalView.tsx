@@ -1,4 +1,3 @@
-import { NavigateFunction } from "react-router";
 import { ActionIcon, Button, ColorScheme, Group, Tabs, Text } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { IconEdit, IconMoonStars, IconSettings, IconSun } from "@tabler/icons";
