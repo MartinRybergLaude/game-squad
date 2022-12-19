@@ -1,19 +1,19 @@
 import { useNavigate } from "react-router-dom";
 
-import { dashboardRoute } from "~/App";
+import { loginRoute, registerRoute } from "~/App";
 
 import HomepageView from "./homepageView";
-
-export interface HomepageFormValues {
-  continue: Record<string, unknown>;
-}
 
 export default function HomepagePresenter() {
   const navigate = useNavigate();
 
-  function handleContinue() {
-    navigate(dashboardRoute.path || "/login");
+  function handleRegister() {
+    navigate(registerRoute.path || "/register");
   }
 
-  return <HomepageView onSubmit={handleContinue} />;
+  function handleLogin() {
+    navigate(loginRoute.path || "/login");
+  }
+
+  return <HomepageView onSubmit={handleRegister} onLoginClick={handleLogin} />;
 }
