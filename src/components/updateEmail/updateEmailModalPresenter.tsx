@@ -41,6 +41,7 @@ export default function UpdateEmailModalPresenter() {
 
   async function handleEmailUpdate(values: UpdateFormValues) {
     setErrorMsg(undefined);
+    // @ts-expect-error: VerifyBeforeUpdate should not take ActionCode
     const requestEmailUpdate = await verifyBeforeUpdateEmail(values.email).catch();
     if (requestEmailUpdate) {
       setSendSuccessText(

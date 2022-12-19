@@ -5,41 +5,24 @@ import {
   Center,
   createStyles,
   Group,
-  Image,
   SegmentedControl,
   Text,
+  Title,
 } from "@mantine/core";
-import { IconQuestionMark, IconThumbDown, IconThumbUp, IconX } from "@tabler/icons";
+import { closeAllModals, openConfirmModal } from "@mantine/modals";
+import { IconThumbDown, IconThumbUp, IconX } from "@tabler/icons";
 
 import { Vote } from "./gameCardPresenter";
 
 const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
-    width: "240px",
-    height: "380px",
-  },
-
-  topsection: {
-    height: "240px",
-    width: "240px",
-  },
-
-  midSection: {
-    borderBottom: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
-    paddingLeft: theme.spacing.md,
-    paddingRight: theme.spacing.md,
-    paddingBottom: theme.spacing.md,
-    height: "120px",
-  },
-
-  lowSection: {
-    paddingLeft: theme.spacing.md,
-    paddingRight: theme.spacing.md,
-    paddingBottom: theme.spacing.md,
-    height: "20px",
+    width: "100%",
+    height: 320,
+    backgroundSize: "cover",
+    [`@media(min-width: ${theme.breakpoints.sm}px)`]: {
+      maxWidth: "300px",
+    },
   },
 
   like: {
@@ -54,10 +37,6 @@ const useStyles = createStyles(theme => ({
     color: theme.colors.gray[6],
   },
 
-  money: {
-    color: theme.colors.yellow[6],
-  },
-
   label: {
     textTransform: "uppercase",
     fontSize: theme.fontSizes.xs,
@@ -65,7 +44,7 @@ const useStyles = createStyles(theme => ({
   },
 
   truncateText: {
-    width: "200px",
+    width: "100%",
     height: "65px",
     whitespace: "nowrap",
     overflow: "hidden",
@@ -79,17 +58,51 @@ const useStyles = createStyles(theme => ({
   },
 
   truncateGroup: {
-    width: "230px",
-    maxHeight: "55px",
-    overflow: "hidden",
+    width: "100%",
+    overflow: "auto",
   },
 
   overlay: {
     position: "absolute",
     opacity: "0.5",
-    transition: "0.3s ease",
     zIndex: 2,
-    right: "0",
+    right: 0,
+    top: 0,
+    borderBottomLeftRadius: theme.radius.md,
+  },
+
+  segmentControl: {
+    height: "100%",
+    minWidth: 18,
+  },
+
+  summaryText: {
+    marginBottom: 60,
+  },
+
+  bottomActions: {
+    borderBottomLeftRadius: theme.radius.md,
+    borderBottomRightRadius: theme.radius.md,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    height: 100,
+    width: "100%",
+    backgroundImage: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    flexDirection: "column",
+    padding: 16,
+  },
+
+  scrollY: {
+    overflowY: "auto",
+    scrollbarWidth: "none",
+    ["::-webkit-scrollbar"]: {
+      display: "none",
+    },
+    height: "100%",
   },
 }));
 
@@ -98,6 +111,7 @@ interface GameCardProps {
   downvotes: number;
   image?: string;
   title: string;
+  summary: string;
   genres?: string[];
   vote: Vote;
   onVote: (vote: Vote) => void;
@@ -109,6 +123,7 @@ export default function GameCardView({
   downvotes,
   image,
   title,
+  summary,
   genres,
   vote,
   onVote,
@@ -117,45 +132,65 @@ export default function GameCardView({
   const { classes } = useStyles();
 
   return (
-    <Card withBorder radius="md" p="md" className={classes.card}>
-      <Card.Section>
-        <ActionIcon variant="subtle" className={classes.overlay} onClick={() => onRemove()}>
-          <IconX />
-        </ActionIcon>
-        <Image
-          src={
-            image
-              ? image.replace("t_thumb", "t_cover_big")
-              : "https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?w=2000"
-          }
-          alt={title}
-          height={180}
-        />
-      </Card.Section>
-
-      <Card.Section className={classes.midSection} mt="md">
-        <Group className={classes.truncateGroup}>
+    <Card
+      radius="md"
+      className={classes.card}
+      sx={{
+        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7 ) 30%, rgba(0,0,0,0.9) 80%), url(${image?.replace(
+          "t_thumb",
+          "t_cover_big",
+        )});`,
+        position: "relative",
+        paddingBottom: "0 !important",
+      }}
+    >
+      <ActionIcon
+        variant="subtle"
+        className={classes.overlay}
+        onClick={() =>
+          openConfirmModal({
+            title: `Delete ${title}?`,
+            children: (
+              <Text size="sm">
+                Deleting this game will delete it for everyone in your squad and remove your votes.
+                This action cannot be undone.
+              </Text>
+            ),
+            labels: { confirm: "Delete", cancel: "Cancel" },
+            confirmProps: { color: "red" },
+            onCancel: () => closeAllModals(),
+            onConfirm: () => onRemove(),
+          })
+        }
+      >
+        <IconX color="white" />
+      </ActionIcon>
+      <div className={classes.scrollY}>
+        <Group spacing={7} mt={80} mb={12}>
           {genres?.map(genre => (
-            <Badge key={genre} size="sm">
+            <Badge color="red" variant="filled" key={genre} size="sm">
               {genre}
             </Badge>
           ))}
         </Group>
-        <Group>
-          <Text size="sm">{`Upvotes ${upvotes}`}</Text>
-          <Text size="sm">{`Downvotes ${downvotes}`}</Text>
-        </Group>
-      </Card.Section>
-      <Group position="center" mt="xs" className={classes.lowSection}>
+        <Title order={4} color="white">
+          {title}
+        </Title>
+        <Text color="white" size="xs" mt={8} className={classes.summaryText}>
+          {summary}
+        </Text>
+      </div>
+      <Group position="center" className={classes.bottomActions}>
         <SegmentedControl
-          radius="lg"
+          mt={12}
+          radius="sm"
           size="lg"
           value={vote}
           onChange={onVote}
           data={[
             {
               label: (
-                <Center>
+                <Center className={classes.segmentControl}>
                   <IconThumbUp size={18} className={classes.like} stroke={1.5} />
                 </Center>
               ),
@@ -163,15 +198,15 @@ export default function GameCardView({
             },
             {
               label: (
-                <Center>
-                  <IconQuestionMark size={18} className={classes.undecided} stroke={1.5} />
+                <Center className={classes.segmentControl}>
+                  <Text size="xs">{upvotes - downvotes}</Text>
                 </Center>
               ),
               value: "none",
             },
             {
               label: (
-                <Center>
+                <Center className={classes.segmentControl}>
                   <IconThumbDown size={18} className={classes.dislike} stroke={1.5} />
                 </Center>
               ),

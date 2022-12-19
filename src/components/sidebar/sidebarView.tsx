@@ -59,6 +59,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
     link: {
       ...theme.fn.focusStyles(),
       display: "flex",
+      width: "100%",
       alignItems: "center",
       textDecoration: "none",
       fontSize: theme.fontSizes.sm,
@@ -126,8 +127,7 @@ export default function SidebarView({ sidebarOpen }: SidebarViewProps) {
           className={classes.link}
           onClick={() => {
             openModal({
-              size: "xl",
-              title: "Help",
+              size: "lg",
               children: <HelpModalPresenter />,
             });
           }}

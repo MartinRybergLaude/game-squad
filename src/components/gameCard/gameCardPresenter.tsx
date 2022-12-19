@@ -31,7 +31,7 @@ export default function GameCardPresenter({ game }: GameCardPresenterProps) {
     try {
       await saveVote(vote);
     } catch (error) {
-      console.error(error);
+      return;
     }
   }
 
@@ -127,6 +127,7 @@ export default function GameCardPresenter({ game }: GameCardPresenterProps) {
   return (
     <GameCardView
       title={game.name}
+      summary={game.summary}
       upvotes={game.upvotes?.length}
       downvotes={game.downvotes?.length}
       genres={game.genres && game.genres.map(genre => Genres[genre as keyof GenreObject])}

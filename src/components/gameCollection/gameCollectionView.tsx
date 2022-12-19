@@ -10,8 +10,6 @@ export default function GameCollectionView({ games }: GameCollectionViewProps) {
   const gameCards = games?.map(game => <GameCardPresenter key={game.id} game={game} />);
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: 16, maxWidth: 900, marginTop: 16 }}>
-      {gameCards}
-    </div>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 16 }}>{gameCards}</div>
   );
 }

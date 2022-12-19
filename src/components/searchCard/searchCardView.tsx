@@ -1,27 +1,26 @@
-import {
-  Badge,
-  Button,
-  Card,
-  createStyles,
-  Flex,
-  Group,
-  Image,
-  ScrollArea,
-  Text,
-} from "@mantine/core";
+import { Badge, Button, Card, createStyles, Group, Text, Title } from "@mantine/core";
 
 const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    width: "100%",
+    height: 320,
+    backgroundSize: "cover",
+    [`@media(min-width: ${theme.breakpoints.sm}px)`]: {
+      width: "calc(50% - 8px)",
+    },
   },
 
-  section: {
-    borderBottom: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
-    paddingLeft: theme.spacing.md,
-    paddingRight: theme.spacing.md,
-    paddingBottom: theme.spacing.md,
+  like: {
+    color: theme.colors.green[6],
+  },
+
+  dislike: {
+    color: theme.colors.red[6],
+  },
+
+  undecided: {
+    color: theme.colors.gray[6],
   },
 
   label: {
@@ -30,82 +29,125 @@ const useStyles = createStyles(theme => ({
     fontWeight: 700,
   },
 
-  flex: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
+  truncateText: {
+    width: "100%",
+    height: "65px",
+    whitespace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+
+    radioToolbar: {
+      opacity: "0",
+      position: "fixed",
+      width: "0",
+    },
   },
 
-  text: {
-    height: 75,
+  truncateGroup: {
+    width: "100%",
+    overflow: "auto",
+  },
+
+  overlay: {
+    position: "absolute",
+    opacity: "0.5",
+    zIndex: 2,
+    right: 0,
+    top: 0,
+    borderBottomLeftRadius: theme.radius.md,
+  },
+
+  segmentControl: {
+    height: "100%",
+    minWidth: 18,
+  },
+
+  summaryText: {
+    marginBottom: 60,
+  },
+
+  bottomActions: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    height: 100,
+    width: "100%",
+    backgroundImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 100%)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    flexDirection: "column",
+    padding: 16,
+  },
+
+  scrollY: {
+    overflowY: "auto",
+    scrollbarWidth: "none",
+    ["::-webkit-scrollbar"]: {
+      display: "none",
+    },
+    height: "100%",
   },
 }));
 
-interface SearchCardProps {
-  loading?: boolean;
+interface GameCardProps {
   error?: Error;
-  image: string;
+  loading?: boolean;
+  image?: string;
   title: string;
-  description: string;
+  summary: string;
   genres?: string[];
   onAdd: () => void;
 }
 
-export default function SearchCardView({
-  loading,
+export default function GameCardView({
   error,
+  loading,
   image,
   title,
-  description,
+  summary,
   genres,
   onAdd,
-}: SearchCardProps) {
+}: GameCardProps) {
   const { classes } = useStyles();
 
   return (
-    <Card withBorder radius="md" p="md" className={classes.card}>
-      <div className={classes.flex}>
-        <div>
-          <Card.Section>
-            <Image src={image.replace("t_thumb", "t_cover_big")} alt={title} height={180} />
-          </Card.Section>
-          <Card.Section className={classes.section} mt="md">
-            <Flex direction="column" gap="5px">
-              <Text size="lg" weight={500}>
-                {title}
-              </Text>
-              <ScrollArea type="auto">
-                <Group spacing={7} mb={20} mt={0} noWrap={true}>
-                  {genres &&
-                    genres.length > 0 &&
-                    genres.map(genre => (
-                      <Badge color="red" variant="outline" key={genre} size="sm">
-                        {genre}
-                      </Badge>
-                    ))}
-                </Group>
-              </ScrollArea>
-            </Flex>
-
-            <Text className={classes.text} size="xs" mt={0} lineClamp={4}>
-              {description}
-            </Text>
-          </Card.Section>
-        </div>
-
+    <Card
+      radius="md"
+      className={classes.card}
+      sx={{
+        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7 ) 30%, rgba(0,0,0,0.9) 80%), url(${image?.replace(
+          "t_thumb",
+          "t_cover_big",
+        )});`,
+        position: "relative",
+      }}
+    >
+      <div className={classes.scrollY}>
+        <Group spacing={7} mt={80} mb={12}>
+          {genres?.map(genre => (
+            <Badge color="red" variant="filled" key={genre} size="sm">
+              {genre}
+            </Badge>
+          ))}
+        </Group>
+        <Title order={4} color="white">
+          {title}
+        </Title>
         {error && (
           <Text size="xs" color="red">
             {error.message}
           </Text>
         )}
-
-        <Group mt="xs">
-          <Button radius="md" style={{ flex: 1 }} onClick={() => onAdd()} loading={loading}>
-            Add
-          </Button>
-        </Group>
+        <Text color="white" size="xs" mt={8} className={classes.summaryText}>
+          {summary}
+        </Text>
       </div>
+      <Group position="center" className={classes.bottomActions}>
+        <Button fullWidth loading={loading} onClick={() => onAdd()}>
+          Add
+        </Button>
+      </Group>
     </Card>
   );
 }

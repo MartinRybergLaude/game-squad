@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button, Container, createStyles, Group, Text, Title } from "@mantine/core";
 
-import { loginRoute } from "../../App";
+import { homepageRoute, loginRoute } from "../../App";
 
 const useStyles = createStyles(theme => ({
   root: {
@@ -53,7 +53,7 @@ export default function NotFoundView() {
         been moved to another URL.
       </Text>
       <Group position="center">
-        <Link to={loginRoute.path ?? "/login"}>
+        <Link to={homepageRoute.path ?? ""}>
           <Button variant="subtle" size="md">
             Take me back to home page
           </Button>
