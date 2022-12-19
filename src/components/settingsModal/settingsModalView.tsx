@@ -3,7 +3,7 @@ import { openModal } from "@mantine/modals";
 import { IconEdit } from "@tabler/icons";
 import { User } from "firebase/auth";
 
-import DeleteProfileModalPresenter from "../deleteProfile/deleteProfileModalPresenter";
+import DeleteProfileModalPresenter from "../deleteProfileModal/deleteProfileModalPresenter";
 import UpdateEmailModalPresenter from "../updateEmailModal/updateEmailModalPresenter";
 import UpdatePasswordModalPresenter from "../updatePasswordModal/updatePasswordModalPresenter";
 
