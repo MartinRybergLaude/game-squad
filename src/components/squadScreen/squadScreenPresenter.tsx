@@ -38,6 +38,7 @@ export default function SquadScreenPresenter() {
       getSelectedGames(
         selectedSquad && selectedSquad.games ? selectedSquad.games.map(game => game.id) : [],
       ),
+    keepPreviousData: true,
   });
 
   function mergeGameData(apiGameData?: Game[] | null, squadGameData?: BaseGame[] | null): Game[] {
