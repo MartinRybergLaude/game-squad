@@ -78,6 +78,8 @@ interface AuthInfoViewProps {
   loading?: boolean;
 }
 
+// This component is used as a view in several places and hence needs no presenter
+
 export default function AuthInfoView({
   title,
   description,

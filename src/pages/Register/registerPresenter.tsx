@@ -5,6 +5,7 @@ import {
 } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
+import SEO from "~/components/seo/seo";
 import { auth } from "~/utils/firebaseConfig";
 
 import { verificationRoute } from "../../App";
@@ -42,10 +43,13 @@ export default function RegisterPresenter() {
   }
 
   return (
-    <RegisterView
-      onSubmit={handleSubmit}
-      loading={loading || sending}
-      error={error?.message || emailError?.message}
-    />
+    <>
+      <SEO title="Register" description="Register a GameSquad account" />
+      <RegisterView
+        onSubmit={handleSubmit}
+        loading={loading || sending}
+        error={error?.message || emailError?.message}
+      />
+    </>
   );
 }

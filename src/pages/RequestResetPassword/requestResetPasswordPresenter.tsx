@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
 
+import SEO from "~/components/seo/seo";
 import { auth } from "~/utils/firebaseConfig";
 
 import RequestResetPasswordView from "./requestResetPasswordView";
@@ -21,11 +22,17 @@ export default function RequestResetPasswordPresenter() {
   }
 
   return (
-    <RequestResetPasswordView
-      onSubmit={handleResendEmail}
-      errorMsg={emailError?.message}
-      successMsg={sendSuccessText}
-      loading={sending}
-    />
+    <>
+      <SEO
+        title="Request password reset"
+        description="Request a new password for your GameSquad account"
+      />
+      <RequestResetPasswordView
+        onSubmit={handleResendEmail}
+        errorMsg={emailError?.message}
+        successMsg={sendSuccessText}
+        loading={sending}
+      />
+    </>
   );
 }

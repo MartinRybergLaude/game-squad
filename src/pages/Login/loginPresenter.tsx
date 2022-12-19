@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
+import SEO from "~/components/seo/seo";
 import { auth } from "~/utils/firebaseConfig";
 
 import { dashboardRoute } from "../../App";
@@ -39,6 +40,9 @@ export default function LoginPresenter() {
   }, [user, navigate]);
 
   return (
-    <LoginView onSubmit={handleSubmit} loading={loading} error={error} successMsg={successMsg} />
+    <>
+      <SEO title="Log in" description="Log in to GameSquad" />
+      <LoginView onSubmit={handleSubmit} loading={loading} error={error} successMsg={successMsg} />
+    </>
   );
 }

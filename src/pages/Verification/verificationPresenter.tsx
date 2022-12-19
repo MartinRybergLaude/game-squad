@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuthState, useSendEmailVerification } from "react-firebase-hooks/auth";
 
+import SEO from "~/components/seo/seo";
 import { auth } from "~/utils/firebaseConfig";
 
 import AuthInfoView from "../../components/authInfo/authInfoView";
@@ -21,15 +22,18 @@ export default function VerificationPresenter() {
   }
 
   return (
-    <AuthInfoView
-      title="Verify your email"
-      description="We sent you an email with a link to verify your email address. Please check your inbox."
-      submitLabel="Didn't receive an email?"
-      submitText="Resend email"
-      onSubmit={handleResendEmail}
-      errorMsg={emailError?.message}
-      successMsg={resendSuccessText}
-      loading={sending}
-    />
+    <>
+      <SEO title="Verify" description="Verify your GameSquad account" />
+      <AuthInfoView
+        title="Verify your email"
+        description="We sent you an email with a link to verify your email address. Please check your inbox."
+        submitLabel="Didn't receive an email?"
+        submitText="Resend email"
+        onSubmit={handleResendEmail}
+        errorMsg={emailError?.message}
+        successMsg={resendSuccessText}
+        loading={sending}
+      />
+    </>
   );
 }
