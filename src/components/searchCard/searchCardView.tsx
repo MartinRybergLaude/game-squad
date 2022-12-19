@@ -70,11 +70,18 @@ export default function SearchCardView({
   const { classes } = useStyles();
 
   const playersBadge = (maxPlayers: number[]) => {
-    const coop = multiplayerData[maxPlayers[0]]
-      ? multiplayerData[maxPlayers[0]].onlinecoopmax
-      : null;
-
-    const online = multiplayerData[maxPlayers[0]] ? multiplayerData[maxPlayers[0]].onlinemax : null;
+    // For some reason, multiplayer_modes sometimes contains several keys, of which only one actually refers to something
+    let coop = null;
+    let online = null;
+    if (maxPlayers.length > 1) {
+      maxPlayers.forEach(num => {
+        coop = multiplayerData[num] ? multiplayerData[num].onlinecoopmax : coop;
+        online = multiplayerData[num] ? multiplayerData[num].onlinemax : online;
+      });
+    } else {
+      coop = multiplayerData[maxPlayers[0]] ? multiplayerData[maxPlayers[0]].onlinecoopmax : null;
+      online = multiplayerData[maxPlayers[0]] ? multiplayerData[maxPlayers[0]].onlinemax : null;
+    }
 
     if (!coop && !online) return null;
     else if (coop && !online) {
