@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-  useAuthState,
-  useSendEmailVerification,
-  useSignOut,
-  useUpdateEmail,
-} from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { useSignOut, useVerifyBeforeUpdateEmail } from "react-firebase-hooks/auth";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
-import { loginRoute, verificationRoute } from "~/App";
+import { loginRoute } from "~/App";
 import { auth } from "~/utils/firebaseConfig";
 
 import UpdateEmailModalView from "./updateEmailModalView";
@@ -16,43 +11,50 @@ export interface UpdateFormValues {
   email: string;
 }
 
+export async function handleSignOut(signOut: () => Promise<boolean>, navigate: NavigateFunction) {
+  const loggedOut = await signOut();
+  if (loggedOut) {
+    navigate(`${loginRoute.path}?changeAccountSettings=true`);
+    return null;
+  }
+}
+
 export default function UpdateEmailModalPresenter() {
-  const [updateEmail, updating, error] = useUpdateEmail(auth);
-  const [sendEmailVerification, sending, emailError] = useSendEmailVerification(auth);
   const [sendSuccessText, setSendSuccessText] = useState<string>();
-  const [resendSuccessText, setResendSuccessText] = useState<string>();
+  const [errorMsg, setErrorMsg] = useState<string>();
   const navigate = useNavigate();
   const [signOut] = useSignOut(auth);
+  const [verifyBeforeUpdateEmail, updating, error] = useVerifyBeforeUpdateEmail(auth);
 
-  const [user] = useAuthState(auth);
-
-  async function handleResendEmail() {
-    setResendSuccessText(undefined);
-    if (user && !user.emailVerified) {
-      const verificationSent = await sendEmailVerification();
-      if (verificationSent) {
-        setResendSuccessText("Verification email sent!");
+  useEffect(() => {
+    if (error) {
+      if (error.message === "Firebase: Error (auth/requires-recent-login).") {
+        handleSignOut(signOut, navigate);
+      }
+      if (error.message === "Firebase: Error (auth/email-already-in-use).") {
+        setErrorMsg("That email is already in use.");
+      } else {
+        setErrorMsg("There was an unexpected error");
       }
     }
-  }
+  }, [error]);
 
   async function handleEmailUpdate(values: UpdateFormValues) {
-    const requestEmailUpdate = await updateEmail(values.email);
+    setErrorMsg(undefined);
+    const requestEmailUpdate = await verifyBeforeUpdateEmail(values.email).catch();
     if (requestEmailUpdate) {
-      setSendSuccessText("Your email has been updated!");
-    } else {
-      signOut();
-      navigate(`${loginRoute.path}?changeAccountSettings=true`);
-      return null;
+      setSendSuccessText(
+        "Please check your email to verify your updated email adress. After verifying, please refresh the site and log in again with the new email.",
+      );
     }
   }
 
   return (
     <UpdateEmailModalView
       onSubmit={handleEmailUpdate}
-      errorMsg={error?.message || emailError?.message}
+      errorMsg={errorMsg}
       successMsg={sendSuccessText}
-      loading={updating || sending}
+      loading={updating}
     />
   );
 }
