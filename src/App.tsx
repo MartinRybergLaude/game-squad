@@ -99,35 +99,27 @@ function App() {
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
   return (
-    <>
-      <Helmet>
-        <title>GameSquad</title>
-        <meta name="description" content="Decide which game to play together." />
-        <link rel="icon" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Helmet>
-      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-        <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
-          theme={{
-            colorScheme: colorScheme,
-            globalStyles: () => ({
-              body: {
-                overflowX: "hidden",
-              },
-            }),
-            primaryColor: "red",
-            defaultRadius: "xs",
-            cursorType: "pointer",
-          }}
-        >
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-          </QueryClientProvider>
-        </MantineProvider>
-      </ColorSchemeProvider>
-    </>
+    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          colorScheme: colorScheme,
+          globalStyles: () => ({
+            body: {
+              overflowX: "hidden",
+            },
+          }),
+          primaryColor: "red",
+          defaultRadius: "xs",
+          cursorType: "pointer",
+        }}
+      >
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 }
 
