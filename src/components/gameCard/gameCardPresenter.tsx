@@ -31,7 +31,7 @@ export default function GameCardPresenter({ game }: GameCardPresenterProps) {
     try {
       await saveVote(vote);
     } catch (error) {
-      console.error(error);
+      return;
     }
   }
 

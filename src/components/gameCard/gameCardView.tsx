@@ -81,6 +81,8 @@ const useStyles = createStyles(theme => ({
   },
 
   bottomActions: {
+    borderBottomLeftRadius: theme.radius.md,
+    borderBottomRightRadius: theme.radius.md,
     position: "absolute",
     bottom: 0,
     left: 0,
