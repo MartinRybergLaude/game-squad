@@ -4,9 +4,11 @@ const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
     width: "100%",
-    maxWidth: 280,
     height: 320,
     backgroundSize: "cover",
+    [`@media(min-width: ${theme.breakpoints.sm}px)`]: {
+      width: "calc(50% - 8px)",
+    },
   },
 
   like: {

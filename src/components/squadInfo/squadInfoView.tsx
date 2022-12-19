@@ -1,5 +1,5 @@
 import { ActionIcon, Button, Card, Group, Text, Tooltip } from "@mantine/core";
-import { closeAllModals, openConfirmModal, openModal } from "@mantine/modals";
+import { closeAllModals, ModalsProvider, openConfirmModal, openModal } from "@mantine/modals";
 import { IconRefresh } from "@tabler/icons";
 
 import { Squad } from "~/utils/types";
@@ -75,6 +75,7 @@ export default function SquadInfoView({
         variant="light"
         onClick={() =>
           openModal({
+            size: "xl",
             title: "Add game",
             children: <SearchPresenter />,
           })

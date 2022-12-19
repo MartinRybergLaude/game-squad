@@ -21,12 +21,12 @@ export default function SearchView({ games, loading, onSearchTextChanged }: Sear
         <AnimatePresence>
           {games && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <ScrollArea style={{ height: 500 }}>
-                <Group style={{ width: "100%" }}>
+              <ScrollArea style={{ height: "70vh", minHeight: "300px" }}>
+                <div style={{ width: "100%", display: "flex", flexWrap: "wrap", gap: 16 }}>
                   {games.map(game => (
                     <SearchCardPresenter game={game} key={game.id} />
                   ))}
-                </Group>
+                </div>
               </ScrollArea>
             </motion.div>
           )}
