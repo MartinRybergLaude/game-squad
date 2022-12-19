@@ -70,7 +70,6 @@ export default function SquadInfoView({
       </Card>
 
       <Button
-        mt={16}
         variant="light"
         onClick={() =>
           openModal({

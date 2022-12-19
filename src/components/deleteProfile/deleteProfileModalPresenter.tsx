@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { loginRoute } from "~/App";
 import { auth } from "~/utils/firebaseConfig";
 
-import { handleSignOut } from "../updateEmail/updateEmailModalPresenter";
+import { handleSignOut } from "../updateEmailModal/updateEmailModalPresenter";
 import DeleteProfileModalView from "./deleteProfileModalView";
 
 export default function DeleteProfileModalPresenter() {

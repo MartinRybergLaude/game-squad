@@ -1,6 +1,5 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { NavigateFunction } from "react-router";
-import { useMantineColorScheme } from "@mantine/core";
 
 import { auth } from "~/utils/firebaseConfig";
 
@@ -17,14 +16,7 @@ export interface routeLoginPageFuncs {
 }
 
 export default function SettingsModalPresenter() {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [user] = useAuthState(auth);
 
-  return (
-    <SettingsModalView
-      user={user}
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    />
-  );
+  return <SettingsModalView user={user} />;
 }

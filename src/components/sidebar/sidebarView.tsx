@@ -2,9 +2,9 @@ import { createStyles, Navbar, UnstyledButton } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { IconLogout, IconQuestionMark, IconSettings } from "@tabler/icons";
 
-import HelpModalPresenter from "../help/helpModalPresenter";
-import LogoutModalPresenter from "../logout/logoutModalPresenter";
-import SettingsModalPresenter from "../settings/settingsModalPresenter";
+import HelpModalPresenter from "../helpModal/helpModalPresenter";
+import LogoutModalPresenter from "../logoutModal/logoutModalPresenter";
+import SettingsModalPresenter from "../settingsModal/settingsModalPresenter";
 import SquadSelectPresenter from "../squadSelect/squadSelectPresenter";
 
 const useStyles = createStyles((theme, _params, getRef) => {
