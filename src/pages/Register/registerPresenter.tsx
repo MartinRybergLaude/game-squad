@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   useCreateUserWithEmailAndPassword,
   useSendEmailVerification,
@@ -18,6 +18,7 @@ export interface RegisterFormValues {
 
 export default function RegisterPresenter() {
   const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState<string>();
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
@@ -26,6 +27,13 @@ export default function RegisterPresenter() {
 
   // Sends email verificaton on user creation
   useEffect(() => {
+    if (error) {
+      if (error.message === "Firebase: Error (auth/email-already-in-use).") {
+        setErrorMsg("That email is already in use.");
+      } else {
+        setErrorMsg("There was an unexpected error");
+      }
+    }
     async function sendVerificationEmail() {
       const verificationSent = await sendEmailVerification();
       if (verificationSent) {
@@ -35,7 +43,7 @@ export default function RegisterPresenter() {
     if (user && !user.user.emailVerified) {
       sendVerificationEmail();
     }
-  }, [user]);
+  }, [user, error]);
 
   async function handleSubmit(values: RegisterFormValues) {
     createUserWithEmailAndPassword(values.email, values.password);
@@ -45,7 +53,7 @@ export default function RegisterPresenter() {
     <RegisterView
       onSubmit={handleSubmit}
       loading={loading || sending}
-      error={error?.message || emailError?.message}
+      error={errorMsg || emailError?.message}
     />
   );
 }

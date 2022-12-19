@@ -127,8 +127,7 @@ export default function SidebarView({ sidebarOpen }: SidebarViewProps) {
           className={classes.link}
           onClick={() => {
             openModal({
-              size: "xl",
-              title: "Help",
+              size: "lg",
               children: <HelpModalPresenter />,
             });
           }}
