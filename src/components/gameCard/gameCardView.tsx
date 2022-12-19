@@ -9,6 +9,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { closeAllModals, openConfirmModal } from "@mantine/modals";
 import { IconThumbDown, IconThumbUp, IconX } from "@tabler/icons";
 
 import { Vote } from "./gameCardPresenter";
@@ -17,9 +18,11 @@ const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
     width: "100%",
-    maxWidth: 280,
     height: 320,
     backgroundSize: "cover",
+    [`@media(min-width: ${theme.breakpoints.sm}px)`]: {
+      maxWidth: "300px",
+    },
   },
 
   like: {
@@ -139,7 +142,25 @@ export default function GameCardView({
         paddingBottom: "0 !important",
       }}
     >
-      <ActionIcon variant="light" className={classes.overlay} onClick={() => onRemove()}>
+      <ActionIcon
+        variant="subtle"
+        className={classes.overlay}
+        onClick={() =>
+          openConfirmModal({
+            title: `Delete ${title}?`,
+            children: (
+              <Text size="sm">
+                Deleting this game will delete it for everyone in your squad and remove your votes.
+                This action cannot be undone.
+              </Text>
+            ),
+            labels: { confirm: "Delete", cancel: "Cancel" },
+            confirmProps: { color: "red" },
+            onCancel: () => closeAllModals(),
+            onConfirm: () => onRemove(),
+          })
+        }
+      >
         <IconX color="white" />
       </ActionIcon>
       <div className={classes.scrollY}>

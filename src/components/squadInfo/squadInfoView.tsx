@@ -39,37 +39,36 @@ export default function SquadInfoView({
     });
 
   return (
-    <Card>
-      <Group>
-        <Card withBorder style={{ overflow: "visible" }}>
-          <Group>
-            <Text weight={500}>
-              Invite code:{" "}
-              <Tooltip label={hasCopiedCode ? "Copied!" : "Click to copy"}>
-                <span
-                  style={{ fontWeight: 800, cursor: "pointer" }}
-                  onClick={() => {
-                    navigator.clipboard.writeText(squad.invite_code);
-                    onCopyCode();
-                  }}
-                >
-                  {squad.invite_code}
-                </span>
-              </Tooltip>
-            </Text>
-            {isOwner && (
-              <ActionIcon size="sm" onClick={openConfirmRefreshModal} loading={refreshCodeLoading}>
-                <IconRefresh />
-              </ActionIcon>
-            )}
-          </Group>
-          {refreshCodeError && (
-            <Text size="sm" color="red">
-              {refreshCodeError.message}
-            </Text>
+    <Group>
+      <Card withBorder style={{ overflow: "visible" }}>
+        <Group>
+          <Text weight={500}>
+            Invite code:{" "}
+            <Tooltip label={hasCopiedCode ? "Copied!" : "Click to copy"}>
+              <span
+                style={{ fontWeight: 800, cursor: "pointer" }}
+                onClick={() => {
+                  navigator.clipboard.writeText(squad.invite_code);
+                  onCopyCode();
+                }}
+              >
+                {squad.invite_code}
+              </span>
+            </Tooltip>
+          </Text>
+          {isOwner && (
+            <ActionIcon size="sm" onClick={openConfirmRefreshModal} loading={refreshCodeLoading}>
+              <IconRefresh />
+            </ActionIcon>
           )}
-        </Card>
-      </Group>
+        </Group>
+        {refreshCodeError && (
+          <Text size="sm" color="red">
+            {refreshCodeError.message}
+          </Text>
+        )}
+      </Card>
+
       <Button
         mt={16}
         variant="light"
@@ -83,6 +82,6 @@ export default function SquadInfoView({
       >
         Add game
       </Button>
-    </Card>
+    </Group>
   );
 }
