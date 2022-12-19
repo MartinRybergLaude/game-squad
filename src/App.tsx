@@ -46,7 +46,7 @@ export const dashboardRoute: RouteObject = {
 };
 
 export const homepageRoute: RouteObject = {
-  path: "/homepage",
+  path: "",
   element: <HomepagePresenter />,
 };
 

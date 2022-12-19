@@ -1,10 +1,11 @@
 import { createStyles, Navbar, UnstyledButton } from "@mantine/core";
 import { openModal } from "@mantine/modals";
-import { IconLogout, IconSettings } from "@tabler/icons";
+import { IconLogout, IconQuestionMark, IconSettings } from "@tabler/icons";
 
+import HelpModalPresenter from "../help/helpModalPresenter";
 import LogoutModalPresenter from "../logout/logoutModalPresenter";
 import SettingsModalPresenter from "../settings/settingsModalPresenter";
-import GroupSelectPresenter from "../squadSelect/squadSelectPresenter";
+import SquadSelectPresenter from "../squadSelect/squadSelectPresenter";
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
@@ -58,6 +59,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
     link: {
       ...theme.fn.focusStyles(),
       display: "flex",
+      width: "100%",
       alignItems: "center",
       textDecoration: "none",
       fontSize: theme.fontSizes.sm,
@@ -105,7 +107,7 @@ export default function SidebarView({ sidebarOpen }: SidebarViewProps) {
   return (
     <Navbar width={{ sm: 200 }} p="xl" hidden={!sidebarOpen} hiddenBreakpoint="sm">
       <Navbar.Section grow>
-        <GroupSelectPresenter />
+        <SquadSelectPresenter />
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
@@ -120,6 +122,19 @@ export default function SidebarView({ sidebarOpen }: SidebarViewProps) {
         >
           <IconSettings className={classes.linkIcon} stroke={1.5} />
           <span>Settings</span>
+        </UnstyledButton>
+        <UnstyledButton
+          className={classes.link}
+          onClick={() => {
+            openModal({
+              size: "xl",
+              title: "Help",
+              children: <HelpModalPresenter />,
+            });
+          }}
+        >
+          <IconQuestionMark className={classes.linkIcon} stroke={1.5} />
+          <span>Help</span>
         </UnstyledButton>
         <UnstyledButton
           className={classes.link}

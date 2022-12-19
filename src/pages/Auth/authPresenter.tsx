@@ -37,7 +37,7 @@ export default function AuthPresenter() {
     const oobCode = searchParams.get("oobCode");
     const mode = searchParams.get("mode");
 
-    if (mode === "verifyEmail") {
+    if (mode === "verifyEmail" || mode === "verifyAndChangeEmail") {
       handleVerify(auth, oobCode);
     } else if (mode === "resetPassword") {
       setShowResetPassword(true);

@@ -76,5 +76,5 @@ export default function SquadScreenPresenter() {
     setSelectedSquadError(error || (gameError instanceof Error ? gameError : undefined));
   }, [error, gameError]);
 
-  return <SquadScreenView />;
+  return <SquadScreenView selectedSquad={selectedSquad} />;
 }
