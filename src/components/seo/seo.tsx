@@ -1,5 +1,4 @@
-import { Helmet } from "react-helmet";
-
+import { Meta, Title } from "react-head";
 interface SEOProps {
   title: string;
   description: string;
@@ -8,9 +7,9 @@ interface SEOProps {
 // Neither presenter nor view, simply adds meta tags to pages.
 export default function SEO({ title, description }: SEOProps) {
   return (
-    <Helmet>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-    </Helmet>
+    <>
+      <Title>{title}</Title>
+      <Meta name="description" content={description} />
+    </>
   );
 }

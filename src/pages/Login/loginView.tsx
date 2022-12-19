@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import {
-  Anchor,
   Button,
   Card,
   Center,
@@ -117,7 +116,9 @@ export default function LoginView({ onSubmit, loading, error, successMsg }: Logi
                 <Text align="center" mt="md">
                   Forgotten your password?{" "}
                   <Link to={requestResetRoute.path ?? "/request-reset"}>
-                    <Anchor weight={300}>Reset</Anchor>
+                    <Text span weight={300}>
+                      Reset
+                    </Text>
                   </Link>
                 </Text>
                 {error && (
@@ -132,7 +133,9 @@ export default function LoginView({ onSubmit, loading, error, successMsg }: Logi
                 <Text align="center" mt="md">
                   Don&apos;t have an account?{" "}
                   <Link to={registerRoute.path ?? "/register"}>
-                    <Anchor weight={700}>Register</Anchor>
+                    <Text span weight={700}>
+                      Register
+                    </Text>
                   </Link>
                 </Text>
               </form>

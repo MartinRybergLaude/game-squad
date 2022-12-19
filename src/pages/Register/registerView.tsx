@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import {
-  Anchor,
   Button,
   Card,
   Center,
@@ -128,7 +127,9 @@ export default function RegisterView({ onSubmit, loading, error }: RegisterViewP
                 <Text align="center" mt="md">
                   Already have an account?{" "}
                   <Link to={loginRoute.path ?? "/login"}>
-                    <Anchor weight={700}>Log in</Anchor>
+                    <Text span weight={700}>
+                      Log in
+                    </Text>
                   </Link>
                 </Text>
               </form>
