@@ -17,7 +17,7 @@ const useStyles = createStyles(theme => ({
   card: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
     width: "240px",
-    height: "380px",
+    height: "400px",
   },
 
   topsection: {
@@ -39,7 +39,7 @@ const useStyles = createStyles(theme => ({
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
     paddingBottom: theme.spacing.md,
-    height: "20px",
+    height: "40px",
   },
 
   like: {
@@ -52,10 +52,6 @@ const useStyles = createStyles(theme => ({
 
   undecided: {
     color: theme.colors.gray[6],
-  },
-
-  money: {
-    color: theme.colors.yellow[6],
   },
 
   label: {
@@ -141,11 +137,12 @@ export default function GameCardView({
             </Badge>
           ))}
         </Group>
-        <Group>
-          <Text size="sm">{`Upvotes ${upvotes}`}</Text>
-          <Text size="sm">{`Downvotes ${downvotes}`}</Text>
-        </Group>
+        <Text>{title}</Text>
       </Card.Section>
+      <Group>
+        <Text size="sm">{`Upvotes ${upvotes}`}</Text>
+        <Text size="sm">{`Downvotes ${downvotes}`}</Text>
+      </Group>
       <Group position="center" mt="xs" className={classes.lowSection}>
         <SegmentedControl
           radius="lg"
