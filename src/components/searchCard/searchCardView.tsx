@@ -10,8 +10,7 @@ import {
   Text,
 } from "@mantine/core";
 
-import { multiplayerData } from "~/utils/multiplayer";
-import { MultiplayerMaxPlayers } from "~/utils/types";
+import { multiplayerData } from "~/utils/multiplayerData";
 
 const useStyles = createStyles(theme => ({
   card: {
@@ -52,7 +51,7 @@ interface SearchCardProps {
   image: string;
   title: string;
   description: string;
-  maxPlayers: number;
+  maxPlayers: number[];
   genres?: string[];
   onAdd: () => void;
 }
@@ -71,16 +70,21 @@ export default function SearchCardView({
 
   const playersBadge = (maxPlayers: number[]) => {
     // For some reason, multiplayer_modes sometimes contains several keys, of which only one actually refers to something
-    let coop = null;
-    let online = null;
+    let coop: number | undefined = undefined;
+    let online: number | undefined = undefined;
+
     if (maxPlayers.length > 1) {
       maxPlayers.forEach(num => {
         coop = multiplayerData[num] ? multiplayerData[num].onlinecoopmax : coop;
         online = multiplayerData[num] ? multiplayerData[num].onlinemax : online;
       });
     } else {
-      coop = multiplayerData[maxPlayers[0]] ? multiplayerData[maxPlayers[0]].onlinecoopmax : null;
-      online = multiplayerData[maxPlayers[0]] ? multiplayerData[maxPlayers[0]].onlinemax : null;
+      coop = multiplayerData[maxPlayers[0]]
+        ? multiplayerData[maxPlayers[0]].onlinecoopmax
+        : undefined;
+      online = multiplayerData[maxPlayers[0]]
+        ? multiplayerData[maxPlayers[0]].onlinemax
+        : undefined;
     }
 
     if (!coop && !online) return null;

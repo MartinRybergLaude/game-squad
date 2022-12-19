@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { Group, ScrollArea, SimpleGrid, Text, TextInput } from "@mantine/core";
+import { Group, ScrollArea, Text, TextInput } from "@mantine/core";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { Game, MultiplayerModeObject } from "~/utils/types";

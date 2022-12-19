@@ -6,13 +6,13 @@ import { useAtom } from "jotai";
 
 import { db } from "~/utils/firebaseConfig";
 import { selectedSquadAtom } from "~/utils/store";
-import { Game, GenreObject, Genres, MultiplayerMaxPlayers } from "~/utils/types";
+import { Game, GenreObject, Genres } from "~/utils/types";
 
 import SearchCardView from "./searchCardView";
 
 interface SearchCardViewProps {
   game: Game;
-  maxPlayers: number;
+  maxPlayers: number[];
 }
 
 export default function SearchCardPresenter({ game, maxPlayers }: SearchCardViewProps) {

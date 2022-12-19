@@ -1,4 +1,6 @@
-export const multiplayerData = {
+import { MultiplayerModeObject } from "./types";
+
+export const multiplayerData: MultiplayerModeObject = {
   "6": {
     onlinemax: 2,
   },

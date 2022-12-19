@@ -2,7 +2,6 @@ import { ActionIcon, Button, Card, Group, Text, Tooltip } from "@mantine/core";
 import { closeAllModals, openConfirmModal, openModal } from "@mantine/modals";
 import { IconRefresh } from "@tabler/icons";
 
-import { getMultiplayerIds } from "~/utils/api";
 import { Squad } from "~/utils/types";
 
 import SearchPresenter from "../search/searchPresenter";
@@ -77,7 +76,7 @@ export default function SquadInfoView({
         onClick={() =>
           openModal({
             title: "Add game",
-            children: <SearchPresenter playerData={getMultiplayerIds(4)} />,
+            children: <SearchPresenter />,
           })
         }
       >
