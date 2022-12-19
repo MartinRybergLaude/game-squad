@@ -5,7 +5,6 @@ import {
   Center,
   createStyles,
   Group,
-  ScrollArea,
   SegmentedControl,
   Text,
   Title,
@@ -84,7 +83,12 @@ const useStyles = createStyles(theme => ({
     left: 0,
     height: 100,
     width: "100%",
-    backgroundImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 100%)",
+    backgroundImage: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    flexDirection: "column",
+    padding: 16,
   },
 
   scrollY: {
@@ -132,6 +136,7 @@ export default function GameCardView({
           "t_cover_big",
         )});`,
         position: "relative",
+        paddingBottom: "0 !important",
       }}
     >
       <ActionIcon variant="light" className={classes.overlay} onClick={() => onRemove()}>

@@ -14,11 +14,11 @@ export default function SearchPresenter() {
 
   const searchTextLongEnough = searchText.length > 0;
 
-  const { data: games, isLoading } = useQuery(
+  const { data: games, isFetching } = useQuery(
     ["searchText", debouncedSearchText],
     () => getGamesBySearch(debouncedSearchText, 20),
     {
-      enabled: Boolean(searchTextLongEnough),
+      enabled: searchTextLongEnough,
     },
   );
 
@@ -26,17 +26,16 @@ export default function SearchPresenter() {
     if (e && e.target.value) {
       setSearchText(e.target.value);
       e.target.value.length > 0 ? setLoading(true) : setLoading(false);
-    } else {
-      setLoading(false);
     }
   }
+
   useEffect(() => {
-    if (isLoading && searchTextLongEnough) {
+    if (isFetching) {
       setLoading(true);
     } else {
       setLoading(false);
     }
-  }, [isLoading]);
+  }, [isFetching]);
 
   return (
     <SearchView games={games} loading={loading} onSearchTextChanged={handleSearchTextChanged} />

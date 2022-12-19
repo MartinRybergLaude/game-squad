@@ -55,7 +55,7 @@ export default function SearchCardPresenter({ game }: SearchCardViewProps) {
           : "https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg?w=2000"
       }
       title={game.name}
-      description={game.summary}
+      summary={game.summary}
       key={game.id}
       genres={game.genres && game.genres.map(genre => Genres[genre as keyof GenreObject])}
     />
