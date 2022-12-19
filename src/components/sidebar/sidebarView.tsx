@@ -94,6 +94,9 @@ const useStyles = createStyles((theme, _params, getRef) => {
         },
       },
     },
+    scrollY: {
+      overflowY: "auto",
+    },
   };
 });
 
@@ -106,7 +109,7 @@ export default function SidebarView({ sidebarOpen }: SidebarViewProps) {
 
   return (
     <Navbar width={{ sm: 200 }} p="xl" hidden={!sidebarOpen} hiddenBreakpoint="sm">
-      <Navbar.Section grow>
+      <Navbar.Section grow className={classes.scrollY}>
         <SquadSelectPresenter />
       </Navbar.Section>
 
