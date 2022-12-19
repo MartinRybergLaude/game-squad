@@ -67,6 +67,7 @@ among others :)
 - Functional components
 - Props & state interface above components
 - Async/await preferred
+- MVP structure enforced, each component has a presenter and a view with Jotai and Tanstack Query acting as models
 
 ## 📑 Git conventions
 
