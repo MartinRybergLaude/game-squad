@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { useAuthState, useDeleteUser, useSignOut } from "react-firebase-hooks/auth";
+import { useDeleteUser, useSignOut } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router";
 
 import { loginRoute } from "~/App";
 import { auth } from "~/utils/firebaseConfig";
 
+import { handleSignOut } from "../updateEmail/updateEmailModalPresenter";
 import DeleteProfileModalView from "./deleteProfileModalView";
 
 export default function DeleteProfileModalPresenter() {
   const [sendSuccessText, setSendSuccessText] = useState<string>();
   const [deleteUser, loading, error] = useDeleteUser(auth);
-  const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const [signOut] = useSignOut(auth);
 
@@ -22,10 +22,7 @@ export default function DeleteProfileModalPresenter() {
       navigate(`${loginRoute.path}`);
       return null;
     } else {
-      const loggedOut = await signOut();
-      if (loggedOut) {
-        navigate(`${loginRoute.path}?changeAccountSettings=true`);
-      }
+      handleSignOut(signOut, navigate);
     }
   }
 

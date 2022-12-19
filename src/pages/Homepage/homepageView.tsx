@@ -1,16 +1,20 @@
+import { useState } from "react";
 import {
+  Anchor,
   Badge,
   Button,
   Card,
   Container,
   createStyles,
   Group,
+  Header,
   Overlay,
   SimpleGrid,
   Text,
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useDisclosure } from "@mantine/hooks";
 import { IconBrandAppleArcade, IconFriends, IconLicense } from "@tabler/icons";
 
 import { HomepageFormValues } from "./homepagePresenter";
@@ -117,6 +121,67 @@ const useStyles = createStyles(theme => ({
       marginTop: theme.spacing.sm,
     },
   },
+
+  inner: {
+    height: 84,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  burger: {
+    [theme.fn.largerThan("sm")]: {
+      display: "none",
+    },
+  },
+
+  links: {
+    paddingTop: theme.spacing.lg,
+    height: 84,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+
+    [theme.fn.smallerThan("sm")]: {
+      display: "none",
+    },
+  },
+
+  mainLinks: {
+    marginRight: -theme.spacing.sm,
+  },
+
+  mainLink: {
+    textTransform: "uppercase",
+    fontSize: 13,
+    color: theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[6],
+    padding: `7px ${theme.spacing.sm}px`,
+    fontWeight: 700,
+    borderBottom: "2px solid transparent",
+    transition: "border-color 100ms ease, color 100ms ease",
+
+    "&:hover": {
+      color: theme.colorScheme === "dark" ? theme.white : theme.black,
+      textDecoration: "none",
+    },
+  },
+
+  secondaryLink: {
+    color: theme.colorScheme === "dark" ? theme.colors.dark[2] : theme.colors.gray[6],
+    fontSize: theme.fontSizes.xs,
+    textTransform: "uppercase",
+    transition: "color 100ms ease",
+
+    "&:hover": {
+      color: theme.colorScheme === "dark" ? theme.white : theme.black,
+      textDecoration: "none",
+    },
+  },
+
+  mainLinkActive: {
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    borderBottomColor: theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 5 : 6],
+  },
 }));
 
 const mockdata = [
@@ -140,12 +205,22 @@ const mockdata = [
   },
 ];
 
-interface HomepageViewProps {
-  onSubmit: () => void;
+interface LinkProps {
+  label: string;
+  link: string;
 }
 
-export default function HomepageView({ onSubmit }: HomepageViewProps) {
-  const { classes, theme } = useStyles();
+interface HomepageViewProps {
+  onSubmit: () => void;
+  mainLinks: LinkProps[];
+  userLinks: LinkProps[];
+}
+
+export default function HomepageView({ onSubmit, mainLinks, userLinks }: HomepageViewProps) {
+  const { classes, theme, cx } = useStyles();
+  const [opened, { toggle }] = useDisclosure(false);
+  const [active, setActive] = useState(0);
+
   const features = mockdata.map(feature => (
     <Card key={feature.title} shadow="md" radius="md" className={classes.card} p="xl">
       <feature.icon size={50} stroke={2} color={theme.fn.primaryColor()} />
@@ -158,6 +233,34 @@ export default function HomepageView({ onSubmit }: HomepageViewProps) {
     </Card>
   ));
 
+  /*
+  const mainItems = mainLinks.map((item, index) => (
+    <Anchor<"a">
+      href={item.link}
+      key={item.label}
+      className={cx(classes.mainLink, { [classes.mainLinkActive]: index === active })}
+      onClick={event => {
+        event.preventDefault();
+        setActive(index);
+      }}
+    >
+      {item.label}
+    </Anchor>
+  ));
+  */
+
+  /*
+  const secondaryItems = userLinks.map(item => (
+    <Anchor<"a">
+      href={item.link}
+      key={item.label}
+      onClick={event => event.preventDefault()}
+      className={classes.secondaryLink}
+    >
+      {item.label}
+    </Anchor>
+  ));*/
+
   const form = useForm({});
 
   return (
@@ -168,11 +271,20 @@ export default function HomepageView({ onSubmit }: HomepageViewProps) {
         zIndex={0}
       />
       <Container className={classes.container}>
+        <Header height={84} mb={120}>
+          <Container className={classes.inner}>
+            <div className={classes.links}>
+              <Group position="right">Test</Group>
+              <Group spacing={0} position="right" className={classes.mainLinks}>
+                Test
+              </Group>
+            </div>
+          </Container>
+        </Header>
         <Title className={classes.headTitle}>GameSquad</Title>
         <Title className={classes.subTitle}>A place for making choices that stick</Title>
         <Text className={classes.description} size="xl" mt="xl">
-          Pick games that you want to play with your mates – GameSquad allows all this and more! (It
-          does not, atm) (Pending better description)
+          Pick games that you want to play with your mates – GameSquad allows all this and more!
         </Text>
         <form
           onSubmit={form.onSubmit(() => {

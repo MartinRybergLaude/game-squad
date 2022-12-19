@@ -37,11 +37,6 @@ export default function AuthPresenter() {
     const oobCode = searchParams.get("oobCode");
     const mode = searchParams.get("mode");
 
-    console.log("Är i authPresenter. mode är:");
-    console.log(mode);
-    console.log("oobCode är:");
-    console.log(oobCode);
-
     if (mode === "verifyEmail" || mode === "verifyAndChangeEmail") {
       handleVerify(auth, oobCode);
     } else if (mode === "resetPassword") {

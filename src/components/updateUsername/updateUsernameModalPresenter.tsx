@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useSignOut, useUpdateProfile } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router";
 
-import { loginRoute } from "~/App";
 import { auth } from "~/utils/firebaseConfig";
 
+import { handleSignOut } from "../updateEmail/updateEmailModalPresenter";
 import UpdateUsernameModalView from "./updateUsernameModalView";
 
 export interface UpdateFormValues {
@@ -23,11 +23,7 @@ export default function UpdateUsernameModalPresenter() {
     if (requestUsernameUpdate) {
       setSendSuccessText("Your username has been updated!");
     } else {
-      const loggedOut = await signOut();
-      if (loggedOut) {
-        navigate(`${loginRoute.path}?changeAccountSettings=true`);
-        return null;
-      }
+      handleSignOut(signOut, navigate);
     }
   }
 
