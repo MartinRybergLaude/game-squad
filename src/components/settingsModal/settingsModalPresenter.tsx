@@ -1,5 +1,5 @@
 import { useAuthState } from "react-firebase-hooks/auth";
-import { NavigateFunction } from "react-router";
+import { NavigateFunction } from "react-router-dom";
 
 import { auth } from "~/utils/firebaseConfig";
 

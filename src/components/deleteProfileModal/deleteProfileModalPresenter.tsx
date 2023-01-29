@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDeleteUser, useSignOut } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 import { loginRoute } from "~/App";
 import { auth } from "~/utils/firebaseConfig";

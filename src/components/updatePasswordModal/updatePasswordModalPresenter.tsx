@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSignOut, useUpdatePassword } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 import { auth } from "~/utils/firebaseConfig";
 

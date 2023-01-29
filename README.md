@@ -1,11 +1,14 @@
+<p align="center">
+   <img src="https://github.com/MartinRybergLaude/GameSquad/blob/master/public/gamesquad.svg?raw=true" width="80" alt="">
+</p>
 <h1 align="center">
   GameSquad
 </h1>
 <p align="center">
-  
+  Squad up and vote for what games to play.
 </p>
 <p align="center">
-    <a href="https://gamesquad.win">Website</a>
+    <a href="https://gamesquad.win">Live</a>
 </p>
 
 ## 💡 Introduction
@@ -14,8 +17,8 @@ GameSquad is used by groups to and browse and decide upon which games to play to
 
 ## ✅ Prerequisites
 
-- NodeJS
-- yarn
+- Node.js
+- pnpm
 
 ## 🚀 Quick start
 
@@ -34,7 +37,7 @@ GameSquad is used by groups to and browse and decide upon which games to play to
 
     ```shell
     cd GameSquad
-    yarn
+    pnpm i
     ```
 
 3.  **Start the app**
@@ -42,15 +45,15 @@ GameSquad is used by groups to and browse and decide upon which games to play to
     Start the app on `http://localhost:5173`
 
     ```shell
-    yarn dev
+    pnpm dev
     ```
 
     Firebase keys are by default the live version's keys, which is **not** a security issue due to Firestore's security rules. Override firebase.json if you want to use your own firebase setup.
 
 ## 🧐 Technologies
 
-- ViteJS
-- React
+- Vite.js
+- React.js
 - Typescript
 - Mantine
 - Framer Motion

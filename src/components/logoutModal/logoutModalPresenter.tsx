@@ -1,5 +1,5 @@
 import { useSignOut } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { closeAllModals } from "@mantine/modals";
 
 import { auth } from "~/utils/firebaseConfig";
