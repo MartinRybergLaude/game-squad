@@ -4,10 +4,10 @@ export default function HomePageFooterPresenter() {
   return (
     <HomePageFooterView
       links={[
-        { link: "/about", label: "About" },
-        { link: "/contact", label: "Contact" },
-        { link: "/privacy", label: "Privacy" },
-        { link: "/terms", label: "Terms" },
+        { link: "/", label: "Home" },
+        { link: "mailto:contact@mrlaude.com", label: "Contact" },
+        { link: "/register", label: "Register" },
+        { link: "/login", label: "Log in" },
       ]}
     />
   );
