@@ -1,5 +1,5 @@
 <p align="center">
-   <img src="https://github.com/MartinRybergLaude/GameSquad/blob/master/public/gamesquad.svg?raw=true" width="80" alt="">
+   <img src="https://github.com/MartinRybergLaude/game-squad/blob/master/public/gamesquad.svg?raw=true" width="80" alt="">
 </p>
 <h1 align="center">
   GameSquad
@@ -28,7 +28,7 @@ GameSquad is used by groups to and browse and decide upon which games to play to
 
     ```shell
     # Clone the repo to a local directory
-    git clone git@github.com:MartinRybergLaude/GameSquad.git
+    git clone git@github.com:MartinRybergLaude/game-squad.git
     ```
 
 2.  **Install**
@@ -36,7 +36,7 @@ GameSquad is used by groups to and browse and decide upon which games to play to
     Open cmd, terminal or powershell in the cloned direcory and install
 
     ```shell
-    cd GameSquad
+    cd game-squad
     pnpm i
     ```
 
