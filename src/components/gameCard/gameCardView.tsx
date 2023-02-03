@@ -176,7 +176,7 @@ export default function GameCardView({
       <div className={classes.scrollY}>
         <Group spacing={8} mt={80}>
           {genres?.map(genre => (
-            <Badge color="red" variant="filled" key={genre} size="sm">
+            <Badge color="bittersweet" variant="light" key={genre} size="sm">
               {genre}
             </Badge>
           ))}

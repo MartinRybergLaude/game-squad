@@ -114,6 +114,7 @@ export default function SquadSelectView({
       <Group grow mt={16} className={classes.bottomDivider}>
         <Button
           compact
+          radius="sm"
           onClick={() => {
             openModal({
               title: "Create Squad",
@@ -125,6 +126,7 @@ export default function SquadSelectView({
         </Button>
         <Button
           variant="subtle"
+          radius="sm"
           compact
           onClick={() => {
             openModal({

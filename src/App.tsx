@@ -101,9 +101,12 @@ function App() {
         withNormalizeCSS
         theme={{
           colorScheme: "dark",
-          globalStyles: () => ({
+          globalStyles: theme => ({
             body: {
               overflowX: "hidden",
+            },
+            ".mantine-Modal-modal": {
+              backgroundColor: theme.colors.dark[6],
             },
           }),
           colors: {

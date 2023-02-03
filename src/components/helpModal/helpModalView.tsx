@@ -1,12 +1,6 @@
 import { Accordion, Container, createStyles, Text, Title } from "@mantine/core";
 
 const useStyles = createStyles(theme => ({
-  wrapper: {
-    paddingTop: theme.spacing.xl * 2,
-    paddingBottom: theme.spacing.xl * 2,
-    minHeight: 650,
-  },
-
   title: {
     marginBottom: theme.spacing.xl * 1.5,
   },
@@ -25,10 +19,8 @@ export default function HelpModalView() {
   const { classes } = useStyles();
 
   return (
-    <Container size="sm" className={classes.wrapper}>
-      <Title align="center" className={classes.title}>
-        Help
-      </Title>
+    <Container size="sm">
+      <Title className={classes.title}>Support</Title>
 
       <Accordion variant="separated">
         <Accordion.Item className={classes.item} value="info">

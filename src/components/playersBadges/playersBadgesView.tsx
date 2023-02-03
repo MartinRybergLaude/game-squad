@@ -24,30 +24,30 @@ export default function PlayersBadge({ maxPlayers }: PlayersBadgeProps) {
 
   if (coop && !online) {
     return (
-      <Badge color="green" variant="filled" size="sm">
+      <Badge color="green" variant="light" size="sm">
         {`${coop}p co-op`}
       </Badge>
     );
   } else if (online && !coop) {
     return (
-      <Badge color="green" variant="filled" size="sm">
+      <Badge color="green" variant="light" size="sm">
         {`${online}p online`}
       </Badge>
     );
   } else if (online && coop) {
     if (online == coop) {
       return (
-        <Badge color="green" variant="filled" size="sm">
+        <Badge color="green" variant="light" size="sm">
           {`${online}p online`}
         </Badge>
       );
     } else {
       return (
         <>
-          <Badge color="green" variant="filled" size="sm">
+          <Badge color="green" variant="light" size="sm">
             {`${coop}p co-op`}
           </Badge>
-          <Badge color="green" variant="filled" size="sm">
+          <Badge color="green" variant="light" size="sm">
             {`${online}p online`}
           </Badge>
         </>
