@@ -79,6 +79,7 @@ const useStyles = createStyles(theme => ({
 
   summaryText: {
     marginBottom: 60,
+    fontWeight: 500,
   },
 
   bottomActions: {
@@ -104,6 +105,10 @@ const useStyles = createStyles(theme => ({
       display: "none",
     },
     height: "100%",
+  },
+
+  radioToolbar: {
+    background: theme.colors.dark[6],
   },
 }));
 
@@ -182,17 +187,18 @@ export default function GameCardView({
         <Title order={4} color="white">
           {title}
         </Title>
-        <Text color="white" size="xs" mt={8} className={classes.summaryText}>
+        <Text color="white" size="sm" mt={8} className={classes.summaryText}>
           {summary}
         </Text>
       </div>
       <Group position="center" className={classes.bottomActions}>
         <SegmentedControl
           mt={12}
-          radius="sm"
+          radius="md"
           size="lg"
           value={vote}
           onChange={onVote}
+          className={classes.radioToolbar}
           data={[
             {
               label: (
