@@ -1,4 +1,5 @@
 import {
+  AppShell,
   Button,
   Card,
   Container,
@@ -11,37 +12,46 @@ import {
 import { useForm } from "@mantine/form";
 import { IconBrandAppleArcade, IconFriends, IconLicense } from "@tabler/icons";
 
+import HomePageFaqPresenter from "~/components/homePageFaq/homePageFaqPresenter";
+import HomePageFooterPresenter from "~/components/homePageFooter/homePageFooterPresenter";
+import HomePageHeaderPresenter from "~/components/homePageHeader/homePageHeaderPresenter";
+import HomePageTutorialPresenter from "~/components/homePageTutorial/homePageTutorialPresenter";
+
 const useStyles = createStyles(theme => ({
   hero: {
     position: "relative",
     backgroundImage:
-      "url(https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80)",
+      "url(https://images.unsplash.com/photo-1592156668899-2cc871c9ac2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80)",
     backgroundSize: "cover",
-    backgroundPosition: "center",
-    backdropFilter: "hue-rotate(260deg)",
-    height: "100vh",
+    backgroundPosition: "top",
+    backgroundAttachment: "fixed",
+
+    height: "auto",
+    paddingTop: theme.spacing.xl * 2,
+    paddingBottom: theme.spacing.xl * 2,
+    paddingInline: theme.spacing.xl,
   },
 
   container: {
-    height: 600,
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-end",
     alignItems: "flex-start",
-    paddingBottom: theme.spacing.xl * 6,
+    paddingBottom: theme.spacing.xl * 8,
+    paddingTop: theme.spacing.xl * 8,
     zIndex: 1,
     position: "relative",
 
     [theme.fn.smallerThan("sm")]: {
-      height: 500,
       paddingBottom: theme.spacing.xl * 3,
+      paddingTop: theme.spacing.xl * 2,
     },
   },
 
   headTitle: {
     color: theme.white,
     fontSize: 60,
-    fontWeight: 1000,
+    fontWeight: 700,
     lineHeight: 1.1,
 
     [theme.fn.smallerThan("sm")]: {
@@ -55,21 +65,13 @@ const useStyles = createStyles(theme => ({
     },
   },
 
-  subTitle: {
-    color: theme.white,
-    fontSize: 50,
-    fontWeight: 700,
-    lineHeight: 1.1,
-
-    [theme.fn.smallerThan("sm")]: {
-      fontSize: 30,
-      lineHeight: 1.2,
-    },
-
-    [theme.fn.smallerThan("xs")]: {
-      fontSize: 24,
-      lineHeight: 1.3,
-    },
+  cta: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: theme.spacing.md,
+    flexWrap: "wrap",
+    marginTop: theme.spacing.xl * 2,
   },
 
   featuresTitle: {
@@ -83,6 +85,7 @@ const useStyles = createStyles(theme => ({
   description: {
     color: theme.white,
     maxWidth: 600,
+    fontWeight: 500,
 
     [theme.fn.smallerThan("sm")]: {
       maxWidth: "100%",
@@ -91,20 +94,20 @@ const useStyles = createStyles(theme => ({
   },
 
   control: {
-    marginTop: theme.spacing.xl * 2.5,
-
     [theme.fn.smallerThan("sm")]: {
       width: "100%",
     },
   },
 
   card: {
-    border: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[1]
-    }`,
+    backgroundColor: theme.colors.dark[7],
+    border: `1px solid ${theme.colors.bittersweet[4]}`,
+    boxShadow: "rgba(163, 77, 77, 0.2) 0px 30px 90px;",
   },
 
   cardTitle: {
+    fontSize: 20,
+    fontWeight: 700,
     "&::after": {
       content: "''",
       display: "block",
@@ -116,7 +119,7 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
-const mockdata = [
+const data = [
   {
     title: "Create and invite people to your squads",
     description:
@@ -145,13 +148,13 @@ interface HomepageViewProps {
 export default function HomepageView({ onSubmit, onLoginClick }: HomepageViewProps) {
   const { classes, theme } = useStyles();
 
-  const features = mockdata.map(feature => (
-    <Card key={feature.title} shadow="md" radius="md" className={classes.card} p="xl">
+  const features = data.map(feature => (
+    <Card key={feature.title} radius="lg" className={classes.card} p="xl">
       <feature.icon size={50} stroke={2} color={theme.fn.primaryColor()} />
-      <Text size="lg" weight={500} className={classes.cardTitle} mt="md">
+      <Text size="lg" weight={500} className={classes.cardTitle} mt="md" color="white">
         {feature.title}
       </Text>
-      <Text size="sm" color="dimmed" mt="sm">
+      <Text size="md" mt="sm" fw={450} lh={1.8}>
         {feature.description}
       </Text>
     </Card>
@@ -160,43 +163,72 @@ export default function HomepageView({ onSubmit, onLoginClick }: HomepageViewPro
   const form = useForm({});
 
   return (
-    <div className={classes.hero}>
-      <Overlay
-        gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, .65) 20%)"
-        opacity={1}
-        zIndex={0}
-      />
-      <Container className={classes.container}>
-        <Title className={classes.headTitle}>GameSquad</Title>
-        <Title className={classes.subTitle}>A place for making choices that stick</Title>
-        <Text className={classes.description} size="xl" mt="xl">
-          Pick games that you want to play with your mates – GameSquad allows all this and more!
-        </Text>
-        <form
-          onSubmit={form.onSubmit(() => {
-            onSubmit();
-          })}
-        >
-          <Button type="submit" variant="filled" size="xl" className={classes.control}>
-            Get started
-          </Button>
-          <Button
-            variant="outline"
-            color="red"
-            size="xl"
-            ml={20}
-            className={classes.control}
-            onClick={() => onLoginClick()}
+    <AppShell
+      padding="md"
+      header={<HomePageHeaderPresenter />}
+      footer={<HomePageFooterPresenter />}
+      styles={() => ({
+        main: {
+          margin: 0,
+          padding: 0,
+          height: "auto",
+          minHeight: 0,
+        },
+      })}
+    >
+      <div className={classes.hero}>
+        <Overlay
+          gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, .65) 20%)"
+          opacity={1}
+          zIndex={0}
+        />
+        <Overlay
+          gradient="linear-gradient(0deg, rgba(95, 59, 53, 0.7) 0%, rgba(62, 44, 40, 0) 30%)"
+          opacity={1}
+          zIndex={0}
+        />
+        <Container className={classes.container}>
+          <Title className={classes.headTitle}>
+            A place for making choices that{" "}
+            <Text
+              style={{ fontWeight: 900, display: "inline-block" }}
+              variant="gradient"
+              gradient={{ from: "#ff5d73", to: "#fc9369", deg: 45 }}
+            >
+              stick.
+            </Text>
+          </Title>
+          <Text className={classes.description} size="xl" mt="xl">
+            Pick games that you want to play with your mates – and let the voting begin!
+          </Text>
+          <form
+            onSubmit={form.onSubmit(() => {
+              onSubmit();
+            })}
+            className={classes.cta}
           >
-            Log in
-          </Button>
-        </form>
-      </Container>
+            <Button type="submit" variant="filled" size="xl" className={classes.control}>
+              Get started
+            </Button>
+            <Button
+              variant="outline"
+              color="red"
+              size="xl"
+              className={classes.control}
+              onClick={() => onLoginClick()}
+            >
+              Log in
+            </Button>
+          </form>
+        </Container>
+      </div>
       <Container size="lg" py="xs" mt={-70}>
         <SimpleGrid cols={3} spacing="xl" mt={0} breakpoints={[{ maxWidth: "md", cols: 1 }]}>
           {features}
         </SimpleGrid>
       </Container>
-    </div>
+      <HomePageTutorialPresenter />
+      <HomePageFaqPresenter />
+    </AppShell>
   );
 }

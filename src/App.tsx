@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { HeadProvider } from "react-head";
 import { createBrowserRouter, redirect, RouteObject, RouterProvider } from "react-router-dom";
-import { ColorScheme, MantineProvider } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { onAuthStateChanged } from "firebase/auth";
 
+import { CustomFonts } from "./components/customFonts/customFontsPresenter";
 import AuthPresenter from "./pages/Auth/authPresenter";
 import DashboardPresenter from "./pages/Dashboard/dashboardPresenter";
 import HomepagePresenter from "./pages/Homepage/homepagePresenter";
@@ -94,25 +94,52 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [colorScheme] = useState<ColorScheme>("dark");
-
   return (
     <HeadProvider>
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
         theme={{
-          colorScheme: colorScheme,
+          colorScheme: "dark",
           globalStyles: () => ({
             body: {
               overflowX: "hidden",
             },
           }),
-          primaryColor: "red",
-          defaultRadius: "xs",
+          colors: {
+            bittersweet: [
+              "#fff1f1",
+              "#ffe1e1",
+              "#ffc7c8",
+              "#ffa0a1",
+              "#ff6466",
+              "#f83b3d",
+              "#e51d20",
+              "#c11416",
+              "#a01416",
+              "#841819",
+            ],
+            dark: [
+              "#c2c2c2",
+              "#a8a8a8",
+              "#949494",
+              "#616161",
+              "#383838",
+              "#2e2e2e",
+              "#212121",
+              "#0f0f0f",
+              "#0a0a0a",
+              "#000000",
+            ],
+          },
+          primaryShade: 5,
+          primaryColor: "bittersweet",
+          defaultRadius: "md",
           cursorType: "pointer",
+          fontFamily: "Satoshi, sans-serif",
         }}
       >
+        <CustomFonts />
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
         </QueryClientProvider>
