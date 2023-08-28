@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.3.0](https://github.com/MartinRybergLaude/game-squad/compare/v1.2.0...v1.3.0) (2023-08-28)
+
+
+### Features
+
+* migrate to pnpm ([432d1fb](https://github.com/MartinRybergLaude/game-squad/commit/432d1fb6f2033141fa98712c62b982281de21218))
+* revamp homepage ([ede2e19](https://github.com/MartinRybergLaude/game-squad/commit/ede2e19b31173440155a67bbfad5f3fdd25a718b))
+
+
+### Bug Fixes
+
+* faq padding ([97c4826](https://github.com/MartinRybergLaude/game-squad/commit/97c4826e698d94d6177eb08f790b16ef0f7024da))
+* footer links not working ([f8246c4](https://github.com/MartinRybergLaude/game-squad/commit/f8246c4bc6151e0c8d9e5ae8aa1f786342ef2608))
+* increase vote panel contrast ([731aad8](https://github.com/MartinRybergLaude/game-squad/commit/731aad864d6ffce48580cf3e818d6f338efe52aa))
+* minor design fixes ([1d57dee](https://github.com/MartinRybergLaude/game-squad/commit/1d57deec852e88df088af41048b404b3f2d7f272))
+
 ## [1.2.0](https://github.com/MartinRybergLaude/GameSquad/compare/v1.1.0...v1.2.0) (2022-12-19)
 
 
